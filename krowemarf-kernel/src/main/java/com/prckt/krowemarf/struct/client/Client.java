@@ -10,7 +10,7 @@ public class Client implements _Runnable {
 
     public String url;
 
-    public Client(String url, int port){
+    public Client(String url){
         this.url = url;
     }
 
