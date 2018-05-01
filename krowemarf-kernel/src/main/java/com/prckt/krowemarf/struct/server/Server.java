@@ -8,14 +8,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 public class Server implements _Runnable {
-    private int port;
-    private String adresse;
-
-    public Server(int port, String adresse) {
-        this.port = port;
-        this.adresse = adresse;
-    }
-
 
     public String url;
     public int port;
