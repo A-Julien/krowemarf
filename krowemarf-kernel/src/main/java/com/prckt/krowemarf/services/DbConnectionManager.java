@@ -15,9 +15,8 @@ public class DbConnectionManager {
     private Connection connection;
     private Properties properties;
 
-    public DbConnectionManager(String PROPFILE, Connection connection, Properties properties) {
-        this.connection = connection;
-        this.properties = this.getProperties(PROPFILE);
+    public DbConnectionManager() {
+        this.properties = this.getProperties("BD.properties");
 
     }
 
