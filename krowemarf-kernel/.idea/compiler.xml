@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="krowemarf-kernel" />
+        <module name="krowemarf-services" />
+        <module name="krowemarf-struct" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="krowemarf-kernel" target="1.9" />
+      <module name="krowemarf-services" target="1.9" />
+      <module name="krowemarf-struct" target="1.9" />
     </bytecodeTargetLevel>
   </component>
 </project>
