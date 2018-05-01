@@ -11,8 +11,6 @@ public class Server implements _Runnable {
         this.adresse = adresse;
     }
 
-
-
     @Override
     public int run() {
         return 0;
