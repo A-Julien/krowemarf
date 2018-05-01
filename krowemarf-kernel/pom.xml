@@ -31,6 +31,8 @@
     <!-- =============================================================== -->
     <properties>
         <apache.junit.version>3.8.1</apache.junit.version>
+        <commons.componentid>chain</commons.componentid>
+        <commons.release.version>1.4</commons.release.version>
     </properties>
 
 
