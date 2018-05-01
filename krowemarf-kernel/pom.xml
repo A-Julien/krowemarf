@@ -5,6 +5,7 @@
   <artifactId>krowemarf-kernel</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
+
   <name>krowemarf-kernel</name>
   <url>http://maven.apache.org</url>
 
