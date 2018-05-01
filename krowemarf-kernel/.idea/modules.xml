@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/krowemarf-kernel.iml" filepath="$PROJECT_DIR$/krowemarf-kernel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/krowemarf-services/krowemarf-services.iml" filepath="$PROJECT_DIR$/krowemarf-services/krowemarf-services.iml" />
-      <module fileurl="file://$PROJECT_DIR$/krowemarf-struct/krowemarf-struct.iml" filepath="$PROJECT_DIR$/krowemarf-struct/krowemarf-struct.iml" />
     </modules>
   </component>
 </project>

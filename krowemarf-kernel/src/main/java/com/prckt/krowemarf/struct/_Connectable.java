@@ -1,5 +1,4 @@
 package com.prckt.krowemarf.struct;
 
-public class _Connectable {
-
+public interface  _Connectable {
 }

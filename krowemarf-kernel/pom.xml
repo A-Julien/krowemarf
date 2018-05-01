@@ -74,9 +74,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <modules>
-    <module>krowemarf-services</module>
-    <module>krowemarf-struct</module>
-  </modules>
 </project>
