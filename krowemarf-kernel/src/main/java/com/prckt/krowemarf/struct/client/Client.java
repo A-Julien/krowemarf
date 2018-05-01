@@ -16,18 +16,6 @@ public class Client implements _Runnable {
 
     @Override
     public int run() {
-        try {
-            Remote r = Naming.lookup(url);
-            System.out.println(r);
-            System.out.println(r instanceof com.prckt.krowemarf.struct.server._Info);
-            if(r instanceof _Info){
-                String s = ((_Info)r).getInfo();
-                System.out.println("Chaine renvoyée : " + s);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("Fin du client");
         return 0;
     }
 

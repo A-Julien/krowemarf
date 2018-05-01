@@ -17,22 +17,8 @@ public class Server implements _Runnable {
         this.port = port;
     }
 
-
     @Override
     public int run() {
-        try{
-            LocateRegistry.createRegistry(port);
-            Info info = new Info();
-            System.out.println("Objet enregistré à l'url : " + url);
-            Naming.rebind(url,info);
-            System.out.println("Serveur lancé");
-
-        }catch (RemoteException e){
-            e.printStackTrace();
-        }catch (MalformedURLException e){
-            e.printStackTrace();
-        }
-
         return 0;
     }
 
