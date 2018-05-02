@@ -2,10 +2,15 @@ package com.prckt.krowemarf.services;
 
 import com.prckt.krowemarf.components.Component;
 
+import javax.swing.*;
+import java.rmi.Remote;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-
-public class ComponentManager {
+//TODO extend iterable
+public class ComponentManager implements Remote {
     private HashMap<String,Component> components;
 
     public ComponentManager() {
@@ -19,5 +24,14 @@ public class ComponentManager {
     public void removeComponent(String name){
         this.components.remove(name);
     }
+
+    public HashMap<String, Component> getComponents() {
+        return components;
+    }
+
+    public Iterator getIterator(){
+        return this.components.entrySet().iterator();
+    }
+
 
 }

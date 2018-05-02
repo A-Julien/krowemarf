@@ -8,12 +8,12 @@ public class Client implements _Runnable {
 
 
     @Override
-    public int run() {
-        return 0;
+    public void run() {
+
     }
 
     @Override
-    public int stop() {
-        return 0;
+    public void stop() {
+
     }
 }
