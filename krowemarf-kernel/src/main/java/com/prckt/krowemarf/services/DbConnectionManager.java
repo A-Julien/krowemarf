@@ -1,13 +1,13 @@
 package com.prckt.krowemarf.services;
 
-import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Driver;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
+
 
 public class DbConnectionManager {
 
@@ -16,16 +16,17 @@ public class DbConnectionManager {
     private Properties properties;
 
     public DbConnectionManager() {
-        this.properties = this.getProperties("BD.properties");
+        this.properties = new Properties();
+        this.properties = this.getProperties();
 
     }
 
     // create properties
-    private Properties getProperties(String PROPFILE) {
+    private Properties getProperties() {
         if (properties == null) {
             try {
                 properties.load(new
-                        FileInputStream(PROPFILE));
+                        FileInputStream("BD.properties"));
             } catch (FileNotFoundException e) {
                 System.err.println("FileNotFoundException: "
                         + e.getMessage());
@@ -42,17 +43,32 @@ public class DbConnectionManager {
     }
 
     // connect database
-    public Connection connect() {
+    public Connection connect() throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql:mysql-krowemarf.alwaysdata.net/?");
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select * from javaTestDB.test_table;");
+       // getResultSet(resultSet);
+       // preparedStatement = connection.prepareStatement("insert into javaTestDB.test_table values (default,?)");
+        //preparedStatement.setString(1,"insert test from java");
+        //preparedStatement.executeUpdate();
+
+        /*
         if (connection == null) {
             try {
-                Class.forName(this.properties.getProperty("jdbc.driver"));
-                this.connection = (Connection) DriverManager.getConnection(
-                        this.properties.getProperty("database.url"),
-                        this.properties);
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                this.connection = (Connection) DriverManager.getConnection("jdbc:mysql:mysql-krowemarf.alwaysdata.net");
+                       // this.properties.getProperty("database.url"),
+                       // this.properties);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
             }
-        }
+        }*/
         return connection;
     }
 
