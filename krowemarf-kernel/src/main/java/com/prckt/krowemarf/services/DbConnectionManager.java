@@ -21,13 +21,11 @@ public class DbConnectionManager {
             prop = new Properties();
             prop.load(new FileInputStream(this.profile));
         } catch (FileNotFoundException e) {
-            System.err.println("FileNotFoundException: "
-                    + e.getMessage());
+            System.err.println("FileNotFoundException: " + e.getMessage());
             e.printStackTrace();
             return;
         } catch (IOException e) {
-            System.err.println("IOException: "
-                    + e.getMessage());
+            System.err.println("IOException: " + e.getMessage());
             e.printStackTrace();
             return;
         }

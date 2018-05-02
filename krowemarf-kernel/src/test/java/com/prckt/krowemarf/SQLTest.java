@@ -13,14 +13,21 @@ public class SQLTest {
 
     public static void main( String[] args ) throws SQLException {
 
+
+        /**
+         * Pour faire une requete :
+         * 1) DbConnectionManager
+         * 2) Connection
+         * 3) Utiliser la classe SQLRequest
+         * 4) DbConnectionManager.close();
+         */
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
         Connection connexion = dbConnectionManager.connect();
-
 
         /**
          * Exemple d'une requete SQL, renvoie une liste d'objet
          */
-        List<List<Object>> list = SQLRequest.sqlToList(connexion, "SELECT * FROM users;", true);
+        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM users;", true);
         /**
          * Parcours de la liste recuperer par SQL
          */
@@ -31,7 +38,7 @@ public class SQLTest {
         /**
          * Exemple d'un insert
          */
-        //SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `users`(`login`, `password`, `permission`) VALUES ('Philippe','morrat',2)");
+        SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `users`(`login`, `password`, `level`) VALUES ('Philippe','morrat',3)");
 
 
 

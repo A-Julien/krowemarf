@@ -28,7 +28,7 @@ public class SQLRequest {
      * @return List<List<Object>>
      * @throws SQLException
      */
-    public static List<List<Object>> sqlToList(Connection connexion, String query, boolean withColumnNames) throws SQLException {
+    public static List<List<Object>> sqlToListObject(Connection connexion, String query, boolean withColumnNames) throws SQLException {
         Statement statement = connexion.createStatement();
 
         System.out.println("Requête : " + query);
