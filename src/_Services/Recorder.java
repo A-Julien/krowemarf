@@ -49,32 +49,4 @@ public class Recorder {
 			}
 		}
 	}
-	
-	/*
-	 * public void writeRecord(String fileName) throws IOException {
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-		
-		try {
-			fw = new FileWriter(fileName);
-			bw = new BufferedWriter(fw);
-			
-			/////// affectation avec le résultat du transfert
-			//bw.write(s, off, len);
-		}
-		finally {
-			if(bw != null) {
-				bw.close();
-			}
-			if(fw != null) {
-				fw.close();
-			}
-		}
-	}
-	
-	public void readRecord() {
-		
-	}
-	 * 
-	 */
 }
