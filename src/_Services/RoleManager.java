@@ -12,18 +12,21 @@ public class RoleManager {
     }
 
     /**
-    *   Role adding to the list
-    **/
+     * Role's adding to the list
+     * @param role
+     */
     public void addRole(Role role){ this.roleList.add(role); }
 
     /**
-    *   Role removing from the list
-    **/
+     * Role's removing from the list
+     * @param role
+     */
     public void remove(Role role){ this.roleList.remove(role); }
 
     /**
-    *   Vérifier l'accès pour un utilisateur
-    **/
+     * Access verifying
+     * @param user
+     */
     public void getAccess(User user){
     	
     }

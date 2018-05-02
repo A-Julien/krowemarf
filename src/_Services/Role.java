@@ -4,8 +4,13 @@ public class Role {
     public int level;
     public String nom;
     
-    public Role(int lvl, String _nom) {
-        this.level = lvl;
-        this.nom = _nom;
+    /**
+     * Constructor of a Role _name with a priority _level
+     * @param _level
+     * @param _name
+     */
+    public Role(int _level, String _name) {
+        this.level = _level;
+        this.nom = _name;
     }
 }

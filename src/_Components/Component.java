@@ -1,26 +1,12 @@
 package _Components;
 
 import _Services.Right;
-import _Services.Role;
+import _Services.User;
 
 public abstract class Component {
 	public String name;
 	
-	
-	public Component(String _name) {
-		this.name = _name;
-	}
-	
 	///////////////// plutôt sur ComponentManager
-	public Component getComponent() {
-		
-		return null;
-	}
-	
-	public Right getAccess(Role role) {
-		
-		
-		return null;
-		
-	}
+	public abstract Component getComponent();
+	public abstract Right getAccess(User user);
 }
