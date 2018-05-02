@@ -1,86 +1,68 @@
 package com.prckt.krowemarf.services;
 
-import com.mysql.jdbc.Driver;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;
 import java.util.Properties;
-
+import java.sql.*;
 
 public class DbConnectionManager {
 
-    // init database constants
+    private static String profile = "C:\\Users\\Maxime\\IdeaProjects\\L3\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\BD.properties";
+    private Properties prop = new Properties();
+    private String jdbcDriver;
+    private String dbUrl;
+    private String dbName;
+    private String username, password;
     private Connection connection;
-    private Properties properties;
 
     public DbConnectionManager() {
-        this.properties = new Properties();
-        this.properties = this.getProperties();
-
-    }
-
-    // create properties
-    private Properties getProperties() {
-        if (properties == null) {
-            try {
-                properties.load(new
-                        FileInputStream("BD.properties"));
-            } catch (FileNotFoundException e) {
-                System.err.println("FileNotFoundException: "
-                        + e.getMessage());
-                e.printStackTrace();
-                return null;
-            } catch (IOException e) {
-                System.err.println("IOException: " +
-                        e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
+        try {
+            prop = new Properties();
+            prop.load(new FileInputStream(this.profile));
+        } catch (FileNotFoundException e) {
+            System.err.println("FileNotFoundException: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            return;
         }
-        return properties;
+        this.jdbcDriver = prop.getProperty("jdbc.driver");
+        this.dbUrl = prop.getProperty("database.url");
+        this.dbName = prop.getProperty("database.name");
+        this.username = prop.getProperty("database.username");
+        this.password = prop.getProperty("database.password");
     }
 
-    // connect database
-    public Connection connect() throws SQLException, ClassNotFoundException {
+    public Connection connect() {
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql:mysql-krowemarf.alwaysdata.net/?");
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from javaTestDB.test_table;");
-       // getResultSet(resultSet);
-       // preparedStatement = connection.prepareStatement("insert into javaTestDB.test_table values (default,?)");
-        //preparedStatement.setString(1,"insert test from java");
-        //preparedStatement.executeUpdate();
+        try {
+            // Chargement du driver
+            Class.forName(this.jdbcDriver);
 
-        /*
-        if (connection == null) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                this.connection = (Connection) DriverManager.getConnection("jdbc:mysql:mysql-krowemarf.alwaysdata.net");
-                       // this.properties.getProperty("database.url"),
-                       // this.properties);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            }
-        }*/
-        return connection;
+            // Connexion à la base de données
+            this.connection = DriverManager.getConnection("jdbc:mysql://" +this.dbUrl+":3306/"+this.dbName+"?autoReconnect=true&useSSL=false"+ "",""+ this.username+"",""+this.password+"");
+
+            System.out.println("La connexion à la base de données est ouverte");
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return this.connection;
     }
 
-    // disconnect database
-    public void disconnect() {
-        if (connection != null) {
-            try {
-                connection.close();
-                connection = null;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public void close(Connection conn){
+        try {
+            this.connection.close();
+            System.out.println("La connexion à la base de données est close()");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
 }

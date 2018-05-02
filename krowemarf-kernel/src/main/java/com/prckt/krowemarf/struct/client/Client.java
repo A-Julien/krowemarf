@@ -25,7 +25,7 @@ public class Client implements _Runnable {
     public void run() throws RemoteException {
         this.registry = LocateRegistry.getRegistry(this.port);
         try {
-            
+
             Remote remote = registry.lookup(this.buildRmiAddr(componentManagerName, this.adresse));
 
             System.out.println("cc");
