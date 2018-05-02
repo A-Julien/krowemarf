@@ -11,6 +11,9 @@ public class Document {
 	public String type;
 	
 	public Document(String name, String extension, float size, String path) {
+		
+		boolean known = false;
+		
 		this.name = name;
 		this.extension = extension;
 		this.size = size;
@@ -19,26 +22,35 @@ public class Document {
 		for (Text ext : Text.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Text";
+				known = true;
 			}
 		}
 		for (Image ext : Image.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Image";
+				known = true;
 			}
 		}
 		for (Audio ext : Audio.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Audio";
+				known = true;
 			}
 		}
 		for (Video ext : Video.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Video";
+				known = true;
 			}
+		}
+		if(!known) {
+			this.type = "Unknown";
 		}
 	}
 		
 	public Document (File f) {
+		
+		boolean known = false;
 		String _nameAndExt = f.getName();
 		String[] _sepNameExt = _nameAndExt.split(".");
 		
@@ -50,22 +62,29 @@ public class Document {
 		for (Text ext : Text.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Text";
+				known = true;
 			}
 		}
 		for (Image ext : Image.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Image";
+				known = true;
 			}
 		}
 		for (Audio ext : Audio.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Audio";
+				known = true;
 			}
 		}
 		for (Video ext : Video.values()) {
 			if (ext.toString().equals(extension)) {
 				this.type = "Video";
+				known = true;
 			}
+		}
+		if(!known) {
+			this.type = "Unknown";
 		}
 	}
 }
