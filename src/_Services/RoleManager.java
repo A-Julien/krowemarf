@@ -3,7 +3,11 @@ import java.util.ArrayList;
 
 public class RoleManager {
     ArrayList<Role> roleList;
-
+    
+    
+    /**
+     * Initializes a newly created RoleManager object so that it represents the manager of different roles. It recovers all roles in a DataBase.
+     */
     public RoleManager() {
         this.roleList = new ArrayList<Role>();
 
@@ -30,8 +34,6 @@ public class RoleManager {
     public void getAccess(User user){
     	
     }
-
-
 }
 
 

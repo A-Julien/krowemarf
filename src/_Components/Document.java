@@ -10,8 +10,15 @@ public class Document {
 	public String path;
 	public String type;
 	
-	public Document(String name, String extension, float size, String path) {
-		
+	
+	/**
+	 * Initializes a newly created Document object so that it represents a document named by name.
+	 * @param name
+	 * @param extension
+	 * @param size
+	 * @param path
+	 */
+	public Document(String name, String extension, float size, String path) {		
 		boolean known = false;
 		
 		this.name = name;
@@ -47,17 +54,23 @@ public class Document {
 			this.type = "Unknown";
 		}
 	}
-		
-	public Document (File f) {
+	
+	
+	/**
+	 * 
+	 * Initializes a newly created Document object so that it represents a document locked at a file.
+	 * @param _file
+	 */
+	public Document (File _file) {
 		
 		boolean known = false;
-		String _nameAndExt = f.getName();
+		String _nameAndExt = _file.getName();
 		String[] _sepNameExt = _nameAndExt.split(".");
 		
 		this.name = _sepNameExt[0];
 		this.extension = _sepNameExt[1];
-		this.size = f.length();
-		this.path = f.getPath();
+		this.size = _file.length();
+		this.path = _file.getPath();
 		
 		for (Text ext : Text.values()) {
 			if (ext.toString().equals(extension)) {
@@ -88,5 +101,3 @@ public class Document {
 		}
 	}
 }
-
-

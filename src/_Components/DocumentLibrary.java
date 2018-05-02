@@ -1,16 +1,17 @@
 package _Components;
 import java.util.LinkedList;
 
-import _Services.User;
 
 public class DocumentLibrary {
 	private LinkedList<Document> documentList;
 	
-	
+	/**
+	 * Initializes a newly created DocumentLibrary object so that it represents a library of document.
+	 * @param addr
+	 */
 	public DocumentLibrary(String addr) {
 		this.documentList = new LinkedList<Document>();
 	}
-	
 	
 	/**
 	 * Insert a document in the library
@@ -18,13 +19,11 @@ public class DocumentLibrary {
 	 */
 	public void add(Document document) { this.documentList.add(document); }
 	
-	
 	/**
 	 * Remove a document from the library
 	 * @param The document to remove
 	 */
 	public void remove(Document document) {	this.documentList.remove(document); }
-	
 	
 	/**
 	 * Recover a document by its name, path and extension
@@ -60,7 +59,6 @@ public class DocumentLibrary {
 	 * @param The name of the document
 	 * @return The list of documents that accomplish the request
 	 */
-	
 	
 	public LinkedList<Document> filterByName(String name) {
 		LinkedList<Document> filtredList = new LinkedList<Document>();
@@ -161,11 +159,10 @@ public class DocumentLibrary {
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with the same type
+	 * Recover a LinkedList with all documents with the same file's type
 	 * @param The type of the document
 	 * @return The list of documents that accomplish the request
 	 */
-	
 	public LinkedList<Document> filterByType(String type) {
 		LinkedList<Document> filtredList = new LinkedList<Document>();
 		

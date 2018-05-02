@@ -1,10 +1,8 @@
 package _Services;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.*;
 
 
 public class Recorder {
@@ -14,43 +12,33 @@ public class Recorder {
 	public String formating;
 	public ComponentType componentType;
 	
-	File f = new File("ffze.adzd");
-	
-	
 	
 	public void writeRecord(String fileName) throws IOException {
-		BufferedWriter bufferW = null;
-		FileWriter fileW = null;
-		
+		File fileOut = null;
+		FileOutputStream fileOS = null;
 		
 		try {
-			fileW = new FileWriter(fileName);
-			bufferW = new BufferedWriter(fileW);
-			
-			/////// affectation avec le résultat du transfert
-			//bw.write(s, off, len);
+			fileOut = new File("filename");
+			fileOS = new FileOutputStream(fileOut);
 		}
 		finally {
-			if(bufferW != null) {
-				bufferW.close();
-			}
-			if(fileW != null) {
-				fileW.close();
+			if(fileOS != null) {
+				fileOS.close();
 			}
 		}
 	}
 	
 	public void readRecord() throws IOException {
-		FileInputStream fileIS = null;
 		File fileIn = null;
+		FileInputStream fileIS = null;
 		
 		try {
-			fileIS = new FileWriter(fileName);
-			bufferW = new BufferedWriter(fileW);
+			fileIn = new File("filename");
+			fileIS = new FileInputStream(fileIn);
 		}
 		finally {
-			if(bufferR != null) {
-				bufferR.close();
+			if(fileIS != null) {
+				fileIS.close();
 			}
 		}
 	}
