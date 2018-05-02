@@ -1,5 +1,6 @@
 package _Services;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,10 +14,14 @@ public class Recorder {
 	public String formating;
 	public ComponentType componentType;
 	
+	File f = new File("ffze.adzd");
+	
+	
 	
 	public void writeRecord(String fileName) throws IOException {
 		BufferedWriter bufferW = null;
 		FileWriter fileW = null;
+		
 		
 		try {
 			fileW = new FileWriter(fileName);
