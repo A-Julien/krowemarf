@@ -1,6 +1,6 @@
 package _FileTypes;
 
-public enum Texte {
+public enum Text {
 	txt,
 	doc,
 	docx,

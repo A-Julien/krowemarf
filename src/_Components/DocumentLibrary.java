@@ -165,6 +165,7 @@ public class DocumentLibrary {
 	 * @param The type of the document
 	 * @return The list of documents that accomplish the request
 	 */
+	
 	public LinkedList<Document> filterByType(String type) {
 		LinkedList<Document> filtredList = new LinkedList<Document>();
 		
@@ -176,4 +177,5 @@ public class DocumentLibrary {
 		
 		return filtredList;
 	}
+	
 }
