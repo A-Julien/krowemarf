@@ -27,9 +27,12 @@ public class App
         server.run();
 
         _Component messaging = new Messenger("chat");
+
         _Component posts =  new Posts("commentaires");
+
         server.bindComponent(messaging);
         server.bindComponent(posts);
+
     }
 }
 
@@ -38,17 +41,24 @@ class clientTestCommentaire
     public static void main( String[] args ) throws RemoteException, NotBoundException {
         Client client = new Client(1099, "127.0.0.1");
         client.run();
+
         _ComponentManager cmp = client.getComponentManager();
 
         _Component posts = cmp.getComponantByName("commentaires");
         _Posts post = (_Posts) posts;
-        _DefaultMessage t = new DefaultMessage("ni","coucou","moi",new GregorianCalendar());
+
+        _DefaultMessage t = new DefaultMessage("coucou","moi", new GregorianCalendar());
+
         post.addPost(new testMsg("coucou","moi",3));
+
         post.addPost(t);
+
         ArrayList<_DefaultMessage> arrayList =  post.loadPost();
+
         for (_DefaultMessage e :arrayList) {
             System.out.println(e.toStrings());
         }
+
         //System.out.println("PUTE");
         //client.stop();
     }
@@ -60,16 +70,23 @@ class clientTest
     public static void main( String[] args ) throws RemoteException, NotBoundException {
         Client client = new Client(1099, "127.0.0.1");
         client.run();
+
         _ComponentManager cmp = client.getComponentManager();
 
         _Component messaging = cmp.getComponantByName("chat");
         _Messenger chat = (_Messenger) messaging;
 
-        chat.subscribe(new MessengerClient("sx"), "Boby");
+        chat.subscribe(new MessengerClient() {
+            @Override
+            public void displayMessage(_DefaultMessage message) throws RemoteException {
+                System.out.println(message.toStrings());
+            }
+        }, "Boby");
 
-        chat.postMessage("Boby", "nick ta mere la pute");
+        chat.postMessage("Boby", new DefaultMessage("nicke ta mere","Boby",new GregorianCalendar()));
 
         chat.unsubscribe("Boby");
+
         //System.out.println("PUTE");
         //client.stop();
     }
@@ -85,7 +102,13 @@ class clientTest2
         _Component messaging = cmp.getComponantByName("chat");
         _Messenger chat = (_Messenger) messaging;
 
-        chat.subscribe(new MessengerClient("sx"), "Jo");
+        chat.subscribe(new MessengerClient() {
+            @Override
+            public void displayMessage(_DefaultMessage message) throws RemoteException {
+                System.out.println(message.toStrings());
+            }
+
+        }, "Jo");
     }
 }
 
@@ -100,9 +123,15 @@ class clientTest3
         _Component messaging = cmp.getComponantByName("chat");
         _Messenger chat = (_Messenger) messaging;
 
-        chat.subscribe(new MessengerClient("s"), "Jolo");
+        chat.subscribe(new MessengerClient() {
+            @Override
+            public void displayMessage(_DefaultMessage message) throws RemoteException {
+                System.out.println(message.toStrings());
+            }
+        }, "Jolo");
 
-        chat.postMessage("Jolo", "mdr ta mere est conne");
+        chat.postMessage("Jolo",
+                new DefaultMessage("nicke ta mere","Jolo",new GregorianCalendar()));
     }
 }
 

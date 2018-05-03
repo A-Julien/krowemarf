@@ -8,7 +8,7 @@ public class testMsg extends DefaultMessage{
     public int i;
 
     public testMsg(String content, String sender, int i) throws RemoteException {
-        super("dsf",content, sender, new GregorianCalendar());
+        super(content, sender, new GregorianCalendar());
         this.i = i;
     }
 

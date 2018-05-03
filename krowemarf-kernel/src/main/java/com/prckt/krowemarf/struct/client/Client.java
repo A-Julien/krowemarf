@@ -37,7 +37,7 @@ public class Client implements _Runnable {
     }
 
     public _ComponentManager getComponentManager() {
-        return componentManager;
+            return componentManager;
     }
 
     @Override

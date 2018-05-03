@@ -1,5 +1,7 @@
 package com.prckt.krowemarf.components.Messenger;
 
+import com.prckt.krowemarf.components._DefaultMessage;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Enumeration;
@@ -33,12 +35,12 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     }
 
     @Override
-    public void postMessage(String pseudo, String message) throws RemoteException {
+    public void postMessage(String pseudo, _DefaultMessage message) throws RemoteException {
         System.out.println(pseudo + ":" + message);
         Enumeration<_MessengerClient> e = this.users.elements();
         while (e.hasMoreElements()){
             _MessengerClient user = e.nextElement();
-            user.displayMessage(pseudo + ":" + message);
+            user.displayMessage(message);
         }
     }
 
