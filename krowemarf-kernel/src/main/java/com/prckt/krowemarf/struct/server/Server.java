@@ -1,6 +1,6 @@
 package com.prckt.krowemarf.struct.server;
 
-import com.prckt.krowemarf.components.Component;
+import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.services.ComponentManager;
 import com.prckt.krowemarf.struct._Runnable;
 
@@ -14,7 +14,6 @@ public class Server implements _Runnable {
     private String adresse;
     private ComponentManager componentManager;
     private Registry registry;
-    private final String componentManagerName = "componentManager";
 
     public Server(int port, String adresse) throws RemoteException {
         this.port = port;
@@ -24,25 +23,22 @@ public class Server implements _Runnable {
         this.componentManager = new ComponentManager();
     }
 
-    private String buildRmiAddr(String name){
-        return "rmi://" + this.adresse + "/"+ name;
-    }
-
-    public void bindComponent(Component component) {
+    public void bindComponent(_Component component) throws RemoteException {
         this.componentManager.addComponent(component);
     }
 
-    private void unBindComponent(Component component){
+    private void unBindComponent(_Component component){
         this.componentManager.removeComponent(componentManagerName);
     }
 
     @Override
     public void run() throws RemoteException {
-        this.registry.rebind(this.buildRmiAddr(componentManagerName), this.componentManager);
+        this.registry.rebind(this.buildRmiAddr(componentManagerName, this.adresse), this.componentManager);
+        System.out.println("server run on port : " + this.port + "at " + this.buildRmiAddr(componentManagerName, this.adresse));
     }
 
     @Override
     public void stop() throws RemoteException, NotBoundException {
-        this.registry.unbind(this.buildRmiAddr(componentManagerName));
+        this.registry.unbind(this.buildRmiAddr(componentManagerName, this.adresse));
     }
 }
