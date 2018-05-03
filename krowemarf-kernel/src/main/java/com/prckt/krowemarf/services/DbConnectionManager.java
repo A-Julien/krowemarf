@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class DbConnectionManager {
 
-    private static String profile = "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/BD.properties";
+    private static String profile = "C:\\Users\\Maxime\\IdeaProjects\\L3\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\BD.properties";
     private Properties prop = new Properties();
     private String jdbcDriver;
     private String dbUrl;
@@ -43,8 +43,7 @@ public class DbConnectionManager {
             Class.forName("com.mysql.jdbc.Driver");
 
             // Connexion à la base de données
-            System.out.println(dbName + username + password);
-            this.connection = DriverManager.getConnection("jdbc:mysql://192.168.2.7:3306/" + this.dbName, this.username , this.password);
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + this.dbUrl + ":3306/" + this.dbName, this.username , this.password);
 
             System.out.println("La connexion à la base de données est ouverte");
 
