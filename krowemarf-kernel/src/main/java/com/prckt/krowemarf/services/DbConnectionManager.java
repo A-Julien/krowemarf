@@ -1,70 +1,68 @@
 package com.prckt.krowemarf.services;
 
-import com.mysql.jdbc.Connection;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
+import java.sql.*;
 
 public class DbConnectionManager {
 
-    // init database constants
+    private static String profile = "C:\\Users\\Maxime\\IdeaProjects\\L3\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\BD.properties";
+    private Properties prop = new Properties();
+    private String jdbcDriver;
+    private String dbUrl;
+    private String dbName;
+    private String username, password;
     private Connection connection;
-    private Properties properties;
 
     public DbConnectionManager() {
-        this.properties = this.getProperties("BD.properties");
-
-    }
-
-    // create properties
-    private Properties getProperties(String PROPFILE) {
-        if (properties == null) {
-            try {
-                properties.load(new
-                        FileInputStream(PROPFILE));
-            } catch (FileNotFoundException e) {
-                System.err.println("FileNotFoundException: "
-                        + e.getMessage());
-                e.printStackTrace();
-                return null;
-            } catch (IOException e) {
-                System.err.println("IOException: " +
-                        e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
+        try {
+            prop = new Properties();
+            prop.load(new FileInputStream(this.profile));
+        } catch (FileNotFoundException e) {
+            System.err.println("FileNotFoundException: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+            return;
         }
-        return properties;
+        this.jdbcDriver = prop.getProperty("jdbc.driver");
+        this.dbUrl = prop.getProperty("database.url");
+        this.dbName = prop.getProperty("database.name");
+        this.username = prop.getProperty("database.username");
+        this.password = prop.getProperty("database.password");
     }
 
-    // connect database
     public Connection connect() {
-        if (connection == null) {
-            try {
-                Class.forName(this.properties.getProperty("jdbc.driver"));
-                this.connection = (Connection) DriverManager.getConnection(
-                        this.properties.getProperty("database.url"),
-                        this.properties);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            }
+
+        try {
+            // Chargement du driver
+            Class.forName(this.jdbcDriver);
+
+            // Connexion à la base de données
+            this.connection = DriverManager.getConnection("jdbc:mysql://" +this.dbUrl+":3306/"+this.dbName+"?autoReconnect=true&useSSL=false"+ "",""+ this.username+"",""+this.password+"");
+
+            System.out.println("La connexion à la base de données est ouverte");
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+            e.printStackTrace();
         }
-        return connection;
+        return this.connection;
     }
 
-    // disconnect database
-    public void disconnect() {
-        if (connection != null) {
-            try {
-                connection.close();
-                connection = null;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public void close(Connection conn){
+        try {
+            this.connection.close();
+            System.out.println("La connexion à la base de données est close()");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
 }
