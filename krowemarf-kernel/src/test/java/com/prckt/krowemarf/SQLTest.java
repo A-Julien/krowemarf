@@ -38,7 +38,7 @@ public class SQLTest {
         /**
          * Exemple d'un insert
          */
-        SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `users`(`login`, `password`, `level`) VALUES ('Philippe','morrat',3)");
+        //SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `users`(`login`, `password`, `level`) VALUES ('Philippe','morrat',3)");
 
 
 
