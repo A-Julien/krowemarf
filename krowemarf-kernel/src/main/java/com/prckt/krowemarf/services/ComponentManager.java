@@ -35,5 +35,4 @@ public class ComponentManager extends UnicastRemoteObject implements _ComponentM
         return this.components.entrySet().iterator();
     }
 
-
 }

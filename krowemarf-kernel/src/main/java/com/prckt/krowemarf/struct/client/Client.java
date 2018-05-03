@@ -28,10 +28,7 @@ public class Client implements _Runnable {
 
             Remote remote = registry.lookup(this.buildRmiAddr(componentManagerName, this.adresse));
 
-            System.out.println("cc");
-
             if (remote instanceof _ComponentManager){
-                System.out.println("cc");
                 this.componentManager = (_ComponentManager) remote;
             }
         } catch (NotBoundException e) {

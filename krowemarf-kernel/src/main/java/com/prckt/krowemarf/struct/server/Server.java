@@ -34,7 +34,7 @@ public class Server implements _Runnable {
     @Override
     public void run() throws RemoteException {
         this.registry.rebind(this.buildRmiAddr(componentManagerName, this.adresse), this.componentManager);
-        System.out.println("server starting at : " + this.buildRmiAddr(componentManagerName, this.adresse));
+        System.out.println("server run on port : " + this.port + "at " + this.buildRmiAddr(componentManagerName, this.adresse));
     }
 
     @Override

@@ -1,5 +1,4 @@
 package com.prckt.krowemarf.services;
-import com.prckt.krowemarf.components.Component;
 import com.prckt.krowemarf.components._Component;
 
 import java.rmi.Remote;
