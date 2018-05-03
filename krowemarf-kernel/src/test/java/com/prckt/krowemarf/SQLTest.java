@@ -4,9 +4,7 @@ import com.prckt.krowemarf.services.DbConnectionManager;
 import com.prckt.krowemarf.services.SQLRequest;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 public class SQLTest {
@@ -27,7 +25,7 @@ public class SQLTest {
         /**
          * Exemple d'une requete SQL, renvoie une liste d'objet
          */
-        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM users;", false);
+        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM users;", true);
         /**
          * Parcours de la liste recuperer par SQL
          */
