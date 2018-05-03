@@ -1,6 +1,5 @@
 package com.prckt.krowemarf.components.Messenger;
 
-import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
 
 import java.rmi.Remote;

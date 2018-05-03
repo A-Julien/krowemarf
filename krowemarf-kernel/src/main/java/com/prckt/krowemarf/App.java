@@ -1,23 +1,33 @@
 package com.prckt.krowemarf;
 
-import com.prckt.krowemarf.components.*;
+import com.prckt.krowemarf.components.DefaultMessage;
+import com.prckt.krowemarf.components.DocumentLibrary.DocumentLibrary;
+import com.prckt.krowemarf.components.DocumentLibrary.MetaDataDocument;
+import com.prckt.krowemarf.components.DocumentLibrary._DocumentLibrary;
+import com.prckt.krowemarf.components.DocumentLibrary._MetaDataDocument;
 import com.prckt.krowemarf.components.Messenger.Messenger;
 import com.prckt.krowemarf.components.Messenger.MessengerClient;
 import com.prckt.krowemarf.components.Messenger._Messenger;
 import com.prckt.krowemarf.components.Posts.Posts;
 import com.prckt.krowemarf.components.Posts._Posts;
+import com.prckt.krowemarf.components._Component;
+import com.prckt.krowemarf.components._DefaultMessage;
+import com.prckt.krowemarf.components.testMsg;
 import com.prckt.krowemarf.services.DbConnectionManager;
 import com.prckt.krowemarf.services._ComponentManager;
 import com.prckt.krowemarf.struct.client.Client;
 import com.prckt.krowemarf.struct.server.Server;
 
-
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 
 
 public class App
@@ -30,9 +40,45 @@ public class App
 
         _Component posts =  new Posts("commentaires");
 
+        _Component googleDrive = new DocumentLibrary("drive","/Users/julien/Desktop/");
+
         server.bindComponent(messaging);
         server.bindComponent(posts);
+        server.bindComponent(googleDrive);
 
+    }
+}
+
+class clientTestDrive
+{
+    public static void main( String[] args ) throws Exception {
+        Client client = new Client(1099, "127.0.0.1");
+        client.run();
+
+        _ComponentManager cmp = client.getComponentManager();
+
+        _DocumentLibrary drive = (_DocumentLibrary) cmp.getComponantByName("drive");
+
+        File file = new File("/Users/julien/Downloads/TestRMI-2.rar");
+        byte buffer[] = new byte[(int)file.length()];
+        BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("/Users/julien/Downloads/TestRMI-2.rar"));
+        inputStream.read(buffer,0,buffer.length);
+        inputStream.close();
+
+        LinkedList<_MetaDataDocument> metaDataDocuments = drive.getall();
+
+        //drive.uploadFile("jojo", buffer, new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
+        drive.uploadFile("jojo",DocumentLibrary.fileToBytes(file),
+                new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
+
+        DocumentLibrary.writeFile(
+                drive.downloadFile(new MetaDataDocument("TestRMI-2" ,"zip",file.length(),"/Users/julien/Desktop/")),
+                "/Users/julien/Desktop/test/" + "TestRMI-2.zip"
+        );
+
+
+        System.out.println("PUTE");
+        //client.stop();
     }
 }
 
