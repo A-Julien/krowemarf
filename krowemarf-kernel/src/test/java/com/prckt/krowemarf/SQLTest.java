@@ -27,7 +27,7 @@ public class SQLTest {
         /**
          * Exemple d'une requete SQL, renvoie une liste d'objet
          */
-        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM users;", true);
+        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM users;", false);
         /**
          * Parcours de la liste recuperer par SQL
          */
