@@ -41,6 +41,7 @@ public class App
         _Component posts =  new Posts("commentaires");
 
         _Component googleDrive = new DocumentLibrary("drive","/Users/julien/Desktop/");
+        _Component Drive = new DocumentLibrary("drive2","/Users/julien/Desktop/");
 
         server.bindComponent(messaging);
         server.bindComponent(posts);
@@ -124,7 +125,7 @@ class clientTest
 
         chat.subscribe(new MessengerClient() {
             @Override
-            public void displayMessage(_DefaultMessage message) throws RemoteException {
+            public void onReceive(_DefaultMessage message) throws RemoteException {
                 System.out.println(message.toStrings());
             }
         }, "Boby");
@@ -150,7 +151,7 @@ class clientTest2
 
         chat.subscribe(new MessengerClient() {
             @Override
-            public void displayMessage(_DefaultMessage message) throws RemoteException {
+            public void onReceive(_DefaultMessage message) throws RemoteException {
                 System.out.println(message.toStrings());
             }
 
@@ -171,7 +172,7 @@ class clientTest3
 
         chat.subscribe(new MessengerClient() {
             @Override
-            public void displayMessage(_DefaultMessage message) throws RemoteException {
+            public void onReceive(_DefaultMessage message) throws RemoteException {
                 System.out.println(message.toStrings());
             }
         }, "Jolo");

@@ -40,7 +40,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
         Enumeration<_MessengerClient> e = this.users.elements();
         while (e.hasMoreElements()){
             _MessengerClient user = e.nextElement();
-            user.displayMessage(message);
+            user.onReceive(message);
         }
     }
 
