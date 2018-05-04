@@ -12,15 +12,28 @@ public class User {
     private int idUser;
     private String login;
 
+    /**
+     * Instancie un objet User et l'insert en base de données si il n'existe pas
+     * @param login
+     * @param password
+     */
     public User(String login, String password){
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
         Connection connexion = dbConnectionManager.connect();
         try {
-            SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('" + login + "','" + hash(password) + "')");
+            //Verifie si l'user existe déjà en base de données
+            List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM User WHERE login = '" + login + "';", false );
+            if(list.isEmpty()){
+                SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('" + login + "','" + hash(password) + "')");
+            }
+            this.idUser = (int) SQLRequest.sqlToListObject(connexion, "SELECT * FROM User WHERE login = '" + login + "';", false ).get(0).get(0);
+            this.login = login;
+
             connexion.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
 
     }
 

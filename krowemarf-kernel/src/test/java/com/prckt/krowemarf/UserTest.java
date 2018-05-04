@@ -18,7 +18,7 @@ public class UserTest {
         /**
          * Création d'un utilisateur avec insertion dans la base de données
          */
-        //User user = new User("Seb", "mdp");
+        User user = new User("Seb", "mdp");
 
 
         /**
