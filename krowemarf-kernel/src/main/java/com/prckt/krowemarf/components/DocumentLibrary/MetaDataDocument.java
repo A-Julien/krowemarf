@@ -158,11 +158,11 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     
     public LinkedList<Access> isAdmin() {
     	
-    	LinkedList<Access> a = new LinkedList<Access>
+    	LinkedList<Access> a = new LinkedList<Access>;
     	
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getRight == "admin") {
-    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight)
+    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
     			a.add(acc);
     		}
     	}
@@ -171,11 +171,11 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     
     public LinkedList<Access> isUser() {
     	
-    	LinkedList<Access> a = new LinkedList<Access>
+    	LinkedList<Access> a = new LinkedList<Access>;
     	
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getRight == "user") {
-    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight)
+    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
     			a.add(acc);
     		}
     	}
