@@ -6,7 +6,8 @@ public class Access {
     //private Component component;
     private String permission;
 
-    public Access(){
+    public Access(User user){
+
 
     }
 }
