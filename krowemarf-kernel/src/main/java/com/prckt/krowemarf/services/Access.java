@@ -1,13 +1,32 @@
 package com.prckt.krowemarf.services;
 
 public class Access {
-
-    private User user;
-    //private Component component;
-    private String permission;
-
-    public Access(User user){
-
-
-    }
+	
+	private Users user;
+	private String right;
+	
+	public Access(Users user, String right) {
+		
+		boolean known = false;
+		this.user = user;
+		for(Right r : Right.values()) {
+			if(r.toString().equals(right)) {
+				this.right = right;
+				known = true;
+			}
+		}
+		if(!known) {
+			this.right = null;
+			throw new Exeption("Mauvais droit d'utilisateur!");
+		}
+	}
+	
+	public Users getUser() {
+		return this.user;
+	}
+	
+	public String getRight() {
+		return this.right;
+	}
+	
 }
