@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="500.0" maxWidth="800.0" minHeight="500.0" minWidth="800.0" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fillWidth="false" prefWidth="400.0" />
+        <HBox maxWidth="1.7976931348623157E308" prefWidth="500.0">
+            <children>
+                <TabPane prefHeight="500.0" prefWidth="467.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Chat Global">
+                            <content>
+                                <VBox prefHeight="500.0">
+                                    <children>
+                                        <TextArea prefHeight="479.0" prefWidth="450.0" />
+                                        <HBox prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <TextField prefHeight="100.0" prefWidth="370.0" promptText="Ecrivez votre message ici..." />
+                                                <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="80.0" text="Envoyer" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="Chat Privé 1" />
+                    </tabs>
+                </TabPane>
+            </children>
+        </HBox>
+    </children>
+</HBox>
