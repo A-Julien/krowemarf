@@ -3,6 +3,7 @@ package com.prckt.krowemarf.struct;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.ClientListenerManager;
 import com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager;
+import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices.UserManager;
 
 import java.rmi.NotBoundException;
@@ -17,6 +18,7 @@ public class Server implements _Runnable {
     private UserManager userManager;
     private ClientListenerManager clientListenerManager;
     private Registry registry;
+    private DbConnectionManager dbConnectionManager;
 
 
     public Server(int port, String adresse) throws RemoteException {
@@ -29,6 +31,7 @@ public class Server implements _Runnable {
         this.clientListenerManager = new ClientListenerManager();
     }
 
+    //TODO ta
     public void bindComponent(_Component component) throws RemoteException {
         this.componentManager.addComponent(component);
     }

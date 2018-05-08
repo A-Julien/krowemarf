@@ -55,7 +55,8 @@ public class App
 class clientTestDrive
 {
     public static void main( String[] args ) throws Exception {
-        Client client = new Client(1099, "127.0.0.1", "Seb", "mdp");
+        Client client = new Client(1099, "127.0.0.1");
+        client.setCredential("Seb","mdp");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
@@ -87,8 +88,8 @@ class clientTestDrive
 
 class clientTestCommentaire
 {
-    public static void main( String[] args ) throws RemoteException, NotBoundException {
-        Client client = new Client(1099, "127.0.0.1", "ddff","dsf");
+    public static void main( String[] args ) throws Exception {
+        Client client = new Client(1099, "127.0.0.1");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
@@ -116,8 +117,9 @@ class clientTestCommentaire
 
 class clientTest1
 {
-    public static void main( String[] args ) throws RemoteException {
-        Client client = new Client(1099, "127.0.0.1","Jean","mdp");
+    public static void main( String[] args ) throws Exception {
+        Client client = new Client(1099, "127.0.0.1");
+        client.setCredential("Jean","mdp");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
@@ -182,9 +184,9 @@ class clientTest1
 //TODO parcour list, si user corrspond on appelle methode listner (id)
 class clientTest
 {
-    public static void main( String[] args ) throws RemoteException, NotBoundException, InterruptedException {
-        Client client = new Client(1099, "127.0.0.1","Seb","mdp");
-
+    public static void main( String[] args ) throws Exception {
+        Client client = new Client(1099, "127.0.0.1");
+        client.setCredential("Seb","mdp");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
@@ -240,8 +242,9 @@ class clientTest
 
 class clientTest3
 {
-    public static void main( String[] args ) throws RemoteException {
-        Client client = new Client(1099, "127.0.0.1","Philippe","mdp");
+    public static void main( String[] args ) throws Exception {
+        Client client = new Client(1099, "127.0.0.1");
+        client.setCredential("Philippe","mdp");
         if(client.run() == 1){ System.out.println("error"); System.exit(1);}
         _ComponentManager cmp = client.getComponentManager();
 
@@ -272,3 +275,4 @@ class db
         PreparedStatement p = db.connect().prepareStatement("SELECT * FROM TEST");
     }
 }
+

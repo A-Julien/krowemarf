@@ -10,7 +10,7 @@ public interface _Runnable {
      * @return return 0 si le démmarage a été éxécuter sans problemes, 1 si problème
      * @throws RemoteException
      */
-    public int  run() throws RemoteException;
+    public int  run() throws Exception;
     public abstract void stop() throws RemoteException, NotBoundException;
     final String componentManagerName = "componentManager";
     final String userManagerName = "userManager";

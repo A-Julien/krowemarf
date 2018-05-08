@@ -18,23 +18,20 @@ import java.util.ArrayList;
 public class Client extends UnicastRemoteObject implements _Runnable, _Client{
     private int port;
     private String adresse;
-    private String login;
-    private String pwd;
+    private String login = null;
+    private String password = null;
     private _User user;
     private _ComponentManager componentManager = null;
     private _UserManager userManager = null;
-    private _ClientListener clientListener;
+    private _ClientListener clientListener = null;
     private _ClientListenerManager clientListenerManager = null;
     private ArrayList<String> mpList = null;
 
 
-    public Client(int port, String adresse, String login, String pwd) throws RemoteException {
+    public Client(int port, String adresse) throws RemoteException {
         super();
         this.port = port;
         this.adresse = adresse;
-        this.login = login;
-        this.pwd = pwd;
-        this.clientListener = clientListener;
         this.mpList = new ArrayList<>();
     }
 
@@ -46,8 +43,17 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
         this.mpList.add(mpList);
     }
 
+    public void setCredential(String login, String password) throws RemoteException {
+        this.login = login;
+        this.password = _UserManager.hash(password);
+    }
+
     @Override
-    public int run() throws RemoteException {
+    public int run() throws Exception {
+        if(this.login == null){
+            throw new Exception("You must call setCredential() methode before run client");
+        }
+
         Registry registry = LocateRegistry.getRegistry(this.port);
         try {
 
@@ -60,7 +66,7 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
 
             this.userManager = (_UserManager) remoteUserManager;
 
-            this.user = this.userManager.connect(this.login, _UserManager.hash(this.pwd));
+            this.user = this.userManager.connect(this.login, this.password);
 
             if (this.user == null) {
                 System.out.println("Unknow Login or Password");
