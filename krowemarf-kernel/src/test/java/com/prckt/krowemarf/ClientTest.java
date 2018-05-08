@@ -1,7 +1,5 @@
 package com.prckt.krowemarf;
 
-import com.prckt.krowemarf.struct.client.Client;
-
 public class ClientTest {
 
     public static void main( String[] args )

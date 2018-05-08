@@ -1,4 +1,4 @@
-package com.prckt.krowemarf.services;
+package com.prckt.krowemarf.services.DbConnectionServices;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class DbConnectionManager {
 
-    private static String profile = "C:\\Users\\Maxime\\IdeaProjects\\L3\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\BD.properties";
+    private static String profile = "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.properties";
     private Properties prop = new Properties();
     private String jdbcDriver;
     private String dbUrl;
@@ -40,10 +40,10 @@ public class DbConnectionManager {
 
         try {
             // Chargement du driver
-            Class.forName(this.jdbcDriver);
+            Class.forName("com.mysql.jdbc.Driver");
 
             // Connexion à la base de données
-            this.connection = DriverManager.getConnection("jdbc:mysql://" +this.dbUrl+":3306/"+this.dbName+"?autoReconnect=true&useSSL=false"+ "",""+ this.username+"",""+this.password+"");
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + this.dbUrl + ":3306/" + this.dbName, this.username , this.password);
 
             System.out.println("La connexion à la base de données est ouverte");
 
@@ -64,5 +64,4 @@ public class DbConnectionManager {
             e.printStackTrace();
         }
     }
-
 }

@@ -5,14 +5,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.GregorianCalendar;
 
 public class DefaultMessage extends UnicastRemoteObject implements _DefaultMessage {
-    private String name;
+
     private String content;
     private String sender;
     private GregorianCalendar date;
 
-    public DefaultMessage(String name, String content, String sender, GregorianCalendar date) throws RemoteException {
+    public DefaultMessage( String content, String sender, GregorianCalendar date) throws RemoteException {
         super();
-        this.name = name;
         this.content = content;
         this.sender = sender;
         this.date = date;
@@ -27,11 +26,7 @@ public class DefaultMessage extends UnicastRemoteObject implements _DefaultMessa
     }
 
     public String toStrings() throws RemoteException{
-        return this.content + " " + this.sender;
+        return  this.sender + " : " + this.content ;
     }
 
-    @Override
-    public String getName() throws RemoteException {
-        return this.name;
-    }
 }

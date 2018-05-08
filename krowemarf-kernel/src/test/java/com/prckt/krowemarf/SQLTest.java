@@ -1,7 +1,7 @@
 package com.prckt.krowemarf;
 
-import com.prckt.krowemarf.services.DbConnectionManager;
-import com.prckt.krowemarf.services.SQLRequest;
+import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
+import com.prckt.krowemarf.services.DbConnectionServices.SQLRequest;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ public class SQLTest {
         /**
          * Exemple d'une requete SQL, renvoie une liste d'objet
          */
-        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM users;", true);
+        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM user;", true);
         /**
          * Parcours de la liste recuperer par SQL
          */
@@ -36,7 +36,7 @@ public class SQLTest {
         /**
          * Exemple d'un insert
          */
-        //SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `users`(`login`, `password`, `level`) VALUES ('Philippe','morrat',3)");
+        //SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('Philippe','" + hash("mdp") + "')");
 
 
 
