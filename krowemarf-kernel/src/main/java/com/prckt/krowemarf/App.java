@@ -6,17 +6,19 @@ import com.prckt.krowemarf.components.DocumentLibrary.MetaDataDocument;
 import com.prckt.krowemarf.components.DocumentLibrary._DocumentLibrary;
 import com.prckt.krowemarf.components.DocumentLibrary._MetaDataDocument;
 import com.prckt.krowemarf.components.Messenger.Messenger;
-import com.prckt.krowemarf.components.Messenger.MessengerClient;
 import com.prckt.krowemarf.components.Messenger._Messenger;
+import com.prckt.krowemarf.components.Messenger.£MessengerClient;
 import com.prckt.krowemarf.components.Posts.Posts;
 import com.prckt.krowemarf.components.Posts._Posts;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.components.testMsg;
-import com.prckt.krowemarf.services.DbConnectionManager;
-import com.prckt.krowemarf.services._ComponentManager;
-import com.prckt.krowemarf.struct.client.Client;
-import com.prckt.krowemarf.struct.server.Server;
+import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListener;
+import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
+import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
+import com.prckt.krowemarf.services.UserManagerServices._User;
+import com.prckt.krowemarf.struct.Client;
+import com.prckt.krowemarf.struct.Server;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
-
+//TODO CLient listner pour actions ascynchrones,
 public class App
 {
     public static void main( String[] args ) throws RemoteException {
@@ -53,7 +55,7 @@ public class App
 class clientTestDrive
 {
     public static void main( String[] args ) throws Exception {
-        Client client = new Client(1099, "127.0.0.1");
+        Client client = new Client(1099, "127.0.0.1", "Seb", "mdp");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
@@ -86,7 +88,7 @@ class clientTestDrive
 class clientTestCommentaire
 {
     public static void main( String[] args ) throws RemoteException, NotBoundException {
-        Client client = new Client(1099, "127.0.0.1");
+        Client client = new Client(1099, "127.0.0.1", "ddff","dsf");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
@@ -112,73 +114,124 @@ class clientTestCommentaire
 }
 
 
-class clientTest
+class clientTest1
 {
-    public static void main( String[] args ) throws RemoteException, NotBoundException {
-        Client client = new Client(1099, "127.0.0.1");
+    public static void main( String[] args ) throws RemoteException {
+        Client client = new Client(1099, "127.0.0.1","Jean","mdp");
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
 
-        _Component messaging = cmp.getComponantByName("chat");
-        _Messenger chat = (_Messenger) messaging;
-
-        chat.subscribe(new MessengerClient() {
+        client.initClientListner(new £ClientListener() {
             @Override
-            public void onReceive(_DefaultMessage message) throws RemoteException {
+            public void onNewPrivateMessenger(String composenteName) throws RemoteException {
+
+                //System.out.println(cmp.getComponantByName(composenteName));
+                ((_Messenger)cmp.getComponantByName(composenteName)).subscribe(new £MessengerClient() {
+                    @Override
+                    public void onReceive(_DefaultMessage message) throws RemoteException {
+                        System.out.println("message : " + message.toStrings());
+                    }
+                },client.getUser());
+            }
+        });
+
+
+
+
+        //_Component messaging = cmp.getComponantByName("chat");
+        //_Messenger chat = (_Messenger) messaging;
+
+        /*chat.subscribe(new £MessengerClient() {
+            @Override
+            public void onNewPrivateMessenger(_DefaultMessage message) throws RemoteException {
                 System.out.println(message.toStrings());
             }
-        }, "Boby");
+        }, "Boby");*/
 
-        chat.postMessage("Boby", new DefaultMessage("nicke ta mere","Boby",new GregorianCalendar()));
 
-        chat.unsubscribe("Boby");
+        //chat.postMessage(client.getUser(),
+    //            new DefaultMessage("nicke ta mere","Boby",new GregorianCalendar()));
+//
+  //      chat.unsubscribe("Boby");
 
         //System.out.println("PUTE");
         //client.stop();
     }
 }
-
-class clientTest2
+//TODO call methode creatmp return id, userManager-> id, ArrayList<User>
+//TODO userManager avec listUserCo hashtable(User-Listner);
+//TODO parcour list, si user corrspond on appelle methode listner (id)
+class clientTest
 {
-    public static void main( String[] args ) throws RemoteException, NotBoundException {
-        Client client = new Client(1099, "127.0.0.1");
+    public static void main( String[] args ) throws RemoteException, NotBoundException, InterruptedException {
+        Client client = new Client(1099, "127.0.0.1","Seb","mdp");
+
         client.run();
+
         _ComponentManager cmp = client.getComponentManager();
 
-        _Component messaging = cmp.getComponantByName("chat");
+
+        client.initClientListner(new £ClientListener() {
+            @Override
+            public void onNewPrivateMessenger(String composenteName) throws RemoteException {
+
+                ((_Messenger)cmp.getComponantByName(composenteName)).subscribe(new £MessengerClient() {
+                    @Override
+                    public void onReceive(_DefaultMessage message) throws RemoteException {
+                        System.out.println(message.toStrings());
+                    }
+                }, client.getUser());
+                System.out.println("hello");
+
+                ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new DefaultMessage("ccoucou hibou",client.getUser().getLogin(),new GregorianCalendar()));
+
+            }
+        });
+        ArrayList<_User> u = new ArrayList<>();
+        for (_User ut:
+             client.getAllUsersConnected()) {
+            if(ut.getLogin().equals("Jean") || ut.getLogin().equals("Seb")){
+                u.add(ut);
+            }
+        }
+        client.newPrivateMessenger(u);
+
+
+
+       /* _Component messaging = cmp.getComponantByName("chat");
         _Messenger chat = (_Messenger) messaging;
 
-        chat.subscribe(new MessengerClient() {
+        chat.subscribe(new £MessengerClient() {
             @Override
-            public void onReceive(_DefaultMessage message) throws RemoteException {
+            public void onNewPrivateMessenger(_DefaultMessage message) throws RemoteException {
                 System.out.println(message.toStrings());
             }
-
-        }, "Jo");
+        }, "Jo");*/
+        //client.stop();
     }
+    
+
 }
 
 
 class clientTest3
 {
-    public static void main( String[] args ) throws RemoteException, NotBoundException {
-        Client client = new Client(1099, "127.0.0.1");
-        client.run();
+    public static void main( String[] args ) throws RemoteException {
+        Client client = new Client(1099, "127.0.0.1","Philippe","mdp");
+        if(client.run() == 1){ System.out.println("error"); System.exit(1);}
         _ComponentManager cmp = client.getComponentManager();
 
         _Component messaging = cmp.getComponantByName("chat");
         _Messenger chat = (_Messenger) messaging;
 
-        chat.subscribe(new MessengerClient() {
+        chat.subscribe(new £MessengerClient() {
             @Override
             public void onReceive(_DefaultMessage message) throws RemoteException {
-                System.out.println(message.toStrings());
+                System.out.println("ntmntmntmtnl");
             }
-        }, "Jolo");
+        }, client.getUser());
 
-        chat.postMessage("Jolo",
-                new DefaultMessage("nicke ta mere","Jolo",new GregorianCalendar()));
     }
 }
 

@@ -1,6 +1,5 @@
 package com.prckt.krowemarf.components.Posts;
 
-import com.prckt.krowemarf.components.DefaultMessage;
 import com.prckt.krowemarf.components._DefaultMessage;
 
 import java.rmi.RemoteException;
@@ -35,6 +34,6 @@ public class Posts extends UnicastRemoteObject implements _Posts {
 
     @Override
     public String getName() throws RemoteException {
-        return this.name;
+        return null;
     }
 }

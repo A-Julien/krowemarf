@@ -1,8 +1,7 @@
 package com.prckt.krowemarf;
 
-import com.prckt.krowemarf.services.DbConnectionManager;
-import com.prckt.krowemarf.services.SQLRequest;
-import com.prckt.krowemarf.services.User;
+import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
+import com.prckt.krowemarf.services.DbConnectionServices.SQLRequest;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -37,7 +36,7 @@ public class SQLTest {
         /**
          * Exemple d'un insert
          */
-        SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('Philippe','" + User.hash("mdp") + "')");
+        //SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('Philippe','" + hash("mdp") + "')");
 
 
 
