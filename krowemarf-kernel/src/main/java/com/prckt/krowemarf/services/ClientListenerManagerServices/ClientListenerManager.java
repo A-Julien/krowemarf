@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.function.BiConsumer;
 
 public class ClientListenerManager extends UnicastRemoteObject implements _ClientListenerManager{
     private Hashtable<_User, _ClientListener> ListenerClient;
@@ -22,15 +23,23 @@ public class ClientListenerManager extends UnicastRemoteObject implements _Clien
 
     @Override
     public void initMp(String idComponent, ArrayList<_User> usersTargets) throws RemoteException {
-        System.out.println("DJFOQESFPOEFJSE" + idComponent);
         for (_User u : usersTargets) {
-            System.out.println("avant ");
-            for (_User ut:
-                 usersTargets) {
-                System.out.println("test : " + ut.getLogin());
-            }
             ListenerClient.get(u).onNewPrivateMessenger(idComponent);
-            System.out.println("apres");
         }
+    }
+
+    @Override
+    public void removeListner(_User user) throws RemoteException {
+        this.ListenerClient.remove(user);
+        this.ListenerClient.forEach(new BiConsumer<_User, _ClientListener>() {
+            @Override
+            public void accept(_User user, _ClientListener clientListener) {
+                try {
+                    System.out.println("KJLUGGUIGUGUGUIKGIUOGIOHIGOIOLHIOGHIGOH : " + user.getLogin());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

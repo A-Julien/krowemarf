@@ -12,4 +12,6 @@ public interface _ClientListenerManager extends Remote{
     public void addListener(_User user, _ClientListener clientListener) throws RemoteException;
 
     public void initMp(String idComponent, ArrayList<_User> usersTargets) throws RemoteException;
+
+    public void removeListner(_User user) throws RemoteException;
 }

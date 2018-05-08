@@ -48,10 +48,8 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
     }
 
     private boolean contain( _User uC) throws RemoteException {
-        System.out.println(uC.getLogin());
         for (_User u:
              this.users) {
-            System.out.println(u.getLogin());
             if (u.getLogin().equals(uC.getLogin())) return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -59,7 +57,17 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
 
     @Override
     public void disconnect(_User user) throws RemoteException{
-        this.users.remove(user);
+        System.out.println("User " + user.getLogin() + " want disconnect");
+        for (_User is: this.users) {
+            if(is.getLogin().equals(user.getLogin())){
+                this.users.remove(is);
+                break;
+            }
+        }
+        /*for (_User is:
+                this.users) {
+            System.out.println("user connected : " + is.getLogin());
+        }*/
     }
 
     @Override

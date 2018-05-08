@@ -29,6 +29,7 @@ public class Server implements _Runnable {
         this.componentManager = new ComponentManager();
         this.userManager = new UserManager();
         this.clientListenerManager = new ClientListenerManager();
+        this.dbConnectionManager = new DbConnectionManager();
     }
 
     //TODO ta

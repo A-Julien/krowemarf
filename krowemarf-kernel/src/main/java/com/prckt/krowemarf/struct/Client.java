@@ -134,6 +134,7 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
     @Override
     public void stop() throws RemoteException {
         this.componentManager = null;
+        this.clientListenerManager.removeListner(this.getUser());
         this.userManager.disconnect(this.user);
         System.gc();
         System.runFinalization();

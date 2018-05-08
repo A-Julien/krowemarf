@@ -28,7 +28,7 @@ public class ComponentManager extends UnicastRemoteObject implements _ComponentM
 
     @Override
     public String addPrivateMessenger() throws RemoteException {
-        System.out.println("NTM");
+        System.out.println("adding private messenger");
         _Messenger messenger = new Messenger("chat" + this.mpNumber);
         this.mpNumber++;
         this.components.put(messenger.getName(), messenger);

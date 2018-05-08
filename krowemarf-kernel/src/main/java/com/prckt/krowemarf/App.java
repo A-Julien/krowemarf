@@ -81,7 +81,6 @@ class clientTestDrive
         );
 
 
-        System.out.println("PUTE");
         //client.stop();
     }
 }
@@ -186,8 +185,11 @@ class clientTest
 {
     public static void main( String[] args ) throws Exception {
         Client client = new Client(1099, "127.0.0.1");
-        client.setCredential("Seb","mdp");
-        client.run();
+        client.setCredential("Seb","mdps");
+        if(client.run() == 1 ){
+            client.setCredential("Seb","mdp");
+            client.run();
+        }
 
         _ComponentManager cmp = client.getComponentManager();
 
@@ -207,7 +209,6 @@ class clientTest
                         System.out.println(user.getLogin() + " Leave ");
                     }
                 }, client.getUser());
-                System.out.println("hello");
 
                 ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new DefaultMessage("ccoucou hibou",client.getUser().getLogin(),new GregorianCalendar()));
 
@@ -221,8 +222,7 @@ class clientTest
             }
         }
         client.newPrivateMessenger(u);
-
-
+        client.stop();
 
        /* _Component messaging = cmp.getComponantByName("chat");
         _Messenger chat = (_Messenger) messaging;

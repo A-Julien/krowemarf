@@ -26,10 +26,9 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
 
     @Override
     public void subscribe(_MessengerClient messengerClient, _User user) throws RemoteException {
-        System.out.println("BANDE DE CONNARD");
         if(!this.users.containsKey(user.getLogin())){
             this.users.put(user.getLogin(), messengerClient);
-            System.out.println(user.getLogin() +  "connected");
+            System.out.println(user.getLogin() +  " connected to chat : " + this.getName());
         }
     }
 
@@ -38,7 +37,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     public void unsubscribe(_User user) throws RemoteException {
         if(this.users.containsKey(user.getLogin())){
             this.users.remove(user.getLogin());
-            System.out.println(user.getLogin() + "unsubscribe");
+            System.out.println(user.getLogin() + " unsubscribe to chat : " + this.getName());
             Enumeration<_MessengerClient> e = this.users.elements();
             while (e.hasMoreElements()){
                 _MessengerClient clients = e.nextElement();
