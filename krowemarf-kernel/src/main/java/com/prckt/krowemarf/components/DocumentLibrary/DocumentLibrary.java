@@ -10,6 +10,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	private LinkedList<_MetaDataDocument> _MetaDataDocumentList;
 	private String path;
 	private String name;
+	private LinkedList<Access> access;
 	
 	/**
 	 * Initializes a newly created DocumentLibrary object so that it represents a library of document.
@@ -19,6 +20,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 		this._MetaDataDocumentList = new LinkedList<>();
 		this.path = path;
 		this.name = name;
+		this.access = new LinkedList<Access>;
 	}
 	
 	/**
@@ -234,7 +236,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 
     public static byte[] fileToBytes(File file){
             try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                ObjectOutput out = new ObjectOutputStream(bos)) {
+                ObjectOutput out = new_MetaDataDocument ObjectOutputStream(bos)) {
                 out.writeObject(file);
                 bos.close();
                 out.close();
@@ -243,5 +245,58 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
                 e.printStackTrace();
             }
         return null;
+    }
+    
+    public Right isPermission(Users user) {
+    	for (int i = 0; i < access.size; i++) {
+    		if (access.get(i).getUser == user) {
+    			return access.get(i).getRight();
+    		}
+    	}
+    	return null;
+    }
+    
+    public void addAccess(Access a) {
+    	access.add(a);
+    }
+    
+    public void addAccess(Users user, String right) {
+    	Access a = new Access(user, right);
+    	access.add(a);
+    }
+    
+    public void removeAccess(Access a) {
+    	access.remove(a);
+    }
+    
+    public void removeAccess(Users user, String right) {
+    	Access a = new Access(user, right);
+    	access.remove(a);
+    }
+    
+    public LinkedList<Access> isAdmin() {
+    	
+    	LinkedList<Access> a = new LinkedList<Access>;
+    	
+    	for (int i = 0; i < access.size; i++) {
+    		if (access.get(i).getRight == "admin") {
+    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
+    			a.add(acc);
+    		}
+    	}
+    	return a;
+    }
+    
+    public LinkedList<Access> isUser() {
+    	
+    	LinkedList<Access> a = new LinkedList<Access>;
+    	
+    	for (int i = 0; i < access.size; i++) {
+    		if (access.get(i).getRight == "user") {
+    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
+    			a.add(acc);
+    		}
+    	}
+    	return a;
     }
 }

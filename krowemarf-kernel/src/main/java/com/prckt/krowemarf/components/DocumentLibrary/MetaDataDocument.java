@@ -15,6 +15,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     private float size;
     private String path;
     private String type;
+    private LinkedList<Access> access;
 	
 	
 	/**
@@ -31,6 +32,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 		this.extension = extension;
 		this.size = size;
 		this.path = path;
+		this.access = new LinkedList<Access>;
 		
 		for (Text ext : Text.values()) {
 			if (ext.toString().equals(extension)) {
@@ -125,5 +127,58 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 
     public String getType() {
         return type;
+    }
+    
+    public Right isPermission(Users user) {
+    	for (int i = 0; i < access.size; i++) {
+    		if (access.get(i).getUser == user) {
+    			return access.get(i).getRight();
+    		}
+    	}
+    	return null;
+    }
+    
+    public void addAccess(Access a) {
+    	access.add(a);
+    }
+    
+    public void addAccess(Users user, String right) {
+    	Access a = new Access(user, right);
+    	access.add(a);
+    }
+    
+    public void removeAccess(Access a) {
+    	access.remove(a);
+    }
+    
+    public void removeAccess(Users user, String right) {
+    	Access a = new Access(user, right);
+    	access.remove(a);
+    }
+    
+    public LinkedList<Access> isAdmin() {
+    	
+    	LinkedList<Access> a = new LinkedList<Access>;
+    	
+    	for (int i = 0; i < access.size; i++) {
+    		if (access.get(i).getRight == "admin") {
+    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
+    			a.add(acc);
+    		}
+    	}
+    	return a;
+    }
+    
+    public LinkedList<Access> isUser() {
+    	
+    	LinkedList<Access> a = new LinkedList<Access>;
+    	
+    	for (int i = 0; i < access.size; i++) {
+    		if (access.get(i).getRight == "user") {
+    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
+    			a.add(acc);
+    		}
+    	}
+    	return a;
     }
 }
