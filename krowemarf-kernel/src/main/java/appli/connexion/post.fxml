@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextArea maxHeight="99999.0" maxWidth="99999.0" minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="300.0" text="Message" />
+        <TextArea minHeight="0.0" prefHeight="25.0" prefWidth="270.0" text="Auteur - Date" />
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="25.0" top="5.0" />
+    </padding>
+</VBox>

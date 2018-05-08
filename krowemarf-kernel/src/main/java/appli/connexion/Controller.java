@@ -1,7 +1,6 @@
 package appli.connexion;
 
 import com.prckt.krowemarf.struct.Client;
-import com.prckt.krowemarf.struct.Server;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -41,7 +40,6 @@ public class Controller {
         } else{
             textFieldMessage.setText("Erreur de connexion");
         }
-
 
     }
 

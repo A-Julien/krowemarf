@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class DbConnectionManager {
 
-    private static String profile = "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.properties";
+    private static String profile = "D:\\Travail\\Projets_git\\Krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\DbConnectionServices\\BD.properties";
     private Properties prop = new Properties();
     private String jdbcDriver;
     private String dbUrl;

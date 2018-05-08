@@ -1,4 +1,4 @@
-package com.prckt.krowemarf.demo;
+package appli.connexion;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +16,7 @@ public class Demain {
     public void start(){
         try {
             Stage primaryStage = new Stage();
-            VBox root = (VBox)FXMLLoader.load(getClass().getResource("demo.fxml"));
+            VBox root = (VBox)FXMLLoader.load(getClass().getResource("appli/connexion/demo.fxml"));
             Scene scene = new Scene(root,800,500);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
