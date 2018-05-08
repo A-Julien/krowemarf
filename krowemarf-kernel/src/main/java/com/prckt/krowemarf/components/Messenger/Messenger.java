@@ -1,14 +1,14 @@
 package com.prckt.krowemarf.components.Messenger;
 
 import com.prckt.krowemarf.components._DefaultMessage;
+import com.prckt.krowemarf.services.Access;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Map;
+import java.util.LinkedList;
 
 //TODO changer String en _User
 public class Messenger extends UnicastRemoteObject implements _Messenger {
@@ -21,7 +21,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
         super();
         this.name = name;
         this.users = new Hashtable<>();
-        this.access = new LinkedList<Access>;
+        this.access = new LinkedList<>();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     public String getName() throws RemoteException {
         return this.name;
     }
-
+/*
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
@@ -108,5 +108,5 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     		}
     	}
     	return a;
-    }
+    }*/
 }
