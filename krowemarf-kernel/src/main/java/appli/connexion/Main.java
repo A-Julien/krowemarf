@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         try {
-            URL url = new File("C:\\Users\\Maxime\\IdeaProjects\\L3\\krowemarf\\krowemarf-kernel\\src\\main\\java\\appli\\connexion\\sample.fxml").toURL();
+            URL url = new File("D:\\Travail\\Projets_git\\Krowemarf\\krowemarf-kernel\\src\\main\\java\\appli\\connexion\\sample.fxml").toURL();
             VBox root = (VBox) FXMLLoader.load(url);
             primaryStage.setTitle("Projet MIAGE");
             primaryStage.setResizable(false);
