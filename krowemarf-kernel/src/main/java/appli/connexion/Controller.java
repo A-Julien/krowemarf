@@ -1,4 +1,4 @@
-package appli.connexionDemo;
+package appli.connexion;
 
 import com.prckt.krowemarf.struct.Client;
 import com.prckt.krowemarf.struct.Server;
