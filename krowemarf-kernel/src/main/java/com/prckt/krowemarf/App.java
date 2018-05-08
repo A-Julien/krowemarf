@@ -132,10 +132,28 @@ class clientTest1
                     public void onReceive(_DefaultMessage message) throws RemoteException {
                         System.out.println("message : " + message.toStrings());
                     }
+
+                    @Override
+                    public void onLeave(_User user) throws RemoteException {
+                        System.out.println(user.getLogin() + " Leave ");
+                    }
                 },client.getUser());
             }
         });
 
+        _Messenger m = (_Messenger) cmp.getComponantByName("chat");
+
+        m.subscribe(new £MessengerClient() {
+            @Override
+            public void onReceive(_DefaultMessage message) throws RemoteException {
+                System.out.println("coucou");
+            }
+
+            @Override
+            public void onLeave(_User user) throws RemoteException {
+                System.out.println("leave");
+            }
+        }, client.getUser());
 
 
 
@@ -180,6 +198,11 @@ class clientTest
                     @Override
                     public void onReceive(_DefaultMessage message) throws RemoteException {
                         System.out.println(message.toStrings());
+                    }
+
+                    @Override
+                    public void onLeave(_User user) throws RemoteException {
+                        System.out.println(user.getLogin() + " Leave ");
                     }
                 }, client.getUser());
                 System.out.println("hello");
@@ -230,8 +253,15 @@ class clientTest3
             public void onReceive(_DefaultMessage message) throws RemoteException {
                 System.out.println("ntmntmntmtnl");
             }
+
+            @Override
+            public void onLeave(_User user) throws RemoteException {
+                System.out.println(user.getLogin() + " Leave ");
+            }
         }, client.getUser());
 
+        chat.unsubscribe(client.getUser());
+        client.stop();
     }
 }
 

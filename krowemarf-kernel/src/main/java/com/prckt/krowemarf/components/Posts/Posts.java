@@ -1,10 +1,12 @@
 package com.prckt.krowemarf.components.Posts;
 
 import com.prckt.krowemarf.components._DefaultMessage;
+import com.prckt.krowemarf.services.Access;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Posts extends UnicastRemoteObject implements _Posts {
     private ArrayList<_DefaultMessage> posts;
@@ -15,7 +17,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
         super();
         this.name = name;
         this.posts = new ArrayList<>();
-        this.access = new LinkedList<Access>;
+        this.access = new LinkedList<>();
     }
 
     @Override
@@ -38,7 +40,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     public String getName() throws RemoteException {
         return null;
     }
-    
+    /*
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
@@ -90,5 +92,5 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     		}
     	}
     	return a;
-    }
+    }*/
 }

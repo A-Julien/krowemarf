@@ -33,11 +33,17 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
         }
     }
 
+
     @Override
-    public void unsubscribe(String pseudo) throws RemoteException {
-        if(this.users.containsKey(pseudo)){
-            this.users.remove(pseudo);
-            System.out.println(pseudo + "unsubscribe");
+    public void unsubscribe(_User user) throws RemoteException {
+        if(this.users.containsKey(user.getLogin())){
+            this.users.remove(user.getLogin());
+            System.out.println(user.getLogin() + "unsubscribe");
+            Enumeration<_MessengerClient> e = this.users.elements();
+            while (e.hasMoreElements()){
+                _MessengerClient clients = e.nextElement();
+                clients.onLeave(user);
+            }
         }
     }
 

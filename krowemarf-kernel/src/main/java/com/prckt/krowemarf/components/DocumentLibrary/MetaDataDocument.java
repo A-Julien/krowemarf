@@ -4,10 +4,12 @@ import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Audio;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Image;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Text;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Video;
+import com.prckt.krowemarf.services.Access;
 
 import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
 
 public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDocument {
 	private String name;
@@ -32,7 +34,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 		this.extension = extension;
 		this.size = size;
 		this.path = path;
-		this.access = new LinkedList<Access>;
+		this.access = new LinkedList<>();
 		
 		for (Text ext : Text.values()) {
 			if (ext.toString().equals(extension)) {
@@ -128,7 +130,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     public String getType() {
         return type;
     }
-    
+    /*
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
@@ -180,5 +182,5 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     		}
     	}
     	return a;
-    }
+    }*/
 }

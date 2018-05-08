@@ -1,5 +1,7 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
+import com.prckt.krowemarf.services.Access;
+
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -20,7 +22,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 		this._MetaDataDocumentList = new LinkedList<>();
 		this.path = path;
 		this.name = name;
-		this.access = new LinkedList<Access>;
+		this.access = new LinkedList<Access>();
 	}
 	
 	/**
@@ -236,7 +238,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 
     public static byte[] fileToBytes(File file){
             try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                ObjectOutput out = new_MetaDataDocument ObjectOutputStream(bos)) {
+                ObjectOutput out = new  ObjectOutputStream(bos)) {
                 out.writeObject(file);
                 bos.close();
                 out.close();
@@ -247,7 +249,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         return null;
     }
     
-    public Right isPermission(Users user) {
+ /*   public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
     			return access.get(i).getRight();
@@ -298,5 +300,5 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     		}
     	}
     	return a;
-    }
+    }*/
 }

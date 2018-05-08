@@ -1,9 +1,7 @@
 package com.prckt.krowemarf.services;
 
-import com.prckt.krowemarf.services.UserManagerServices.User;
-
 public class Access {
-	
+	/*
 	private Users user;
 	private String right;
 	
@@ -29,6 +27,6 @@ public class Access {
 	
 	public String getRight() {
 		return this.right;
-	}
+	}*/
 	
 }
