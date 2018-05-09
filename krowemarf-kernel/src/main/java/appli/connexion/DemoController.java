@@ -47,4 +47,12 @@ public class DemoController {
 
     }
 
+    public void addTab(){
+
+        Tab newTab = new Tab();
+      //  newTab.setContent();
+
+        tabGrouper.getTabs().add(newTab);
+    }
+
 }

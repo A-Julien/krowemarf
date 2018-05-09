@@ -1,5 +1,6 @@
 package appli.connexion;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -8,15 +9,14 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 
-import static javafx.application.Application.launch;
+public class AppliStart extends Application {
 
-public class AppliStart {
-
-    public static void start(Stage primaryStage){
+    @Override
+    public void start(Stage primaryStage) throws Exception{
 
         try {
 
-            URL url = new File("").toURL();
+            URL url = new File("D:\\Travail\\Projets_git\\Krowemarf\\krowemarf-kernel\\src\\main\\java\\appli\\connexion\\demo.fxml").toURL();
             HBox root = (HBox)FXMLLoader.load(url);
 
 //            URL urlCSS = new File("application.css").toURL();
