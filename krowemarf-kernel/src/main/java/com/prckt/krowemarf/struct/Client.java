@@ -84,8 +84,6 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
 
 
 
-
-
             Remote remoteComponentManager = registry.lookup(this.buildRmiAddr(componentManagerName, this.adresse));
 
             if (remoteComponentManager instanceof _ComponentManager){

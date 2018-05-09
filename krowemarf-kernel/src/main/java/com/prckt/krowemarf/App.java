@@ -23,6 +23,7 @@ import com.prckt.krowemarf.struct.Server;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ import java.util.LinkedList;
 //TODO CLient listner pour actions ascynchrones,
 public class App
 {
-    public static void main( String[] args ) throws RemoteException {
+    public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
         Server server = new Server(1099,"127.0.0.1");
         server.run();
 
@@ -171,7 +172,6 @@ class clientTest1
 
         //chat.postMessage(client.getUser(),
     //            new DefaultMessage("nicke ta mere","Boby",new GregorianCalendar()));
-//
   //      chat.unsubscribe("Boby");
 
         //System.out.println("PUTE");
@@ -262,6 +262,8 @@ class clientTest3
                 System.out.println(user.getLogin() + " Leave ");
             }
         }, client.getUser());
+
+        chat.postMessage(client.getUser(), new DefaultMessage("CONTENU",client.getUser().getLogin(),new GregorianCalendar()));
 
         chat.unsubscribe(client.getUser());
         client.stop();

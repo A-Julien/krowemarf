@@ -1,5 +1,6 @@
 package com.prckt.krowemarf.components;
 
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.GregorianCalendar;
@@ -28,5 +29,7 @@ public class DefaultMessage extends UnicastRemoteObject implements _DefaultMessa
     public String toStrings() throws RemoteException{
         return  this.sender + " : " + this.content ;
     }
+
+
 
 }

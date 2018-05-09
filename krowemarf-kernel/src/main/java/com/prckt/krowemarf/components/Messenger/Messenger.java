@@ -6,6 +6,7 @@ import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -53,6 +54,12 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
         while (e.hasMoreElements()){
             _MessengerClient clients = e.nextElement();
             clients.onReceive(message);
+        }
+    }
+
+    public void reLoadMessage(_User user ,ArrayList<? extends _DefaultMessage> T) throws RemoteException {
+        for (_DefaultMessage d : T ) {
+            postMessage(user,d);
         }
     }
 
