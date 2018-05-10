@@ -52,5 +52,18 @@ public interface _UserManager extends Remote {
 
     }
 
+    public static void deleteUser(String login) throws RemoteException{
+        DbConnectionManager dbConnectionManager = new DbConnectionManager();
+        Connection connexion = dbConnectionManager.connect();
+        try {
+            SQLRequest.insertOrUpdateOrDelete(connexion, "DELETE FROM `Access` WHERE `idUser` = (SELECT idUser FROM `User` WHERE `login` = " + login + ")");
+            SQLRequest.insertOrUpdateOrDelete(connexion, "DELETE FROM `User` WHERE `login` = " + login);
+            connexion.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     ArrayList<_User> getUserConnected() throws RemoteException;
 }
