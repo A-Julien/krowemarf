@@ -1,13 +1,12 @@
 package com.prckt.krowemarf.struct;
 
+import com.prckt.krowemarf.components._Component;
+
 public class £Server {
-    protected final String postTableName = "post_krowemarf";
-    protected final String messengerTableName = "messenger_krowemarf";
-    protected final String documentLibraryTableName = "documentLibrary_krowemarf";
 
 
     protected static String sqlTable(String tableName){
-        if(tableName.equals("documentLibrary_krowemarf"))
+        if(tableName.equals(_Component.documentLibraryTableName ))
             return "CREATE TABLE " + tableName + "(" +
                     "name VARCHAR(40),"+
                     "extension VARCHAR(10),"+

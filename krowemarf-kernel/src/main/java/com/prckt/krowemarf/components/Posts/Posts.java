@@ -1,5 +1,6 @@
 package com.prckt.krowemarf.components.Posts;
 
+import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
@@ -13,17 +14,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Posts extends UnicastRemoteObject implements _Posts {
-    //private ArrayList<_DefaultMessage> posts;
+
     private String name;
-   // private LinkedList<Access> access;
     private Connection dbConnection;
-    private final String query = "INSERT INTO post_krowemarf(Composant_Name, serialized_object) VALUES (?, ?)";
+    private final String query =
+            "INSERT INTO "+ _Component.postTableName +"(Composant_Name, serialized_object) VALUES (?, ?)";
 
     public Posts(String name) throws RemoteException {
         super();
         this.name = name;
-        //this.posts = new ArrayList<>();
-       // this.access = new LinkedList<>();
         this.dbConnection = new DbConnectionManager().connect(this.getName());
 
     }

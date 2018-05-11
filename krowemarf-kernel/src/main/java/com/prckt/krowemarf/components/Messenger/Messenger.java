@@ -1,8 +1,8 @@
 package com.prckt.krowemarf.components.Messenger;
 
-import com.prckt.krowemarf.components.£DefaultMessage;
+import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
-import com.prckt.krowemarf.services.Access;
+import com.prckt.krowemarf.components.£DefaultMessage;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices._User;
@@ -16,21 +16,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.LinkedList;
 
 public class Messenger extends UnicastRemoteObject implements _Messenger{
     private Hashtable<_User, _MessengerClient> users;
 
     public String name;
     private  Connection dbConnection;
-    private final String query = "INSERT INTO messenger_krowemarf(Composant_Name, serialized_object) VALUES (?, ?)";
-    private LinkedList<Access> access;
+    private final String query =
+            "INSERT INTO "+ _Component.messengerTableName +"(Composant_Name, serialized_object) VALUES (?, ?)";
+
 
     public Messenger(String name) throws RemoteException {
         super();
         this.name = name;
         this.users = new Hashtable<>();
-        this.access = new LinkedList<>();
         this.dbConnection = new DbConnectionManager().connect(this.getName());
     }
 

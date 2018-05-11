@@ -1,5 +1,6 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
+import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.services.Access;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
@@ -17,13 +18,17 @@ import java.util.ArrayList;
 //TODO probleme path, ne crée pas les sous folder
 //TODO ne pas faire les execute requette dans cette classe
 //TODO ERREUR DE PATH DANS DOCUMENTLIBRARY
+//TODO changer touts les filters par des requettes sql
 public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLibrary {
 	private ArrayList<_MetaDataDocument> metaDataDocumentList;
 	private String path;
 	private String name;
 	private ArrayList<Access> access;
     private Connection dbConnection;
-    private final String query = "INSERT INTO documentLibrary_krowemarf(name, extension, size, path, Composant_Name, serialized_object) VALUES (?,?,?,?,?,?)";
+    private final String insertQuery =
+            "INSERT INTO " + _Component.documentLibraryTableName + "(name, extension, size, path, Composant_Name, serialized_object) VALUES (?,?,?,?,?,?)";
+    private final String removeQuery =
+            "DELETE FROM " + _Component.documentLibraryTableName + " WHERE serialized_object = ?";
 
 	/**
 	 * Initializes a newly created DocumentLibrary object so that it represents a library of document.
@@ -51,8 +56,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	//TODO nom de la table *facePam*
     @Override
 	public void remove(_MetaDataDocument metaDataDocument) throws RemoteException, SQLException {
-        String q = "DELETE FROM documentLibrary_krowemarf WHERE serialized_object = ?";
-        PreparedStatement pstmt = this.dbConnection.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement pstmt = this.dbConnection.prepareStatement(this.removeQuery, Statement.RETURN_GENERATED_KEYS);
         pstmt.setObject(1, SerializationUtils.serialize(_MetaDataDocument.copy(metaDataDocument)) );
         pstmt.executeUpdate();
 
@@ -230,7 +234,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         String completePath = this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension();
 
         try {
-            PreparedStatement pstmt = this.dbConnection.prepareStatement(this.query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = this.dbConnection.prepareStatement(this.insertQuery, Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, metaDataDocument.getName());
             pstmt.setString(2, metaDataDocument.getExtension());

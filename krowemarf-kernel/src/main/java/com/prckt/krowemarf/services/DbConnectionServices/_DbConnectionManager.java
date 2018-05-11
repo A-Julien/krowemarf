@@ -22,7 +22,7 @@ public interface _DbConnectionManager extends Remote {
         System.out.println("Java object serialized to database. Object: " + message);
     }
 
-    //TODO ENLEVER NOM COLLONE EN DURE
+    //TODO ENLEVER NOM COLLONE EN DURE faire une abstract aves les nom dedans ?
     public static ArrayList<Object> deSerializeJavaObjectFromDB(Connection connection, String tableName, String composentName) throws  RemoteException {
         ArrayList<Object> listMessage = new ArrayList<>();
         PreparedStatement pstmt = null;

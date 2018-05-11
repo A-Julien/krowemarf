@@ -197,7 +197,6 @@ class clientTest
             client.setCredential("Seb","mdp");
             client.run();
         }
-
         _ComponentManager cmp = client.getComponentManager();
 
 

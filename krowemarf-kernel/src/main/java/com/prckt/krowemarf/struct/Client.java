@@ -17,7 +17,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Client extends UnicastRemoteObject implements _Runnable, _Client{
+public final class Client extends UnicastRemoteObject implements _Runnable, _Client{
     private int port;
     private String adresse;
     private _User user = null;
