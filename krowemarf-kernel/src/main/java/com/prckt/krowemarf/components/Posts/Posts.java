@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Posts extends UnicastRemoteObject implements _Posts {
@@ -41,7 +43,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     public void addPost(byte[] message) throws RemoteException {
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
-                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(),this.query);
+                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName());
             } catch (SQLException e1) {
                 System.out.println("Error save default message to bd");
                 e1.printStackTrace();
@@ -52,8 +54,11 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     }
     //TODO sql requette pour delete post
     @Override
-    public void removePost(_DefaultMessage post) throws RemoteException {
-        //this.posts.remove(post);
+    public void removePost(_DefaultMessage post) throws RemoteException, SQLException {
+        String q = "DELETE FROM posts_krowemarf WHERE serialized_object = ?";
+        PreparedStatement pstmt = this.dbConnection.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
+        pstmt.setObject(1, SerializationUtils.serialize(post));
+        pstmt.executeUpdate();
     }
 
 

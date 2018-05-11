@@ -22,8 +22,6 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     public String name;
     private  Connection dbConnection;
-    private final String query =
-            "INSERT INTO "+ _Component.messengerTableName +"(Composant_Name, serialized_object) VALUES (?, ?)";
 
 
     public Messenger(String name) throws RemoteException {
@@ -73,7 +71,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     public void saveMessage(byte[] message) throws RemoteException{
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
-                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(),this.query);
+                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName());
             } catch (SQLException e1) {
                 System.out.println("Error save default message to bd");
                 e1.printStackTrace();
