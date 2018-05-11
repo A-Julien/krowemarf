@@ -9,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import appli.controller.MainController;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class ConnexionController {
 
@@ -23,7 +25,7 @@ public class ConnexionController {
 
 
 
-    @FXML private void btn2ConnexionClicked(ActionEvent actionEvent) throws RemoteException {
+    @FXML private void btn2ConnexionClicked(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
 
         int isAuth = 1;
         String login = txtLogin.getText();
