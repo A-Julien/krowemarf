@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Client extends UnicastRemoteObject implements _Runnable, _Client{
@@ -80,12 +81,6 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
             }
             this.clientListenerManager = (_ClientListenerManager) remoteClientListner;
 
-            //TODO lever une erreur quand on pas appeler init avant de run
-
-
-
-
-
             Remote remoteComponentManager = registry.lookup(this.buildRmiAddr(componentManagerName, this.adresse));
 
             if (remoteComponentManager instanceof _ComponentManager){
@@ -125,7 +120,7 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
     }
 
     @Override
-    public void newPrivateMessenger(ArrayList<_User> users) throws RemoteException {
+    public void newPrivateMessenger(ArrayList<_User> users) throws RemoteException, SQLException {
         String s = this.componentManager.addPrivateMessenger();
         this.clientListenerManager.initMp(s, users);
 

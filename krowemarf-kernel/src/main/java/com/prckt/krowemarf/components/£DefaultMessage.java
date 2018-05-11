@@ -1,21 +1,23 @@
 package com.prckt.krowemarf.components;
 
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
-public class DefaultMessage extends UnicastRemoteObject implements _DefaultMessage {
+public abstract class £DefaultMessage extends UnicastRemoteObject implements _DefaultMessage {
 
     private String content;
     private String sender;
-    private GregorianCalendar date;
+    private Date date;
 
-    public DefaultMessage( String content, String sender, GregorianCalendar date) throws RemoteException {
+    public £DefaultMessage(String content, String sender, Date date) throws RemoteException {
         super();
         this.content = content;
         this.sender = sender;
         this.date = date;
     }
+
 
     public String getContent()throws RemoteException {
         return content;
@@ -29,4 +31,9 @@ public class DefaultMessage extends UnicastRemoteObject implements _DefaultMessa
         return  this.sender + " : " + this.content ;
     }
 
+    public abstract String getDataToSave() throws RemoteException;
+
+    public Date getDate() throws RemoteException {
+        return date;
+    }
 }

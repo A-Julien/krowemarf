@@ -7,11 +7,12 @@ import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Video;
 import com.prckt.krowemarf.services.Access;
 
 import java.io.File;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 
-public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDocument {
+public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDocument, Serializable {
 	private String name;
     private String extension;
     private float size;

@@ -2,6 +2,7 @@ package com.prckt.krowemarf.struct;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public interface _Runnable {
 
@@ -11,7 +12,7 @@ public interface _Runnable {
      * @throws RemoteException
      */
     public int  run() throws Exception;
-    public abstract void stop() throws RemoteException, NotBoundException;
+    public abstract void stop() throws RemoteException, NotBoundException, SQLException;
     final String componentManagerName = "componentManager";
     final String userManagerName = "userManager";
     final String clientListenerManagerName = "clientListnerManager";

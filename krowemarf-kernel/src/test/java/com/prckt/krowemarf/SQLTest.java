@@ -3,13 +3,14 @@ package com.prckt.krowemarf;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices.SQLRequest;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class SQLTest {
 
-    public static void main( String[] args ) throws SQLException {
+    public static void main( String[] args ) throws SQLException, RemoteException {
 
 
         /**
@@ -20,7 +21,7 @@ public class SQLTest {
          * 4) DbConnectionManager.close();
          */
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
-        Connection connexion = dbConnectionManager.connect();
+        Connection connexion = dbConnectionManager.connect("test");
 
         /**
          * Exemple d'une requete SQL, renvoie une liste d'objet

@@ -1,14 +1,9 @@
 package com.prckt.krowemarf.services.UserManagerServices;
 
-import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
-import com.prckt.krowemarf.services.DbConnectionServices.SQLRequest;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface _UserManager extends Remote {
@@ -40,9 +35,9 @@ public interface _UserManager extends Remote {
         return str;
     }
 
-    public static void createUser(String login, String password) throws RemoteException{
+    /*public static void createUser(String login, String password) throws RemoteException{
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
-        Connection connexion = dbConnectionManager.connect();
+        Connection connexion = dbConnectionManager.connect("userManager");
         try {
             SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('" + login + "','" + _UserManager.hash(password) + "')");
             connexion.close();
@@ -51,6 +46,19 @@ public interface _UserManager extends Remote {
         }
 
     }
+
+    public static void deleteUser(String login) throws RemoteException{
+        DbConnectionManager dbConnectionManager = new DbConnectionManager();
+        Connection connexion = dbConnectionManager.connect();
+        try {
+            SQLRequest.insertOrUpdateOrDelete(connexion, "DELETE FROM `Access` WHERE `idUser` = (SELECT idUser FROM `User` WHERE `login` = " + login + ")");
+            SQLRequest.insertOrUpdateOrDelete(connexion, "DELETE FROM `User` WHERE `login` = " + login);
+            connexion.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }*/
 
     ArrayList<_User> getUserConnected() throws RemoteException;
 }
