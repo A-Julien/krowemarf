@@ -1,6 +1,7 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
 import com.prckt.krowemarf.components._Component;
+import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -86,7 +87,7 @@ public interface _DocumentLibrary extends _Component {
      */
     public ArrayList<_MetaDataDocument> filterByType(String type) throws RemoteException;
 
-    public void uploadFile(String pseudo, byte[] buffer,  _MetaDataDocument metaDataDocument) throws IOException;
+    public void uploadFile(_User user, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException;
 
     public byte[] downloadFile(_MetaDataDocument _MetaDataDocument) throws Exception;
 }

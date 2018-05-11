@@ -18,9 +18,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-//TODO changer String en _User
 public class Messenger extends UnicastRemoteObject implements _Messenger{
-    private Hashtable<String, _MessengerClient> users;
+    private Hashtable<_User, _MessengerClient> users;
 
     public String name;
     private  Connection dbConnection;
@@ -37,8 +36,8 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     @Override
     public void subscribe(_MessengerClient messengerClient, _User user) throws RemoteException {
-        if(!this.users.containsKey(user.getLogin())){
-            this.users.put(user.getLogin(), messengerClient);
+        if(!this.users.containsKey(user)){
+            this.users.put(user, messengerClient);
             System.out.println(user.getLogin() +  " connected to chat : " + this.getName());
         }
     }
@@ -46,8 +45,8 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     @Override
     public void unsubscribe(_User user) throws RemoteException {
-        if(this.users.containsKey(user.getLogin())){
-            this.users.remove(user.getLogin());
+        if(this.users.containsKey(user)){
+            this.users.remove(user);
             System.out.println(user.getLogin() + " unsubscribe to chat : " + this.getName());
             Enumeration<_MessengerClient> e = this.users.elements();
             while (e.hasMoreElements()){
@@ -98,9 +97,10 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
         Enumeration<_MessengerClient> e = this.users.elements();
 
         for (Object o: banane) {
-            System.out.println("un kappa");
-            this.users.get(user.getLogin()).onReceive((£DefaultMessage)o);
+            this.users.get(user).onReceive((£DefaultMessage)o);
         }
+
+        System.out.println(banane.size() + " reloaded for " + user.getLogin());
     }
 
 

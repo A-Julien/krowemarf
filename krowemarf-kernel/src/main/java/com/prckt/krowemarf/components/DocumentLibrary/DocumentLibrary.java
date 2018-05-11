@@ -3,6 +3,7 @@ package com.prckt.krowemarf.components.DocumentLibrary;
 import com.prckt.krowemarf.services.Access;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
+import com.prckt.krowemarf.services.UserManagerServices._User;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.*;
@@ -90,12 +91,8 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	public ArrayList<_MetaDataDocument> getall() throws RemoteException {
         ArrayList<_MetaDataDocument> banane = new ArrayList<>();
 
-        try {
-            for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "documentLibrary_krowemarf", this.getName())) {
-                banane.add((_MetaDataDocument) o);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "documentLibrary_krowemarf", this.getName())) {
+            banane.add((_MetaDataDocument) o);
         }
         return banane;
     }
@@ -228,7 +225,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 
     @Override
-    public void uploadFile(String pseudo, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException, RemoteException {
+    public void uploadFile(_User user, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException, RemoteException {
 
         String completePath = this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension();
 
@@ -242,7 +239,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
             pstmt.setString(5, this.getName());
             pstmt.setObject(6, SerializationUtils.serialize(_MetaDataDocument.copy(metaDataDocument)));
             pstmt.executeUpdate();
-            System.out.println("POJOSQJFLQDSLFMH");
 
         } catch (SQLException e1) {
             System.out.println("Error save path into bd");

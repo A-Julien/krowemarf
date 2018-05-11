@@ -4,6 +4,7 @@ import com.prckt.krowemarf.services.ClientListenerManagerServices._ClientListene
 import com.prckt.krowemarf.services.ClientListenerManagerServices._ClientListenerManager;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListener;
 import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
+import com.prckt.krowemarf.services.UserManagerServices.User;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 import com.prckt.krowemarf.services.UserManagerServices._UserManager;
 
@@ -19,9 +20,7 @@ import java.util.ArrayList;
 public class Client extends UnicastRemoteObject implements _Runnable, _Client{
     private int port;
     private String adresse;
-    private String login = null;
-    private String password = null;
-    private _User user;
+    private _User user = null;
     private _ComponentManager componentManager = null;
     private _UserManager userManager = null;
     private _ClientListener clientListener = null;
@@ -45,17 +44,16 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
     }
 
     public void setCredential(String login, String password) throws RemoteException {
-        this.login = login;
-        this.password = _UserManager.hash(password);
+        this.user = new User(login,password);
     }
 
     @Override
     public int run() throws Exception {
-        if(this.login == null){
+        if(this.user == null){
             throw new Exception("You must call setCredential() methode before run client");
         }
 
-        Registry registry = LocateRegistry.getRegistry(this.port);
+         Registry registry = LocateRegistry.getRegistry(this.port);
         try {
 
             Remote remoteUserManager = registry.lookup(this.buildRmiAddr(userManagerName, this.adresse));
@@ -67,9 +65,9 @@ public class Client extends UnicastRemoteObject implements _Runnable, _Client{
 
             this.userManager = (_UserManager) remoteUserManager;
 
-            this.user = this.userManager.connect(this.login, this.password);
 
-            if (this.user == null) {
+
+            if (!this.userManager.connect(user)) {
                 System.out.println("Unknow Login or Password");
                 return 1;
             }

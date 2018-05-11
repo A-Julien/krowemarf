@@ -23,19 +23,23 @@ public interface _DbConnectionManager extends Remote {
     }
 
     //TODO ENLEVER NOM COLLONE EN DURE
-    public static ArrayList<Object> deSerializeJavaObjectFromDB(Connection connection, String tableName, String composentName) throws SQLException, RemoteException {
-
-       PreparedStatement pstmt = connection.prepareStatement(
-                "SELECT serialized_object FROM " + tableName +" WHERE Composant_Name = '"+ composentName +"'");
-        System.out.println("query ->" + "SELECT serialized_object FROM " + tableName +" WHERE Composant_Name = '"+ composentName +"'");
-        ResultSet resultSet = pstmt.executeQuery();
+    public static ArrayList<Object> deSerializeJavaObjectFromDB(Connection connection, String tableName, String composentName) throws  RemoteException {
         ArrayList<Object> listMessage = new ArrayList<>();
-        resultSet.next();
-        ObjectInputStream ois;
-        do{
-            //ois = new ObjectInputStream(new ByteArrayInputStream(resultSet.getBytes(1)));
-            listMessage.add(SerializationUtils.deserialize(resultSet.getBytes(1)));//ois.readObject());
-        }while(resultSet.next());
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(
+                     "SELECT serialized_object FROM " + tableName +" WHERE Composant_Name = '"+ composentName +"'");
+            System.out.println("query ->" + "SELECT serialized_object FROM " + tableName +" WHERE Composant_Name = '"+ composentName +"'");
+            ResultSet resultSet = pstmt.executeQuery();
+            resultSet.next();
+            ObjectInputStream ois;
+            do{
+                listMessage.add(SerializationUtils.deserialize(resultSet.getBytes(1)));//ois.readObject());
+            }while(resultSet.next());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return  listMessage;
     }
 }

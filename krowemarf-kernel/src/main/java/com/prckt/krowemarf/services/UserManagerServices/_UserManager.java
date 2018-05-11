@@ -2,38 +2,13 @@ package com.prckt.krowemarf.services.UserManagerServices;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public interface _UserManager extends Remote {
-    public  _User connect(String login, String password) throws RemoteException;
+    boolean connect(_User user) throws RemoteException;
+
     void disconnect(_User user) throws RemoteException;
 
-    /**
-     * hash un String
-     * @param str
-     * @return
-     */
-    public static String hash(String str) throws RemoteException{
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA");
-            md.update(str.getBytes());
-            byte[] bytes = md.digest();
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            str = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-
-        return str;
-    }
 
     /*public static void createUser(String login, String password) throws RemoteException{
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
