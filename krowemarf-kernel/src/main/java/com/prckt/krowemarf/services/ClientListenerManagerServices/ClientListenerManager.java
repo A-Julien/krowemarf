@@ -4,6 +4,7 @@ import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.function.BiConsumer;
@@ -22,7 +23,7 @@ public class ClientListenerManager extends UnicastRemoteObject implements _Clien
     }
 
     @Override
-    public void initMp(String idComponent, ArrayList<_User> usersTargets) throws RemoteException {
+    public void initMp(String idComponent, ArrayList<_User> usersTargets) throws RemoteException, SQLException {
         for (_User u : usersTargets) {
             ListenerClient.get(u).onNewPrivateMessenger(idComponent);
         }

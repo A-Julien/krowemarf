@@ -4,7 +4,8 @@ import com.prckt.krowemarf.components._Component;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface _DocumentLibrary extends _Component {
     /**
@@ -17,7 +18,7 @@ public interface _DocumentLibrary extends _Component {
      * Remove a _MetaDataDocument from the library
      * @param _MetaDataDocument _MetaDataDocument to remove
      */
-    public void remove(_MetaDataDocument _MetaDataDocument) throws RemoteException;
+    public void remove(_MetaDataDocument _MetaDataDocument) throws RemoteException, SQLException;
 
     /**
      * Recover a document by its name, path and extension
@@ -32,60 +33,60 @@ public interface _DocumentLibrary extends _Component {
 
     /**
      * Recover all the list of _MetaDataDocument
-     * @return the complete LinkedList
+     * @return the complete ArrayList
      */
-    public LinkedList<_MetaDataDocument> getall() throws RemoteException;
+    public ArrayList<_MetaDataDocument> getall() throws RemoteException;
 
     /**
-     * Recover a LinkedList with all documents with the same name
+     * Recover a ArrayList with all documents with the same name
      * @param name of the document
      * @return The list of documents that accomplish the request
      */
 
-    public LinkedList<_MetaDataDocument> filterByName(String name) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterByName(String name) throws RemoteException;
 
     /**
-     * Recover a LinkedList with all documents with the same extension
+     * Recover a ArrayList with all documents with the same extension
      * @param extension of the document
      * @return The list of documents that accomplish the request
      */
-    public LinkedList<_MetaDataDocument> filterByExtension(String extension) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterByExtension(String extension) throws RemoteException;
     /**
-     * Recover a LinkedList with all documents with the same path
+     * Recover a ArrayList with all documents with the same path
      * @param path of the document
      * @return The list of documents that accomplish the request
      */
-    public LinkedList<_MetaDataDocument> filterByPath(String path) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterByPath(String path) throws RemoteException;
     /**
-     * Recover a LinkedList with all documents with a bigger size
+     * Recover a ArrayList with all documents with a bigger size
      * @param size minimum size
      * @return The list of documents that accomplish the request
      */
-    public LinkedList<_MetaDataDocument> filterBySizeSup(float size) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterBySizeSup(float size) throws RemoteException;
 
     /**
-     * Recover a LinkedList with all documents with a lowest size
+     * Recover a ArrayList with all documents with a lowest size
      * @param size maximum size
      * @return The list of documents that accomplish the request
      */
-    public LinkedList<_MetaDataDocument> filterBySizeInf(float size) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterBySizeInf(float size) throws RemoteException;
 
     /**
-     * Recover a LinkedList with all documents with a bounded size
+     * Recover a ArrayList with all documents with a bounded size
      * @param inf minimum size
      * @param sup maximum size
      * @return The list of documents that accomplish the request
      */
-    public LinkedList<_MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException;
 
     /**
-     * Recover a LinkedList with all documents with the same file's type
+     * Recover a ArrayList with all documents with the same file's type
      * @param type type of the document
      * @return The list of documents that accomplish the request
      */
-    public LinkedList<_MetaDataDocument> filterByType(String type) throws RemoteException;
+    public ArrayList<_MetaDataDocument> filterByType(String type) throws RemoteException;
 
-    public void uploadFile(String pseudo, byte[] buffer,  _MetaDataDocument _MetaDataDocument) throws IOException;
+    public void uploadFile(String pseudo, byte[] buffer,  _MetaDataDocument metaDataDocument) throws IOException;
 
     public byte[] downloadFile(_MetaDataDocument _MetaDataDocument) throws Exception;
 }

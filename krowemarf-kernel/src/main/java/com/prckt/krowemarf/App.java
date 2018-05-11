@@ -1,6 +1,5 @@
 package com.prckt.krowemarf;
 
-import com.prckt.krowemarf.components.DefaultMessage;
 import com.prckt.krowemarf.components.DocumentLibrary.DocumentLibrary;
 import com.prckt.krowemarf.components.DocumentLibrary.MetaDataDocument;
 import com.prckt.krowemarf.components.DocumentLibrary._DocumentLibrary;
@@ -10,29 +9,24 @@ import com.prckt.krowemarf.components.Messenger._Messenger;
 import com.prckt.krowemarf.components.Messenger.£MessengerClient;
 import com.prckt.krowemarf.components.Posts.Posts;
 import com.prckt.krowemarf.components.Posts._Posts;
+import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
-import com.prckt.krowemarf.components.testMsg;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListener;
 import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 import com.prckt.krowemarf.struct.Client;
 import com.prckt.krowemarf.struct.Server;
+import org.apache.commons.lang3.SerializationUtils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-
-//TODO CLient listner pour actions ascynchrones,
 public class App
 {
     public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
@@ -44,10 +38,9 @@ public class App
         _Component posts =  new Posts("commentaires");
 
         _Component googleDrive = new DocumentLibrary("drive","/Users/julien/Desktop/");
-        _Component Drive = new DocumentLibrary("drive2","/Users/julien/Desktop/");
 
-        server.bindComponent(messaging);
         server.bindComponent(posts);
+        server.bindComponent(messaging);
         server.bindComponent(googleDrive);
 
     }
@@ -65,24 +58,31 @@ class clientTestDrive
         _DocumentLibrary drive = (_DocumentLibrary) cmp.getComponantByName("drive");
 
         File file = new File("/Users/julien/Downloads/TestRMI-2.rar");
-        byte buffer[] = new byte[(int)file.length()];
+        /*byte buffer[] = new byte[(int)file.length()];
         BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("/Users/julien/Downloads/TestRMI-2.rar"));
         inputStream.read(buffer,0,buffer.length);
-        inputStream.close();
+        inputStream.close();*/
 
-        LinkedList<_MetaDataDocument> metaDataDocuments = drive.getall();
+       // drive.uploadFile("jojo",DocumentLibrary.fileToBytes(file), new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
+        ArrayList<_MetaDataDocument> metaDataDocuments = drive.getall();
 
-        //drive.uploadFile("jojo", buffer, new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
-        drive.uploadFile("jojo",DocumentLibrary.fileToBytes(file),
-                new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
 
-        DocumentLibrary.writeFile(
+        for (_MetaDataDocument m : metaDataDocuments) {
+            System.out.println("meta -> " + m.getName());
+        }
+
+        //TODO change pseudo to user
+        drive.uploadFile("jojo",DocumentLibrary.fileToBytes(file), new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
+
+        drive.remove(metaDataDocuments.get(0));
+
+        /*DocumentLibrary.writeFile(
                 drive.downloadFile(new MetaDataDocument("TestRMI-2" ,"zip",file.length(),"/Users/julien/Desktop/")),
                 "/Users/julien/Desktop/test/" + "TestRMI-2.zip"
-        );
+        );*/
 
 
-        //client.stop();
+        client.stop();
     }
 }
 
@@ -90,22 +90,30 @@ class clientTestCommentaire
 {
     public static void main( String[] args ) throws Exception {
         Client client = new Client(1099, "127.0.0.1");
-        client.run();
+        client.setCredential("Seb","mdp");
+        if(client.run() == 1){ System.out.println("error"); System.exit(1);}
+
 
         _ComponentManager cmp = client.getComponentManager();
+        
+        _Posts post = (_Posts) cmp.getComponantByName("commentaires");
 
-        _Component posts = cmp.getComponantByName("commentaires");
-        _Posts post = (_Posts) posts;
+        //_Component posts = cmp.getComponantByName("commentaires");
+       // _Posts post = (_Posts) posts;
 
-        _DefaultMessage t = new DefaultMessage("coucou","moi", new GregorianCalendar());
+        //_DefaultMessage t = new £DefaultMessage("coucou","moi", new GregorianCalendar());
 
-        post.addPost(new testMsg("coucou","moi",3));
+        //post.savePost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser().getLogin())));
+        //post.savePost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser().getLogin())));
 
-        post.addPost(t);
+        //post.savePost(S
+
+        //post.addPost(t);
+        post.addPost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser().getLogin())));
 
         ArrayList<_DefaultMessage> arrayList =  post.loadPost();
 
-        for (_DefaultMessage e :arrayList) {
+       for (_DefaultMessage e :arrayList) {
             System.out.println(e.toStrings());
         }
 
@@ -148,12 +156,12 @@ class clientTest1
         m.subscribe(new £MessengerClient() {
             @Override
             public void onReceive(_DefaultMessage message) throws RemoteException {
-                System.out.println("coucou");
+                System.out.println(message.toStrings());
             }
 
             @Override
             public void onLeave(_User user) throws RemoteException {
-                System.out.println("leave");
+                System.out.println(user.getLogin() +  " leave");
             }
         }, client.getUser());
 
@@ -171,16 +179,16 @@ class clientTest1
 
 
         //chat.postMessage(client.getUser(),
-    //            new DefaultMessage("nicke ta mere","Boby",new GregorianCalendar()));
+    //            new £DefaultMessage("nicke ta mere","Boby",new GregorianCalendar()));
   //      chat.unsubscribe("Boby");
 
         //System.out.println("PUTE");
         //client.stop();
     }
 }
-//TODO call methode creatmp return id, userManager-> id, ArrayList<User>
-//TODO userManager avec listUserCo hashtable(User-Listner);
-//TODO parcour list, si user corrspond on appelle methode listner (id)
+/** call methode creatmp return id, userManager-> id, ArrayList<User>
+ userManager avec listUserCo hashtable(User-Listner);
+ parcour list, si user corrspond on appelle methode listner (id)*/
 class clientTest
 {
     public static void main( String[] args ) throws Exception {
@@ -196,7 +204,7 @@ class clientTest
 
         client.initClientListner(new £ClientListener() {
             @Override
-            public void onNewPrivateMessenger(String composenteName) throws RemoteException {
+            public void onNewPrivateMessenger(String composenteName) throws RemoteException, SQLException {
 
                 ((_Messenger)cmp.getComponantByName(composenteName)).subscribe(new £MessengerClient() {
                     @Override
@@ -210,7 +218,7 @@ class clientTest
                     }
                 }, client.getUser());
 
-                ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new DefaultMessage("ccoucou hibou",client.getUser().getLogin(),new GregorianCalendar()));
+                ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new TypeMessage("ccoucou hibou",client.getUser().getLogin()));
 
             }
         });
@@ -254,7 +262,7 @@ class clientTest3
         chat.subscribe(new £MessengerClient() {
             @Override
             public void onReceive(_DefaultMessage message) throws RemoteException {
-                System.out.println("ntmntmntmtnl");
+                System.out.println(message.toStrings());
             }
 
             @Override
@@ -263,9 +271,16 @@ class clientTest3
             }
         }, client.getUser());
 
-        chat.postMessage(client.getUser(), new DefaultMessage("CONTENU",client.getUser().getLogin(),new GregorianCalendar()));
+        TypeMessage typeMessage = new TypeMessage("CONTENU",client.getUser().getLogin());
+
+        chat.postMessage(client.getUser(), typeMessage);
+
+        chat.saveMessage(SerializationUtils.serialize(new ArrayList<String>()));
+
+        chat.reLoadMessage(client.getUser());
 
         chat.unsubscribe(client.getUser());
+
         client.stop();
     }
 }
@@ -274,7 +289,7 @@ class db
 {
     public static void main( String[] args ) throws RemoteException, NotBoundException, SQLException {
         DbConnectionManager db = new DbConnectionManager();
-        PreparedStatement p = db.connect().prepareStatement("SELECT * FROM TEST");
+        PreparedStatement p = db.connect("tt").prepareStatement("SELECT * FROM TEST");
     }
 }
 

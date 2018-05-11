@@ -1,11 +1,17 @@
 package com.prckt.krowemarf.services.DbConnectionServices;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
-import java.sql.*;
+import java.rmi.server.UnicastRemoteObject;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
-public class DbConnectionManager {
+public class DbConnectionManager extends UnicastRemoteObject {
 
     private static String profile = "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.properties";
     private Properties prop = new Properties();
@@ -15,7 +21,8 @@ public class DbConnectionManager {
     private String username, password;
     private Connection connection;
 
-    public DbConnectionManager() {
+    public DbConnectionManager() throws RemoteException {
+        super();
         try {
             prop = new Properties();
             prop.load(new FileInputStream(this.profile));
@@ -35,7 +42,7 @@ public class DbConnectionManager {
         this.password = prop.getProperty("database.password");
     }
 
-    public Connection connect() {
+    public Connection connect(String entityName) {
 
         try {
             // Chargement du driver
@@ -44,7 +51,7 @@ public class DbConnectionManager {
             // Connexion à la base de données
             this.connection = DriverManager.getConnection("jdbc:mysql://" + this.dbUrl + ":3306/" + this.dbName, this.username , this.password);
 
-            System.out.println("La connexion à la base de données est ouverte");
+            System.out.println("Connection to bd open for : " + entityName);
 
         } catch (SQLException se) {
             se.printStackTrace();
@@ -78,48 +85,4 @@ public class DbConnectionManager {
         return tExists;
     }
 
-    public static long serializeJavaObjectToDB(Connection connection, Object objectToSerialize, String query) throws SQLException, RemoteException {
-        PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-        // just setting the class name
-        pstmt.setString(1, "test");
-        pstmt.setObject(2, objectToSerialize);
-        pstmt.executeUpdate();
-        ResultSet rs = pstmt.getGeneratedKeys();
-        int serialized_id = -1;
-        if (rs.next()) {
-            serialized_id = rs.getInt(1);
-        }
-        rs.close();
-        pstmt.close();
-        System.out.println("Java object serialized to database. Object: "
-                + objectToSerialize);
-        return serialized_id;
-    }
-
-    public static Object deSerializeJavaObjectFromDB(Connection connection) throws SQLException, IOException,
-            ClassNotFoundException {
-        PreparedStatement pstmt = connection
-                .prepareStatement("SELECT serialized_message FROM messenger_krowemarf WHERE  id= ?");
-        pstmt.setLong(1, 3);
-        ResultSet rs = pstmt.executeQuery();
-        rs.next();
-
-        // Object object = rs.getObject(1);
-
-        byte[] buf = rs.getBytes(1);
-        ObjectInputStream objectIn = null;
-        if (buf != null)
-            objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
-
-        Object deSerializedObject = objectIn.readObject();
-
-        rs.close();
-        pstmt.close();
-
-        System.out.println("Java object de-serialized from database. Object: "
-                + deSerializedObject + " Classname: "
-                + deSerializedObject.getClass().getName());
-        return deSerializedObject;
-    }
 }

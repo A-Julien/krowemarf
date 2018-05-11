@@ -42,7 +42,7 @@ public interface _UserManager extends Remote {
 
     public static void createUser(String login, String password) throws RemoteException{
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
-        Connection connexion = dbConnectionManager.connect();
+        Connection connexion = dbConnectionManager.connect("userManager");
         try {
             SQLRequest.insertOrUpdateOrDelete(connexion, "INSERT INTO `User`(`login`, `password`) VALUES ('" + login + "','" + _UserManager.hash(password) + "')");
             connexion.close();

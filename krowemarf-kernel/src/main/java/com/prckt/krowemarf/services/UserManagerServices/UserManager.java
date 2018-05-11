@@ -27,7 +27,7 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
     @Override
     public _User connect(String login, String password) throws RemoteException {
         DbConnectionManager dbConnectionManager = new DbConnectionManager();
-        Connection connexion = dbConnectionManager.connect();
+        Connection connexion = dbConnectionManager.connect("userManager");
         List<List<Object>> list = null;
         try {
             list = SQLRequest.sqlToListObject(connexion, "SELECT password FROM User WHERE login = '" + login + "'", false);

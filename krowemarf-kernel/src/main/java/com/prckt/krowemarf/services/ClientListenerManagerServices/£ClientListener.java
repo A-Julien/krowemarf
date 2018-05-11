@@ -2,7 +2,7 @@ package com.prckt.krowemarf.services.ClientListenerManagerServices;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
+import java.sql.SQLException;
 
 
 public abstract class £ClientListener extends UnicastRemoteObject implements _ClientListener{
@@ -11,6 +11,6 @@ public abstract class £ClientListener extends UnicastRemoteObject implements _C
     }
 
     @Override
-    public abstract void onNewPrivateMessenger(String composenteName) throws RemoteException;
+    public abstract void onNewPrivateMessenger(String composenteName) throws RemoteException, SQLException;
 
 }

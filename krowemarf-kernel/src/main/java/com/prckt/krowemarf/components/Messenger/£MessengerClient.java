@@ -9,5 +9,4 @@ public abstract class £MessengerClient extends UnicastRemoteObject implements _
     public £MessengerClient() throws RemoteException {
         super();
     }
-
 }

@@ -1,28 +1,39 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
 import com.prckt.krowemarf.services.Access;
+import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
+import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
+import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
-
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+//TODO probleme path, ne crée pas les sous folder
+//TODO ne pas faire les execute requette dans cette classe
+//TODO ERREUR DE PATH DANS DOCUMENTLIBRARY
 public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLibrary {
-	private LinkedList<_MetaDataDocument> _MetaDataDocumentList;
+	private ArrayList<_MetaDataDocument> metaDataDocumentList;
 	private String path;
 	private String name;
-	private LinkedList<Access> access;
-	
+	private ArrayList<Access> access;
+    private Connection dbConnection;
+    private final String query = "INSERT INTO documentLibrary_krowemarf(name, extension, size, path, Composant_Name, serialized_object) VALUES (?,?,?,?,?,?)";
+
 	/**
 	 * Initializes a newly created DocumentLibrary object so that it represents a library of document.
 	 */
 	public DocumentLibrary(String name, String path) throws RemoteException {
 	    super();
-		this._MetaDataDocumentList = new LinkedList<>();
+		this.metaDataDocumentList = new ArrayList<>();
 		this.path = path;
 		this.name = name;
-		this.access = new LinkedList<Access>();
+		this.access = new ArrayList<Access>();
+		this.dbConnection = new DbConnectionManager().connect(this.getName());
 	}
 	
 	/**
@@ -30,14 +41,22 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 * @param _MetaDataDocument _MetaDataDocument to insert
 	 */
 	@Override
-	public void add(_MetaDataDocument _MetaDataDocument) { this._MetaDataDocumentList.add(_MetaDataDocument); }
+	public void add(_MetaDataDocument _MetaDataDocument) { this.metaDataDocumentList.add(_MetaDataDocument); }
 	
 	/**
 	 * Remove a _MetaDataDocument from the library
-	 * @param _MetaDataDocument _MetaDataDocument to remove
+	 * @param metaDataDocument _MetaDataDocument to remove
 	 */
+	//TODO nom de la table *facePam*
     @Override
-	public void remove(_MetaDataDocument _MetaDataDocument) {	this._MetaDataDocumentList.remove(_MetaDataDocument); }
+	public void remove(_MetaDataDocument metaDataDocument) throws RemoteException, SQLException {
+        String q = "DELETE FROM documentLibrary_krowemarf WHERE serialized_object = ?";
+        PreparedStatement pstmt = this.dbConnection.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
+        pstmt.setObject(1, SerializationUtils.serialize(_MetaDataDocument.copy(metaDataDocument)) );
+        pstmt.executeUpdate();
+
+        //this.metaDataDocumentList.remove(_MetaDataDocument);
+    }
 	
 	/**
 	 * Recover a document by its name, path and extension
@@ -51,35 +70,46 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	public _MetaDataDocument get(String name, String path, String extension) throws RemoteException {
 		int i = 0;
 		
-		while (this._MetaDataDocumentList.size()>i) {
-			if(this._MetaDataDocumentList.get(i).getName().equals(name)
-			&& this._MetaDataDocumentList.get(i).getPath().equals(path)
-			&& this._MetaDataDocumentList.get(i).getExtension().equals(extension)) {
-				return this._MetaDataDocumentList.get(i);
+		while (this.metaDataDocumentList.size()>i) {
+			if(this.metaDataDocumentList.get(i).getName().equals(name)
+			&& this.metaDataDocumentList.get(i).getPath().equals(path)
+			&& this.metaDataDocumentList.get(i).getExtension().equals(extension)) {
+				return this.metaDataDocumentList.get(i);
 			}
 			i++;
 		}
 		return null;
 	}
 	
-	
+	//TODO ne plus ecrire a la main les tablename
 	/**
 	 * Recover all the list of _MetaDataDocument
-	 * @return the complete LinkedList
+	 * @return the complete ArrayList
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> getall(){ return this._MetaDataDocumentList;	}
+	public ArrayList<_MetaDataDocument> getall() throws RemoteException {
+        ArrayList<_MetaDataDocument> banane = new ArrayList<>();
+
+        try {
+            for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "documentLibrary_krowemarf", this.getName())) {
+                banane.add((_MetaDataDocument) o);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return banane;
+    }
 	
 	/**
-	 * Recover a LinkedList with all documents with the same name
+	 * Recover a ArrayList with all documents with the same name
 	 * @param name of the document
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterByName(String name) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterByName(String name) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getName().equals(name)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -89,15 +119,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with the same extension
+	 * Recover a ArrayList with all documents with the same extension
 	 * @param extension of the document
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterByExtension(String extension) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterByExtension(String extension) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getExtension().equals(extension)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -107,15 +137,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with the same path
+	 * Recover a ArrayList with all documents with the same path
 	 * @param path of the document
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterByPath(String path) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterByPath(String path) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getPath().equals(path)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -125,15 +155,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with a bigger size
+	 * Recover a ArrayList with all documents with a bigger size
 	 * @param size minimum size
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterBySizeSup(float size) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterBySizeSup(float size) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getSize() < size) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -143,15 +173,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with a lowest size
+	 * Recover a ArrayList with all documents with a lowest size
 	 * @param size maximum size
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterBySizeInf(float size) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterBySizeInf(float size) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getSize() > size) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -161,16 +191,16 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with a bounded size
+	 * Recover a ArrayList with all documents with a bounded size
 	 * @param inf minimum size
 	 * @param sup maximum size
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getSize() > inf && a_MetaDataDocumentList.getSize() < sup) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -180,15 +210,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 	
 	/**
-	 * Recover a LinkedList with all documents with the same file's type
+	 * Recover a ArrayList with all documents with the same file's type
 	 * @param type type of the document
 	 * @return The list of documents that accomplish the request
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> filterByType(String type) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+	public ArrayList<_MetaDataDocument> filterByType(String type) throws RemoteException {
+		ArrayList<_MetaDataDocument> filtredList = new ArrayList<>();
 
-        for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
+        for (_MetaDataDocument a_MetaDataDocumentList : this.metaDataDocumentList) {
             if (a_MetaDataDocumentList.getType().equals(type)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
@@ -198,18 +228,38 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 
     @Override
-    public void uploadFile(String pseudo, byte[] buffer, _MetaDataDocument _MetaDataDocument) throws IOException, RemoteException {
-        System.out.println("upload");
-        System.out.println(this.path +  _MetaDataDocument.getPath() + _MetaDataDocument.getName()+ "." + _MetaDataDocument.getExtension());
+    public void uploadFile(String pseudo, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException, RemoteException {
 
-        BufferedOutputStream outputStream = new BufferedOutputStream( new FileOutputStream(this.path +  _MetaDataDocument.getPath() + _MetaDataDocument.getName()+ "." + _MetaDataDocument.getExtension()));
+        String completePath = this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension();
+
+        try {
+            PreparedStatement pstmt = this.dbConnection.prepareStatement(this.query, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, metaDataDocument.getName());
+            pstmt.setString(2, metaDataDocument.getExtension());
+            pstmt.setFloat(3, metaDataDocument.getSize());
+            pstmt.setString(4, metaDataDocument.getPath());
+            pstmt.setString(5, this.getName());
+            pstmt.setObject(6, SerializationUtils.serialize(_MetaDataDocument.copy(metaDataDocument)));
+            pstmt.executeUpdate();
+            System.out.println("POJOSQJFLQDSLFMH");
+
+        } catch (SQLException e1) {
+            System.out.println("Error save path into bd");
+            e1.printStackTrace();
+        }
+
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(completePath));
         outputStream.write(buffer,0,buffer.length);
         outputStream.flush();
         outputStream.close();
-        
-        this.add(_MetaDataDocument);
-        
+
         System.out.println("end transfere");
+        System.out.println("upload");
+        System.out.println(this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension());
+
+
+
     }
 
     @Override
@@ -276,9 +326,9 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     	access.remove(a);
     }
     
-    public LinkedList<Access> isAdmin() {
+    public ArrayList<Access> isAdmin() {
     	
-    	LinkedList<Access> a = new LinkedList<Access>;
+    	ArrayList<Access> a = new ArrayList<Access>;
     	
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getRight == "admin") {
@@ -289,9 +339,9 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     	return a;
     }
     
-    public LinkedList<Access> isUser() {
+    public ArrayList<Access> isUser() {
     	
-    	LinkedList<Access> a = new LinkedList<Access>;
+    	ArrayList<Access> a = new ArrayList<Access>;
     	
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getRight == "user") {
