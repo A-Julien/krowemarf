@@ -5,7 +5,6 @@ import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Image;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Text;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Video;
 import com.prckt.krowemarf.services.Access;
-
 import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -60,9 +59,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 				known = true;
 			}
 		}
-		if(!known) {
-			this.type = "Unknown";
-		}
+		if(!known) { this.type = "Unknown"; }
 	}
 	
 	
@@ -72,7 +69,6 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 	 * @param _file
 	 */
 	public MetaDataDocument(File _file)  throws RemoteException{
-		
 		boolean known = false;
 		String _nameAndExt = _file.getName();
 		String[] _sepNameExt = _nameAndExt.split(".");
@@ -106,31 +102,19 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 				known = true;
 			}
 		}
-		if(!known) {
-			this.type = "Unknown";
-		}
+		if(!known) { this.type = "Unknown"; }
 	}
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getExtension() {
-        return extension;
-    }
+    public String getExtension() { return extension; }
 
-    public float getSize() {
-        return size;
-    }
+    public float getSize() { return size; }
 
-    public String getPath() {
-        return path;
-    }
+    public String getPath() { return path; }
 
-    public String getType() {
-        return type;
-    }
-    /*
+    public String getType() { return type; }
+    
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
@@ -140,9 +124,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     	return null;
     }
     
-    public void addAccess(Access a) {
-    	access.add(a);
-    }
+    public void addAccess(Access a) { access.add(a); }
     
     public void addAccess(Users user, String right) {
     	Access a = new Access(user, right);
@@ -182,5 +164,5 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     		}
     	}
     	return a;
-    }*/
+    }
 }

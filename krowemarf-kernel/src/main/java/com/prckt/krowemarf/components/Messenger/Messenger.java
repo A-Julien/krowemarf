@@ -2,6 +2,7 @@ package com.prckt.krowemarf.components.Messenger;
 
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.Access;
+import com.prckt.krowemarf.services.Right;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.rmi.RemoteException;
@@ -58,17 +59,13 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     }
 
     public void reLoadMessage(_User user ,ArrayList<? extends _DefaultMessage> T) throws RemoteException {
-        for (_DefaultMessage d : T ) {
-            postMessage(user,d);
-        }
+        for (_DefaultMessage d : T ) { postMessage(user,d); }
     }
 
 
     @Override
-    public String getName() throws RemoteException {
-        return this.name;
-    }
-/*
+    public String getName() throws RemoteException { return this.name; }
+    
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
@@ -87,9 +84,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     	access.add(a);
     }
 
-    public void removeAccess(Access a) {
-    	access.remove(a);
-    }
+    public void removeAccess(Access a) { access.remove(a); }
 
     public void removeAccess(Users user, String right) {
     	Access a = new Access(user, right);
@@ -97,7 +92,6 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     }
 
     public LinkedList<Access> isAdmin() {
-
     	LinkedList<Access> a = new LinkedList<Access>;
 
     	for (int i = 0; i < access.size; i++) {
@@ -110,7 +104,6 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     }
 
     public LinkedList<Access> isUser() {
-
     	LinkedList<Access> a = new LinkedList<Access>;
 
     	for (int i = 0; i < access.size; i++) {
@@ -120,5 +113,5 @@ public class Messenger extends UnicastRemoteObject implements _Messenger {
     		}
     	}
     	return a;
-    }*/
+    }
 }

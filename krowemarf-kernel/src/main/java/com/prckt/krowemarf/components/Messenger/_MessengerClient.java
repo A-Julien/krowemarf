@@ -2,7 +2,6 @@ package com.prckt.krowemarf.components.Messenger;
 
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.UserManagerServices._User;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

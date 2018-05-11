@@ -1,7 +1,6 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
 import com.prckt.krowemarf.services.Access;
-
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,7 +18,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
 	public DocumentLibrary(String name, String path) throws RemoteException {
 	    super();
-		this._MetaDataDocumentList = new LinkedList<>();
+		this._MetaDataDocumentList = new LinkedList<_MetaDataDocument>();
 		this.path = path;
 		this.name = name;
 		this.access = new LinkedList<Access>();
@@ -68,7 +67,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 * @return the complete LinkedList
 	 */
     @Override
-	public LinkedList<_MetaDataDocument> getall(){ return this._MetaDataDocumentList;	}
+	public LinkedList<_MetaDataDocument> getall(){ return this._MetaDataDocumentList; }
 	
 	/**
 	 * Recover a LinkedList with all documents with the same name
@@ -84,7 +83,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-		
 		return filtredList;
 	}
 	
@@ -95,14 +93,13 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public LinkedList<_MetaDataDocument> filterByExtension(String extension) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+		LinkedList<_MetaDataDocument> filtredList = new LinkedList<_MetaDataDocument>();
 
         for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
             if (a_MetaDataDocumentList.getExtension().equals(extension)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-		
 		return filtredList;
 	}
 	
@@ -113,14 +110,13 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public LinkedList<_MetaDataDocument> filterByPath(String path) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+		LinkedList<_MetaDataDocument> filtredList = new LinkedList<_MetaDataDocument>();
 
         for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
             if (a_MetaDataDocumentList.getPath().equals(path)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-		
 		return filtredList;
 	}
 	
@@ -131,14 +127,13 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public LinkedList<_MetaDataDocument> filterBySizeSup(float size) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+		LinkedList<_MetaDataDocument> filtredList = new LinkedList<_MetaDataDocument>();
 
         for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
             if (a_MetaDataDocumentList.getSize() < size) {
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-		
 		return filtredList;
 	}
 	
@@ -149,14 +144,13 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public LinkedList<_MetaDataDocument> filterBySizeInf(float size) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+		LinkedList<_MetaDataDocument> filtredList = new LinkedList<_MetaDataDocument>();
 
         for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
             if (a_MetaDataDocumentList.getSize() > size) {
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-		
 		return filtredList;
 	}
 	
@@ -168,14 +162,13 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public LinkedList<_MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+		LinkedList<_MetaDataDocument> filtredList = new LinkedList<_MetaDataDocument>();
 
         for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
             if (a_MetaDataDocumentList.getSize() > inf && a_MetaDataDocumentList.getSize() < sup) {
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-		
 		return filtredList;
 	}
 	
@@ -186,14 +179,13 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public LinkedList<_MetaDataDocument> filterByType(String type) throws RemoteException {
-		LinkedList<_MetaDataDocument> filtredList = new LinkedList<>();
+		LinkedList<_MetaDataDocument> filtredList = new LinkedList<_MetaDataDocument>();
 
         for (_MetaDataDocument a_MetaDataDocumentList : this._MetaDataDocumentList) {
             if (a_MetaDataDocumentList.getType().equals(type)) {
                 filtredList.add(a_MetaDataDocumentList);
             }
         }
-
 		return filtredList;
 	}
 
@@ -223,9 +215,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     }
 
     @Override
-	public String getName() throws RemoteException {
-		return this.name;
-	}
+	public String getName() throws RemoteException { return this.name; }
 
 	public static File writeFile(byte[] buffer, String path) throws IOException {
         File file = new File(path);
@@ -249,7 +239,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         return null;
     }
     
- /*   public Right isPermission(Users user) {
+   public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
     			return access.get(i).getRight();
@@ -258,18 +248,14 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     	return null;
     }
     
-    public void addAccess(Access a) {
-    	access.add(a);
-    }
+    public void addAccess(Access a) { access.add(a); }
     
     public void addAccess(Users user, String right) {
     	Access a = new Access(user, right);
     	access.add(a);
     }
     
-    public void removeAccess(Access a) {
-    	access.remove(a);
-    }
+    public void removeAccess(Access a) { access.remove(a); }
     
     public void removeAccess(Users user, String right) {
     	Access a = new Access(user, right);
@@ -277,7 +263,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     }
     
     public LinkedList<Access> isAdmin() {
-    	
     	LinkedList<Access> a = new LinkedList<Access>;
     	
     	for (int i = 0; i < access.size; i++) {
@@ -290,7 +275,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     }
     
     public LinkedList<Access> isUser() {
-    	
     	LinkedList<Access> a = new LinkedList<Access>;
     	
     	for (int i = 0; i < access.size; i++) {
@@ -300,5 +284,5 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     		}
     	}
     	return a;
-    }*/
+    }
 }

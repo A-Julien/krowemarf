@@ -40,7 +40,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     public String getName() throws RemoteException {
         return null;
     }
-    /*
+    
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {
     		if (access.get(i).getUser == user) {
@@ -92,5 +92,5 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     		}
     	}
     	return a;
-    }*/
+    }
 }
