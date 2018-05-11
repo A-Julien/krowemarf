@@ -1,6 +1,7 @@
-package appli.connexion;
+package appli;
 
 import com.prckt.krowemarf.struct.Client;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,17 +22,23 @@ public class Controller {
     public PasswordField textFieldPassword;
     public Text textFieldMessage;
 
+    public Client client;
+
+    @FXML
+    private Main main;
+
+
+
     public void onActionButtonConnexion() throws IOException {
         //Connexion
         int isAuth = 1;
         String login = textFieldIdentifiant.getText();
         String password = textFieldPassword.getText();
 
-        Client client = new Client(1099, "127.0.0.1");
+        client = new Client(1099, "127.0.0.1");
         client.setCredential(login, password);
 
         try {
-
             // Setting Credential of Client
             isAuth = client.run();
 
@@ -41,20 +48,22 @@ public class Controller {
 
 
         if(isAuth == 0){
-            //Redirection vers application
-            textFieldMessage.setText("Vous êtes connecté " + login);
 
-
-            //
-            Stage stageTest = new Stage();
-            URL url = new File("D:\\Travail\\Projets_git\\Krowemarf\\krowemarf-kernel\\src\\main\\java\\appli\\connexion\\demo.fxml").toURL();
+            Main.showClientView(client);
+            //Redirection vers application demo.xml
+            /*Stage stageDemo = new Stage();
+            URL url = new File("C:\\Users\\Maxime\\IdeaProjects\\L3\\krowemarf\\krowemarf-kernel\\src\\main\\java\\appli\\demo.fxml").toURL();
             HBox root = (HBox)FXMLLoader.load(url);
 
             Scene scene = new Scene(root,800,500);
 
-            stageTest.setTitle("Application");
-            stageTest.setScene(scene);
-            stageTest.show();
+            stageDemo.setTitle("Application");
+            stageDemo.setResizable(false);
+            stageDemo.setScene(scene);
+            stageDemo.show();
+            */
+
+
 
             //
             Stage closedStage = (Stage) this.textFieldIdentifiant.getScene().getWindow();
@@ -65,6 +74,5 @@ public class Controller {
         }
 
     }
-
 
 }

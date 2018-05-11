@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appli.connexion.DemoController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appli.DemoController">
     <children>
         <ScrollPane prefHeight="500.0" prefWidth="400.0">
             <content>
                 <VBox fx:id="postGrouper" />
             </content>
         </ScrollPane>
-        <HBox maxWidth="1.7976931348623157E308" prefWidth="400.0">
+        <HBox maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="400.0">
             <children>
                 <TabPane fx:id="tabGrouper" maxHeight="500.0" maxWidth="400.0" minHeight="500.0" minWidth="400.0" prefHeight="500.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>

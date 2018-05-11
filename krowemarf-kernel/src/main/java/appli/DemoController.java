@@ -1,6 +1,8 @@
-package appli.connexion;
+package appli;
 
+import com.prckt.krowemarf.struct.Client;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -31,11 +33,28 @@ public class DemoController {
     @FXML
     private VBox postGrouper;
 
-    public void sendText(){
+    private Main main;
+
+    @FXML Controller controller;
+
+    private Client client;
+
+
+
+
+    public void sendText() throws Exception {
 
         String sent = this.inputField.getText();
 
 
+        int i = 1;
+
+
+
+    }
+
+    public void setClient(Client client) { // Setting the client-object in ClientViewController
+        this.client = client;
     }
 
     public void refreshConnected(){
@@ -55,4 +74,13 @@ public class DemoController {
         tabGrouper.getTabs().add(newTab);
     }
 
+
+    public void addPost(){
+
+    }
+
+
+    public void init(Main main) {
+        this.main = main;
+    }
 }
