@@ -32,7 +32,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     @Override
     public ArrayList<_DefaultMessage> loadPost() throws IOException, SQLException, ClassNotFoundException {
         ArrayList<_DefaultMessage> banane = new ArrayList<>();
-        for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "post_krowemarf", this.getName())) {
+        for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.postTableName, this.getName())) {
             banane.add((_DefaultMessage) o);
         }
         return banane;
@@ -65,6 +65,11 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     @Override
     public String getName() throws RemoteException {
         return this.name;
+    }
+
+    @Override
+    public void stop() throws SQLException, RemoteException {
+        this.dbConnection.close();
     }
 
 

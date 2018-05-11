@@ -271,11 +271,11 @@ class clientTest3
 
         TypeMessage typeMessage = new TypeMessage("CONTENU",client.getUser());
 
-        //chat.postMessage(client.getUser(), typeMessage);
+        chat.postMessage(client.getUser(), typeMessage);
 
-        //chat.saveMessage(SerializationUtils.serialize(typeMessage));
+        chat.saveMessage(SerializationUtils.serialize(typeMessage));
 
-        //chat.reLoadMessage(client.getUser());
+        chat.reLoadMessage(client.getUser());
 
         chat.unsubscribe(client.getUser());
 

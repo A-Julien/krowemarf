@@ -70,6 +70,10 @@ public final class Server extends £Server implements _Runnable {
 
     @Override
     public void stop() throws RemoteException, NotBoundException, SQLException {
+        for (_Component component:
+             this.componentManager.getComponents()) {
+            component.stop();
+        }
         this.registry.unbind(this.buildRmiAddr(componentManagerName, this.adresse));
     }
 }

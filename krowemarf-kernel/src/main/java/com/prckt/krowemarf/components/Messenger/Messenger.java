@@ -1,10 +1,12 @@
 package com.prckt.krowemarf.components.Messenger;
 
+import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.components.£DefaultMessage;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
+import com.prckt.krowemarf.services.UserManagerServices.User;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -90,7 +92,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
                 this.getName());
         for (Object message : messages ) { postMessage(user,(_DefaultMessage) message); }
         */
-        ArrayList<Object> banane = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "messenger_krowemarf", this.getName());
+        ArrayList<Object> banane = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.messengerTableName, this.getName());
         Enumeration<_MessengerClient> e = this.users.elements();
 
         for (Object o: banane) {
@@ -104,6 +106,13 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     @Override
     public String getName() throws RemoteException {
         return this.name;
+    }
+
+    @Override
+    public void stop() throws SQLException, RemoteException {
+        _User messaging = new User(this.getName());
+        this.postMessage(messaging,new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
+        this.dbConnection.close();
     }
 /*
     public Right isPermission(Users user) {

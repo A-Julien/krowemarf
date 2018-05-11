@@ -6,6 +6,7 @@ import com.prckt.krowemarf.components._Component;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class ComponentManager extends UnicastRemoteObject implements _ComponentManager {
@@ -39,8 +40,8 @@ public class ComponentManager extends UnicastRemoteObject implements _ComponentM
         this.components.remove(name);
     }
 
-    public HashMap<String, _Component> getComponents() {
-        return components;
+    public Collection<_Component> getComponents() {
+        return components.values();
     }
 }
 

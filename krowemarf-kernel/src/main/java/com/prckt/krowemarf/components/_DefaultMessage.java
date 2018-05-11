@@ -9,6 +9,7 @@ import java.util.Date;
 
 public interface _DefaultMessage extends Remote, Serializable {
 
+    public static final long serialVersionUID = 1L;
 
     public String getContent()throws RemoteException ;
 

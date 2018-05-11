@@ -1,7 +1,6 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
 import com.prckt.krowemarf.components._Component;
-import com.prckt.krowemarf.services.Access;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices._User;
@@ -23,7 +22,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	private ArrayList<_MetaDataDocument> metaDataDocumentList;
 	private String path;
 	private String name;
-	private ArrayList<Access> access;
     private Connection dbConnection;
     private final String insertQuery =
             "INSERT INTO " + _Component.documentLibraryTableName + "(name, extension, size, path, Composant_Name, serialized_object) VALUES (?,?,?,?,?,?)";
@@ -38,7 +36,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 		this.metaDataDocumentList = new ArrayList<>();
 		this.path = path;
 		this.name = name;
-		this.access = new ArrayList<Access>();
 		this.dbConnection = new DbConnectionManager().connect(this.getName());
 	}
 	
@@ -53,7 +50,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 * Remove a _MetaDataDocument from the library
 	 * @param metaDataDocument _MetaDataDocument to remove
 	 */
-	//TODO nom de la table *facePam*
     @Override
 	public void remove(_MetaDataDocument metaDataDocument) throws RemoteException, SQLException {
         PreparedStatement pstmt = this.dbConnection.prepareStatement(this.removeQuery, Statement.RETURN_GENERATED_KEYS);
@@ -86,7 +82,6 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 		return null;
 	}
 	
-	//TODO ne plus ecrire a la main les tablename
 	/**
 	 * Recover all the list of _MetaDataDocument
 	 * @return the complete ArrayList
@@ -95,7 +90,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	public ArrayList<_MetaDataDocument> getall() throws RemoteException {
         ArrayList<_MetaDataDocument> banane = new ArrayList<>();
 
-        for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "documentLibrary_krowemarf", this.getName())) {
+        for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.documentLibraryTableName, this.getName())) {
             banane.add((_MetaDataDocument) o);
         }
         return banane;
@@ -277,7 +272,12 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 		return this.name;
 	}
 
-	public static File writeFile(byte[] buffer, String path) throws IOException {
+    @Override
+    public void stop() throws SQLException {
+            this.dbConnection.close();
+    }
+
+    public static File writeFile(byte[] buffer, String path) throws IOException {
         File file = new File(path);
         BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(path));
         outputStream.write(buffer, 0, buffer.length);
