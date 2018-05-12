@@ -1,10 +1,12 @@
 package com.prckt.krowemarf.components.Messenger;
 
-import com.prckt.krowemarf.components.£DefaultMessage;
+import com.prckt.krowemarf.components.TypeMessage;
+import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
-import com.prckt.krowemarf.services.Access;
+import com.prckt.krowemarf.components.£DefaultMessage;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
+import com.prckt.krowemarf.services.UserManagerServices.User;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -16,29 +18,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.LinkedList;
 
-//TODO changer String en _User
 public class Messenger extends UnicastRemoteObject implements _Messenger{
-    private Hashtable<String, _MessengerClient> users;
+    private Hashtable<_User, _MessengerClient> users;
 
     public String name;
     private  Connection dbConnection;
-    private final String query = "INSERT INTO messenger_krowemarf(Composant_Name, serialized_object) VALUES (?, ?)";
-    private LinkedList<Access> access;
+
 
     public Messenger(String name) throws RemoteException {
         super();
         this.name = name;
         this.users = new Hashtable<>();
-        this.access = new LinkedList<>();
         this.dbConnection = new DbConnectionManager().connect(this.getName());
     }
 
     @Override
     public void subscribe(_MessengerClient messengerClient, _User user) throws RemoteException {
-        if(!this.users.containsKey(user.getLogin())){
-            this.users.put(user.getLogin(), messengerClient);
+        if(!this.users.containsKey(user)){
+            this.users.put(user, messengerClient);
             System.out.println(user.getLogin() +  " connected to chat : " + this.getName());
         }
     }
@@ -46,8 +44,8 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     @Override
     public void unsubscribe(_User user) throws RemoteException {
-        if(this.users.containsKey(user.getLogin())){
-            this.users.remove(user.getLogin());
+        if(this.users.containsKey(user)){
+            this.users.remove(user);
             System.out.println(user.getLogin() + " unsubscribe to chat : " + this.getName());
             Enumeration<_MessengerClient> e = this.users.elements();
             while (e.hasMoreElements()){
@@ -75,7 +73,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     public void saveMessage(byte[] message) throws RemoteException{
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
-                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(),this.query);
+                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName());
             } catch (SQLException e1) {
                 System.out.println("Error save default message to bd");
                 e1.printStackTrace();
@@ -94,19 +92,27 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
                 this.getName());
         for (Object message : messages ) { postMessage(user,(_DefaultMessage) message); }
         */
-        ArrayList<Object> banane = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, "messenger_krowemarf", this.getName());
+        ArrayList<Object> banane = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.messengerTableName, this.getName());
         Enumeration<_MessengerClient> e = this.users.elements();
 
         for (Object o: banane) {
-            System.out.println("un kappa");
-            this.users.get(user.getLogin()).onReceive((£DefaultMessage)o);
+            this.users.get(user).onReceive((£DefaultMessage)o);
         }
+
+        System.out.println(banane.size() + " reloaded for " + user.getLogin());
     }
 
 
     @Override
     public String getName() throws RemoteException {
         return this.name;
+    }
+
+    @Override
+    public void stop() throws SQLException, RemoteException {
+        _User messaging = new User(this.getName());
+        this.postMessage(messaging,new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
+        this.dbConnection.close();
     }
 /*
     public Right isPermission(Users user) {

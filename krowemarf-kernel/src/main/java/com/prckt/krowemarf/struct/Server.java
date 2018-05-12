@@ -14,7 +14,7 @@ import java.rmi.registry.Registry;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Server extends £Server implements _Runnable {
+public final class Server extends £Server implements _Runnable {
     private int port;
     private String adresse;
     private ComponentManager componentManager;
@@ -46,9 +46,9 @@ public class Server extends £Server implements _Runnable {
     @Override
     public int run() throws IOException, ClassNotFoundException {
         try {
-            if(!DbConnectionManager.tableExist(this.dbConnection,this.messengerTableName))      this.dbConnection.createStatement().executeUpdate(sqlTable(this.messengerTableName));
-            if(!DbConnectionManager.tableExist(this.dbConnection,this.postTableName))           this.dbConnection.createStatement().executeUpdate(sqlTable(this.postTableName));
-            if(!DbConnectionManager.tableExist(this.dbConnection,this.documentLibraryTableName))this.dbConnection.createStatement().executeUpdate(sqlTable(this.documentLibraryTableName));
+            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.messengerTableName)) this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.messengerTableName));
+            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.postTableName)) this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.postTableName));
+            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.documentLibraryTableName))this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.documentLibraryTableName));
             this.dbConnection.close();
         }catch (SQLException e) {
             System.out.println("Connection to bd faile");
@@ -70,6 +70,10 @@ public class Server extends £Server implements _Runnable {
 
     @Override
     public void stop() throws RemoteException, NotBoundException, SQLException {
+        for (_Component component:
+             this.componentManager.getComponents()) {
+            component.stop();
+        }
         this.registry.unbind(this.buildRmiAddr(componentManagerName, this.adresse));
     }
 }

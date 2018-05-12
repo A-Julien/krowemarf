@@ -5,6 +5,8 @@ import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Image;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Text;
 import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Video;
 import com.prckt.krowemarf.services.Access;
+import com.prckt.krowemarf.services.UserManagerServices.User;
+import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.io.File;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     private float size;
     private String path;
     private String type;
+    private User owner;
     private LinkedList<Access> access;
 	
 	
@@ -28,13 +31,14 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 	 * @param size
 	 * @param path
 	 */
-	public MetaDataDocument(String name, String extension, float size, String path) throws RemoteException{
+	public MetaDataDocument(_User owner , String name, String extension, float size, String path) throws RemoteException{
 		boolean known = false;
 		
 		this.name = name;
 		this.extension = extension;
 		this.size = size;
 		this.path = path;
+		this.owner = new User(owner.getLogin());
 		this.access = new LinkedList<>();
 		
 		for (Text ext : Text.values()) {
@@ -112,25 +116,36 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
 		}
 	}
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getExtension() {
         return extension;
     }
 
+    @Override
     public float getSize() {
         return size;
     }
 
+    @Override
     public String getPath() {
         return path;
     }
 
+    @Override
     public String getType() {
         return type;
     }
+
+    @Override
+	public User getOwner() {
+		return owner;
+	}
+
     /*
     public Right isPermission(Users user) {
     	for (int i = 0; i < access.size; i++) {

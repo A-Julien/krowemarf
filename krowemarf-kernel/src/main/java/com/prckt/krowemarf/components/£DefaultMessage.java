@@ -1,6 +1,9 @@
 package com.prckt.krowemarf.components;
 
 
+import com.prckt.krowemarf.services.UserManagerServices.User;
+import com.prckt.krowemarf.services.UserManagerServices._User;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
@@ -8,13 +11,13 @@ import java.util.Date;
 public abstract class £DefaultMessage extends UnicastRemoteObject implements _DefaultMessage {
 
     private String content;
-    private String sender;
+    private _User sender;
     private Date date;
 
-    public £DefaultMessage(String content, String sender, Date date) throws RemoteException {
+    public £DefaultMessage(String content, _User sender, Date date) throws RemoteException {
         super();
         this.content = content;
-        this.sender = sender;
+        this.sender = new User(sender.getLogin());
         this.date = date;
     }
 
@@ -23,12 +26,12 @@ public abstract class £DefaultMessage extends UnicastRemoteObject implements _D
         return content;
     }
 
-    public String getSender()throws RemoteException {
+    public _User getSender()throws RemoteException {
         return sender;
     }
 
     public String toStrings() throws RemoteException{
-        return  this.sender + " : " + this.content ;
+        return  this.sender.getLogin() + " : " + this.content ;
     }
 
     public abstract String getDataToSave() throws RemoteException;

@@ -71,8 +71,7 @@ class clientTestDrive
             System.out.println("meta -> " + m.getName());
         }
 
-        //TODO change pseudo to user
-        drive.uploadFile("jojo",DocumentLibrary.fileToBytes(file), new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
+        drive.uploadFile(client.getUser(),DocumentLibrary.fileToBytes(file), new MetaDataDocument(client.getUser(),"TestRMI-2" ,"zip",file.length(),""));
 
         drive.remove(metaDataDocuments.get(0));
 
@@ -109,7 +108,7 @@ class clientTestCommentaire
         //post.savePost(S
 
         //post.addPost(t);
-        post.addPost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser().getLogin())));
+        post.addPost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser())));
 
         ArrayList<_DefaultMessage> arrayList =  post.loadPost();
 
@@ -198,7 +197,6 @@ class clientTest
             client.setCredential("Seb","mdp");
             client.run();
         }
-
         _ComponentManager cmp = client.getComponentManager();
 
 
@@ -218,7 +216,7 @@ class clientTest
                     }
                 }, client.getUser());
 
-                ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new TypeMessage("ccoucou hibou",client.getUser().getLogin()));
+                ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new TypeMessage("ccoucou hibou",client.getUser()));
 
             }
         });
@@ -247,7 +245,7 @@ class clientTest
 
 }
 
-
+//TODO sans client.close gros bug lors de la reco
 class clientTest3
 {
     public static void main( String[] args ) throws Exception {
@@ -271,11 +269,11 @@ class clientTest3
             }
         }, client.getUser());
 
-        TypeMessage typeMessage = new TypeMessage("CONTENU",client.getUser().getLogin());
+        TypeMessage typeMessage = new TypeMessage("CONTENU",client.getUser());
 
         chat.postMessage(client.getUser(), typeMessage);
 
-        chat.saveMessage(SerializationUtils.serialize(new ArrayList<String>()));
+        chat.saveMessage(SerializationUtils.serialize(typeMessage));
 
         chat.reLoadMessage(client.getUser());
 
