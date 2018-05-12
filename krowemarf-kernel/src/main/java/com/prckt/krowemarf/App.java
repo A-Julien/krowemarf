@@ -34,6 +34,7 @@ public class App
         server.run();
 
         _Component messaging = new Messenger("chat");
+        _Component messaging2 = new Messenger("chat2");
 
         _Component posts =  new Posts("commentaires");
 
@@ -41,6 +42,7 @@ public class App
 
         server.bindComponent(posts);
         server.bindComponent(messaging);
+        server.bindComponent(messaging2);
         server.bindComponent(googleDrive);
 
     }
