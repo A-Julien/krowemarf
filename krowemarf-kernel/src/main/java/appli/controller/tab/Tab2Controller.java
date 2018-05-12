@@ -2,7 +2,6 @@ package appli.controller.tab;
 
 
 import com.prckt.krowemarf.components.Messenger._Messenger;
-
 import com.prckt.krowemarf.components.Messenger.£MessengerClient;
 import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
@@ -14,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import appli.controller.MainController;
 import org.apache.commons.lang3.SerializationUtils;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -46,7 +44,6 @@ public class Tab2Controller {
 			}
 		}, main.client.getUser());
 
-
 		chat.reLoadMessage(main.client.getUser());
 	}
 
@@ -65,9 +62,5 @@ public class Tab2Controller {
 			//remise a zero de l'input text
 			txtMessage.setText("");
 		}
-
-
-
 	}
-
 }

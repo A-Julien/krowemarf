@@ -2,21 +2,14 @@ package appli;
 
 import com.prckt.krowemarf.struct.Client;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class Controller {
-
     public Button buttonConnexion;
     public TextField textFieldIdentifiant;
     public PasswordField textFieldPassword;
@@ -26,8 +19,6 @@ public class Controller {
 
     @FXML
     private Main main;
-
-
 
     public void onActionButtonConnexion() throws IOException {
         //Connexion
@@ -41,11 +32,7 @@ public class Controller {
         try {
             // Setting Credential of Client
             isAuth = client.run();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        } catch (Exception e) {  e.printStackTrace(); }
 
         if(isAuth == 0){
 
@@ -63,16 +50,9 @@ public class Controller {
             stageDemo.show();
             */
 
-
-
             //
             Stage closedStage = (Stage) this.textFieldIdentifiant.getScene().getWindow();
             closedStage.close();
-
-        } else{
-            textFieldMessage.setText("Erreur de connexion");
-        }
-
+        } else{ textFieldMessage.setText("Erreur de connexion"); }
     }
-
 }

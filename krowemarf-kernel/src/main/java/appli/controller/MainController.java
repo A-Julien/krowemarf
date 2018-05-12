@@ -9,7 +9,6 @@ import appli.controller.tab.Tab2Controller;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -31,26 +30,26 @@ public class MainController {
 
         //tab1Controller.init(this);
 		//tab2Controller.init(this);
-        conController.init(this);
-
-
-		tabPane.setVisible(false);
+        this.conController.init(this);
+        this.tabPane.setVisible(false);
 
 	}
 
 	public void initTab1Tab2() throws IOException, SQLException, ClassNotFoundException {
-        tab1Controller.init(this);
-        tab2Controller.init(this);
+        this.tab1Controller.init(this);
+        this.tab2Controller.init(this);
 
-        label.setText("Bienvenue dans le chat " + client.getUser().getLogin());
-
-
+        this.label.setText("Bienvenue dans le chat " + client.getUser().getLogin());
     }
 
     public void setClient(Client client) {
-	    this.client = client;
+        this.client = client;
+    }
+
+    public Client getClient() {
+        return this.client;
     }
 
 
-    //TODO BOUTON CROIX rouge ==> deconnecter le client . client.stop(), et fermer appli system.exit(1)...
+    //TODO BOUTON CROIX rouge ==> deconnecter le client . client.stop(), et fermer appli system.exit(1)..
 }

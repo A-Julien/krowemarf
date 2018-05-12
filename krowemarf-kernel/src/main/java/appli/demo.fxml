@@ -14,7 +14,7 @@
     <children>
         <ScrollPane prefHeight="500.0" prefWidth="400.0">
             <content>
-                <VBox fx:id="postGrouper" />
+                <VBox fx:id="postGrouper" fx:value="1.0"/>
             </content>
         </ScrollPane>
         <HBox maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="400.0">

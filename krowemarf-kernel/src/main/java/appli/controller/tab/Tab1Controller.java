@@ -1,8 +1,6 @@
 package appli.controller.tab;
 
-
 import com.prckt.krowemarf.components.Messenger._Messenger;
-
 import com.prckt.krowemarf.components.Messenger.£MessengerClient;
 import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
@@ -13,13 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import appli.controller.MainController;
-import javafx.scene.layout.GridPane;
 import org.apache.commons.lang3.SerializationUtils;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
 
 public class Tab1Controller {
 	
@@ -48,10 +43,8 @@ public class Tab1Controller {
             }
         }, main.client.getUser());
 
-
         chat.reLoadMessage(main.client.getUser());
 	}
-
 
     public void btn2EnvoyerClicked(ActionEvent actionEvent) throws RemoteException, SQLException {
         _ComponentManager cmp = main.client.getComponentManager();
@@ -67,9 +60,5 @@ public class Tab1Controller {
             //remise a zero de l'input text
             txtMessage.setText("");
         }
-
-
-
     }
-
 }

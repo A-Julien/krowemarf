@@ -17,6 +17,7 @@
          <children>
             <TextArea fx:id="txtMessage" prefHeight="73.0" prefWidth="371.0" promptText="Votre message : " />
             <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#btn2EnvoyerClicked" prefHeight="73.0" prefWidth="108.0" text="Envoyer" />
+
          </children>
       </HBox>
    </children>
