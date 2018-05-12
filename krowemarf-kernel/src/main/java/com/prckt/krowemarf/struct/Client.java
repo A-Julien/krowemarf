@@ -51,7 +51,7 @@ public final class Client extends UnicastRemoteObject implements _Runnable, _Cli
     @Override
     public int run() throws Exception {
 
-        System.setProperty("java.security.policy","C:\\Users\\Tsuzu\\Documents\\GitHub\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\security.policy");
+        System.setProperty("java.security.policy","/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/security.policy");
         if (System.getSecurityManager() == null)
         {
             System.setSecurityManager ( new RMISecurityManager() );

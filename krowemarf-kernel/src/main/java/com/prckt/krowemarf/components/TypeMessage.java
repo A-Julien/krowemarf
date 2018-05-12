@@ -28,5 +28,4 @@ public class TypeMessage extends £DefaultMessage {
     public String getDataToSave() throws RemoteException {
         return this.toStrings() + " " + super.getDate();
     }
-
 }

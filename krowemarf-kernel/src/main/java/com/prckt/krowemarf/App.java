@@ -27,8 +27,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
+//TODO fichier config path
+//TODO logger
+
 
 public class App
 {
@@ -89,12 +91,12 @@ class clientTestDrive
 
         //drive.uploadFile(client.getUser(),DocumentLibrary.fileToBytes(file), new MetaDataDocument(client.getUser(),"TestRMI-2" ,"zip",file.length(),""));
 
-        //drive.remove(metaDataDocuments.get(0));
+        drive.remove(metaDataDocuments.get(0));
 
-        DocumentLibrary.writeFile(
+        /*DocumentLibrary.writeFile(
                 drive.downloadFile(metaDataDocuments.get(0)),//new MetaDataDocument(client.getUser(),"TestRMI-2" ,"zip",file.length(),"/Users/julien/Desktop/")),
                 "/Users/julien/Desktop/", metaDataDocuments.get(0)
-        );
+        );*/
 
 
         client.stop();
@@ -127,12 +129,16 @@ class clientTestCommentaire
 
 
 
+
        _DefaultMessage t  = new TypeMessage("CONTENU",client.getUser(), new Date(96, 1, 14));
        System.out.println("On enregistre ça : " + t.toStrings());
 
        post.addPost(SerializationUtils.serialize(t));
 
         HashMap<Integer,_DefaultMessage> hm =  post.loadPost();
+        for (_DefaultMessage messages: hm.values()) {
+
+        }
 //        System.out.println("On load ça : " + hm.get(15).toStrings());
  //       post.removePost(15);
 
@@ -190,6 +196,8 @@ class clientTest1
                 System.out.println(user.getLogin() +  " leave");
             }
         }, client.getUser());
+
+
 
 
 

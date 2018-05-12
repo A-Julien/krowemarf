@@ -1,21 +1,20 @@
 package com.prckt.krowemarf.components.Posts;
 
-import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
-import com.prckt.krowemarf.services.UserManagerServices.User;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
-//TODO un post est composé de Default message ayant un Titre
 public class Posts extends UnicastRemoteObject implements _Posts {
 
     private String name;
@@ -35,7 +34,6 @@ public class Posts extends UnicastRemoteObject implements _Posts {
         return _DbConnectionManager.getHMPosts(this.dbConnection, this.getName());
     }
 
-    //TODO remoter cette metode in abstract class
     @Override
     public void addPost(byte[] message) throws RemoteException {
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
@@ -50,7 +48,6 @@ public class Posts extends UnicastRemoteObject implements _Posts {
         }
     }
 
-    //TODO tester cette methode
     @Override
     public void removePost(int id) throws RemoteException, SQLException {
         String q = "DELETE FROM posts_krowemarf WHERE id = ?";

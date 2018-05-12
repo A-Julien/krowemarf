@@ -3,6 +3,7 @@ package com.prckt.krowemarf.struct;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.ClientListenerManager;
 import com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager;
+import com.prckt.krowemarf.services.ConfigManagerServices.ConfigManager;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices.UserManager;
 
@@ -47,7 +48,7 @@ public final class Server extends £Server implements _Runnable {
     @Override
     public int run() throws IOException, ClassNotFoundException {
         try {
-            System.setProperty("java.security.policy","C:\\Users\\Tsuzu\\Documents\\GitHub\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\security.policy");
+            System.setProperty("java.security.policy", ConfigManager.getConfig("bdProp"));//"/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/security.policy");
             if (System.getSecurityManager() == null)
             {
                 System.setSecurityManager ( new RMISecurityManager() );
@@ -58,7 +59,7 @@ public final class Server extends £Server implements _Runnable {
             if(!DbConnectionManager.tableExist(this.dbConnection,_Component.documentLibraryTableName))this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.documentLibraryTableName));
             this.dbConnection.close();
         }catch (SQLException e) {
-            System.out.println("Connection to bd faile");
+            System.out.println("Connection to bd failed");
             e.printStackTrace();
             System.exit(1);
         }

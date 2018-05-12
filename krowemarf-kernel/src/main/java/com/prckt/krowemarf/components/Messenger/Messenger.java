@@ -86,20 +86,14 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     @Override
     public void reLoadMessage(_User user) throws IOException, SQLException, ClassNotFoundException, RemoteException {
-       /* ArrayList<Object> messages = _DbConnectionManager.deSerializeJavaObjectFromDB(
-                this.dbConnection,
-                "messenger_krowemarf",
-                this.getName());
-        for (Object message : messages ) { postMessage(user,(_DefaultMessage) message); }
-        */
-        ArrayList<Object> banane = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.messengerTableName, this.getName());
-        Enumeration<_MessengerClient> e = this.users.elements();
+        ArrayList<Object> messages = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.messengerTableName, this.getName());
+        //Enumeration<_MessengerClient> e = this.users.elements();
 
-        for (Object o: banane) {
+        for (Object o: messages) {
             this.users.get(user).onReceive((£DefaultMessage)o);
         }
 
-        System.out.println(banane.size() + " reloaded for " + user.getLogin());
+        System.out.println(messages.size() + " reloaded for " + user.getLogin());
     }
 
 

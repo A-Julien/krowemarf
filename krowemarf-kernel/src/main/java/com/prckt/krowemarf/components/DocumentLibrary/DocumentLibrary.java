@@ -14,9 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-//TODO probleme path, ne crée pas les sous folder
-//TODO ne pas faire les execute requette dans cette classe
-//TODO ERREUR DE PATH DANS DOCUMENTLIBRARY
 //TODO changer touts les filters par des requettes sql
 public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLibrary {
 	private ArrayList<_MetaDataDocument> metaDataDocumentList;
