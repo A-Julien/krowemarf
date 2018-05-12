@@ -8,6 +8,7 @@ import com.prckt.krowemarf.services.UserManagerServices.UserManager;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -46,6 +47,12 @@ public final class Server extends £Server implements _Runnable {
     @Override
     public int run() throws IOException, ClassNotFoundException {
         try {
+            System.setProperty("java.security.policy","C:\\Users\\Tsuzu\\Documents\\GitHub\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\security.policy");
+            if (System.getSecurityManager() == null)
+            {
+                System.setSecurityManager ( new RMISecurityManager() );
+            }
+
             if(!DbConnectionManager.tableExist(this.dbConnection,_Component.messengerTableName)) this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.messengerTableName));
             if(!DbConnectionManager.tableExist(this.dbConnection,_Component.postTableName)) this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.postTableName));
             if(!DbConnectionManager.tableExist(this.dbConnection,_Component.documentLibraryTableName))this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.documentLibraryTableName));
