@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class DbConnectionManager extends UnicastRemoteObject {
 
-    private static String profile = "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.properties";
+    private static String profile = "C:\\Users\\Tsuzu\\Documents\\GitHub\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\DbConnectionServices\\BD.properties";
     private Properties prop = new Properties();
     private String jdbcDriver;
     private String dbUrl;

@@ -1,20 +1,22 @@
 package com.prckt.krowemarf.services.DbConnectionServices;
 
 import com.prckt.krowemarf.components._Component;
+import com.prckt.krowemarf.components._DefaultMessage;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface _DbConnectionManager extends Remote {
 
-    public static void serializeJavaObjectToDB(Connection connection, byte[] message, String name) throws SQLException, RemoteException {
+    public static void serializeJavaObjectToDB(Connection connection, byte[] message, String name, String tableName) throws SQLException, RemoteException {
 
         PreparedStatement pstmt = connection.prepareStatement(
-                "INSERT INTO "+ _Component.messengerTableName +"(Composant_Name, serialized_object) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+                "INSERT INTO "+ tableName +"(Composant_Name, serialized_object) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
         pstmt.setString(1, name);
         pstmt.setObject(2, message);
@@ -99,6 +101,32 @@ public interface _DbConnectionManager extends Remote {
 
         return list;
     }
+
+
+
+
+    public static HashMap<Integer,_DefaultMessage> getHMPosts(Connection connection, String composentName) throws  RemoteException {
+        HashMap<Integer,_DefaultMessage> messagesInBD = new HashMap<>();
+
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(
+                    "SELECT id, serialized_object FROM " + _Component.postTableName +" WHERE Composant_Name = '"+ composentName +"'");
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if(resultSet.next()){
+                do{
+                    messagesInBD.put(resultSet.getInt(1),SerializationUtils.deserialize(resultSet.getBytes(2)));
+                }while(resultSet.next());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  messagesInBD;
+    }
+
+
 }
 
 

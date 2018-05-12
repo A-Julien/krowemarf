@@ -73,7 +73,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     public void saveMessage(byte[] message) throws RemoteException{
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
-                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName());
+                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(), _Component.messengerTableName);
             } catch (SQLException e1) {
                 System.out.println("Error save default message to bd");
                 e1.printStackTrace();
