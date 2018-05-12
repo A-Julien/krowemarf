@@ -1,5 +1,6 @@
 package com.prckt.krowemarf;
 
+import com.mysql.jdbc.log.Log;
 import com.prckt.krowemarf.components.DocumentLibrary.DocumentLibrary;
 import com.prckt.krowemarf.components.DocumentLibrary.MetaDataDocument;
 import com.prckt.krowemarf.components.DocumentLibrary._DocumentLibrary;
@@ -30,6 +31,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 
 public class App
 {
@@ -158,7 +161,6 @@ class clientTest1
         client.run();
 
         _ComponentManager cmp = client.getComponentManager();
-
         client.initClientListner(new £ClientListener() {
             @Override
             public void onNewPrivateMessenger(String composenteName) throws RemoteException {

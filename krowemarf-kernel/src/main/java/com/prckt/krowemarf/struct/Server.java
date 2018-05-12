@@ -14,6 +14,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 
 public final class Server extends £Server implements _Runnable {
     private int port;
@@ -25,7 +27,7 @@ public final class Server extends £Server implements _Runnable {
     private Connection dbConnection;
 
 
-    public Server(int port, String adresse) throws RemoteException {
+    public Server(int port, String adresse) throws RemoteException, IOException {
         this.port = port;
         this.adresse = adresse;
         LocateRegistry.createRegistry(this.port);
@@ -34,6 +36,9 @@ public final class Server extends £Server implements _Runnable {
         this.userManager = new UserManager();
         this.clientListenerManager = new ClientListenerManager();
         this.dbConnection = new DbConnectionManager().connect("Server");
+        Logger log = Logger.getGlobal();
+        FileHandler fh = new FileHandler("myLog.txt", true);
+        log.addHandler(fh);
     }
 
     public void bindComponent(_Component component) throws RemoteException {
