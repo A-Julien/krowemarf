@@ -9,6 +9,7 @@ import com.prckt.krowemarf.services.UserManagerServices._User;
 import com.prckt.krowemarf.services.UserManagerServices._UserManager;
 
 import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -49,6 +50,13 @@ public final class Client extends UnicastRemoteObject implements _Runnable, _Cli
 
     @Override
     public int run() throws Exception {
+
+        System.setProperty("java.security.policy","C:\\Users\\Tsuzu\\Documents\\GitHub\\krowemarf\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\security.policy");
+        if (System.getSecurityManager() == null)
+        {
+            System.setSecurityManager ( new RMISecurityManager() );
+        }
+
         if(this.user == null){
             throw new Exception("You must call setCredential() methode before run client");
         }

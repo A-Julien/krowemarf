@@ -128,14 +128,14 @@ class clientTestCommentaire
 
 
 
-       //_DefaultMessage t  = new TypeMessage("CONTENU",client.getUser(), new Date(96, 1, 14));
-       // System.out.println("On enregistre ça : " + t.toStrings());
+       _DefaultMessage t  = new TypeMessage("CONTENU",client.getUser(), new Date(96, 1, 14));
+       System.out.println("On enregistre ça : " + t.toStrings());
 
-       //post.addPost(SerializationUtils.serialize(t));
+       post.addPost(SerializationUtils.serialize(t));
 
         HashMap<Integer,_DefaultMessage> hm =  post.loadPost();
-        System.out.println("On load ça : " + hm.get(15).toStrings());
-        post.removePost(15);
+//        System.out.println("On load ça : " + hm.get(15).toStrings());
+ //       post.removePost(15);
 
       /* for (_DefaultMessage e :arrayList) {
            System.out.println("On load ça : " + e.toStrings());
