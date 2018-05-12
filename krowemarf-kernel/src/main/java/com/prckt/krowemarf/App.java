@@ -28,9 +28,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-//TODO fichier config path
-//TODO logger
-
 
 public class App
 {
@@ -196,8 +193,6 @@ class clientTest1
                 System.out.println(user.getLogin() +  " leave");
             }
         }, client.getUser());
-
-
 
 
 
