@@ -1,7 +1,6 @@
 package com.prckt.krowemarf;
 
 import com.prckt.krowemarf.components.DocumentLibrary.DocumentLibrary;
-import com.prckt.krowemarf.components.DocumentLibrary.MetaDataDocument;
 import com.prckt.krowemarf.components.DocumentLibrary._DocumentLibrary;
 import com.prckt.krowemarf.components.DocumentLibrary._MetaDataDocument;
 import com.prckt.krowemarf.components.Messenger.Messenger;
@@ -38,7 +37,7 @@ public class App
 
         _Component posts =  new Posts("commentaires");
 
-        _Component googleDrive = new DocumentLibrary("drive","/Users/julien/Desktop/");
+        _Component googleDrive = new DocumentLibrary("drive","/Users/julien/Downloads");
 
         server.bindComponent(posts);
         server.bindComponent(messaging);
@@ -71,7 +70,7 @@ class clientTestDrive
 
         _DocumentLibrary drive = (_DocumentLibrary) cmp.getComponantByName("drive");
 
-        File file = new File("/Users/julien/Downloads/TestRMI-2.rar");
+        File file = new File("/Users/julien/Downloads/TestRMI-2.zip");
         /*byte buffer[] = new byte[(int)file.length()];
         BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("/Users/julien/Downloads/TestRMI-2.rar"));
         inputStream.read(buffer,0,buffer.length);
@@ -85,14 +84,14 @@ class clientTestDrive
             System.out.println("meta -> " + m.getName());
         }
 
-        drive.uploadFile(client.getUser(),DocumentLibrary.fileToBytes(file), new MetaDataDocument(client.getUser(),"TestRMI-2" ,"zip",file.length(),""));
+        //drive.uploadFile(client.getUser(),DocumentLibrary.fileToBytes(file), new MetaDataDocument(client.getUser(),"TestRMI-2" ,"zip",file.length(),""));
 
-        drive.remove(metaDataDocuments.get(0));
+        //drive.remove(metaDataDocuments.get(0));
 
-        /*DocumentLibrary.writeFile(
-                drive.downloadFile(new MetaDataDocument("TestRMI-2" ,"zip",file.length(),"/Users/julien/Desktop/")),
-                "/Users/julien/Desktop/test/" + "TestRMI-2.zip"
-        );*/
+        DocumentLibrary.writeFile(
+                drive.downloadFile(metaDataDocuments.get(0)),//new MetaDataDocument(client.getUser(),"TestRMI-2" ,"zip",file.length(),"/Users/julien/Desktop/")),
+                "/Users/julien/Desktop/", metaDataDocuments.get(0)
+        );
 
 
         client.stop();

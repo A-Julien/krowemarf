@@ -20,7 +20,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     private float size;
     private String path;
     private String type;
-    private User owner;
+    private _User owner;
     private LinkedList<Access> access;
 	
 	
@@ -127,7 +127,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     }
 
     @Override
-    public float getSize() {
+    public float getSize() throws RemoteException{
         return size;
     }
 
@@ -142,7 +142,7 @@ public class MetaDataDocument extends UnicastRemoteObject implements _MetaDataDo
     }
 
     @Override
-	public User getOwner() {
+	public _User getOwner() throws RemoteException{
 		return owner;
 	}
 

@@ -34,7 +34,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	public DocumentLibrary(String name, String path) throws RemoteException {
 	    super();
 		this.metaDataDocumentList = new ArrayList<>();
-		this.path = path;
+		this.path = path + "/";
 		this.name = name;
 		this.dbConnection = new DbConnectionManager().connect(this.getName());
 	}
@@ -227,7 +227,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     public void uploadFile(_User user, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException, RemoteException {
 
         String completePath = this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension();
-
+        System.out.println("PATH -> " + completePath);
         try {
             PreparedStatement pstmt = this.dbConnection.prepareStatement(this.insertQuery, Statement.RETURN_GENERATED_KEYS);
 
@@ -239,18 +239,17 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
             pstmt.setObject(6, SerializationUtils.serialize(_MetaDataDocument.copy(metaDataDocument)));
             pstmt.executeUpdate();
 
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(completePath));
+            outputStream.write(buffer,0,buffer.length);
+            outputStream.flush();
+            outputStream.close();
+            System.out.println("Uploading "+ metaDataDocument.getName() +"  file complete from " + metaDataDocument.getOwner().getLogin());
         } catch (SQLException e1) {
-            System.out.println("Error save path into bd");
+            System.out.println("Can't save folder");
             e1.printStackTrace();
         }
 
-        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(completePath));
-        outputStream.write(buffer,0,buffer.length);
-        outputStream.flush();
-        outputStream.close();
 
-        System.out.println("end transfere");
-        System.out.println("upload");
         System.out.println(this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension());
 
 
@@ -258,12 +257,25 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
     }
 
     @Override
-    public byte[] downloadFile(_MetaDataDocument metaDataDocument) throws Exception {
+    public byte[] downloadFile(_MetaDataDocument metaDataDocument) throws RemoteException {
         File file = new File(metaDataDocument.getPath() + metaDataDocument.getName() + "." + metaDataDocument.getExtension());
-        byte buffer[] = new byte[(int) file.length()];
-        BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file.getPath()));
-        inputStream.read(buffer,0,buffer.length);
-        inputStream.close();
+        byte buffer[] = new byte[(int) metaDataDocument.getSize()]; //new byte[(int) file.length()];
+        BufferedInputStream inputStream = null;
+        try {
+            inputStream = new BufferedInputStream(new FileInputStream(
+                    this.path + metaDataDocument.getPath() +
+                            metaDataDocument.getName() + "." +
+                            metaDataDocument.getExtension()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            inputStream.read(buffer,0,buffer.length);
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return buffer;
     }
 
@@ -278,13 +290,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         this.dbConnection.close();
     }
 
-    public static File writeFile(byte[] buffer, String path) throws IOException {
-        File file = new File(path);
-        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(path));
+    public static void writeFile(byte[] buffer, String path, _MetaDataDocument metaDataDocument) throws IOException {
+       // File file = new File(path + metaDataDocument.getName() + "." + metaDataDocument.getExtension());
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(
+                path +
+                        metaDataDocument.getName() + "." +
+                        metaDataDocument.getExtension()));
         outputStream.write(buffer, 0, buffer.length);
         outputStream.flush();
         outputStream.close();
-        return file;
     }
 
     public static byte[] fileToBytes(File file){
