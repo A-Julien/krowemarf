@@ -1,19 +1,19 @@
 package com.prckt.krowemarf.components.Posts;
 
+import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
+import com.prckt.krowemarf.services.UserManagerServices.User;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //TODO un post est composé de Default message ayant un Titre
 public class Posts extends UnicastRemoteObject implements _Posts {
@@ -31,12 +31,8 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     }
 
     @Override
-    public ArrayList<_DefaultMessage> loadPost() throws IOException, SQLException, ClassNotFoundException {
-        ArrayList<_DefaultMessage> banane = new ArrayList<>();
-        for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.postTableName, this.getName())) {
-            banane.add((_DefaultMessage) o);
-        }
-        return banane;
+    public HashMap<Integer,_DefaultMessage> loadPost() throws IOException, SQLException, ClassNotFoundException {
+        return _DbConnectionManager.getHMPosts(this.dbConnection, this.getName());
     }
 
     //TODO remoter cette metode in abstract class
@@ -44,7 +40,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     public void addPost(byte[] message) throws RemoteException {
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
-                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName());
+                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(), _Component.postTableName);
             } catch (SQLException e1) {
                 System.out.println("Error save default message to bd");
                 e1.printStackTrace();
@@ -56,10 +52,10 @@ public class Posts extends UnicastRemoteObject implements _Posts {
 
     //TODO tester cette methode
     @Override
-    public void removePost(_DefaultMessage post) throws RemoteException, SQLException {
-        String q = "DELETE FROM posts_krowemarf WHERE serialized_object = ?";
+    public void removePost(int id) throws RemoteException, SQLException {
+        String q = "DELETE FROM posts_krowemarf WHERE id = ?";
         PreparedStatement pstmt = this.dbConnection.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
-        pstmt.setObject(1, SerializationUtils.serialize(post));
+        pstmt.setInt(1, id);
         pstmt.executeUpdate();
     }
 
