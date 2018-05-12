@@ -110,8 +110,9 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     @Override
     public void stop() throws SQLException, RemoteException {
+        System.out.println("Component  " + this.getName() + " Shouting down");
         _User messaging = new User(this.getName());
-        this.postMessage(messaging,new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
+        this.postMessage(messaging, new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
         this.dbConnection.close();
     }
 /*

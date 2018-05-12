@@ -27,6 +27,7 @@ import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 public class App
 {
     public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
@@ -42,6 +43,19 @@ public class App
         server.bindComponent(posts);
         server.bindComponent(messaging);
         server.bindComponent(googleDrive);
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                    System.out.println("Shouting down ...");
+                    server.stop();
+
+                } catch (InterruptedException | RemoteException | NotBoundException | SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 }
@@ -110,14 +124,16 @@ class clientTestCommentaire
         //post.addPost(t);
         post.addPost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser())));
 
-        ArrayList<_DefaultMessage> arrayList =  post.loadPost();
+        /*ArrayList<_DefaultMessage> arrayList =  post.loadPost();
+
+
 
        for (_DefaultMessage e :arrayList) {
             System.out.println(e.toStrings());
-        }
+        }*/
 
         //System.out.println("PUTE");
-        //client.stop();
+        client.stop();
     }
 }
 
@@ -271,11 +287,12 @@ class clientTest3
 
         TypeMessage typeMessage = new TypeMessage("CONTENU",client.getUser());
 
-        chat.postMessage(client.getUser(), typeMessage);
+        //chat.postMessage(client.getUser(), typeMessage);
 
-        chat.saveMessage(SerializationUtils.serialize(typeMessage));
+        //chat.saveMessage(SerializationUtils.serialize(typeMessage));
 
         chat.reLoadMessage(client.getUser());
+
 
         chat.unsubscribe(client.getUser());
 

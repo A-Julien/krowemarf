@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+//TODO un post est composé de Default message ayant un Titre
 public class Posts extends UnicastRemoteObject implements _Posts {
 
     private String name;
@@ -52,7 +53,8 @@ public class Posts extends UnicastRemoteObject implements _Posts {
             System.out.println("Can't save message in post, because is no good");
         }
     }
-    //TODO sql requette pour delete post
+
+    //TODO tester cette methode
     @Override
     public void removePost(_DefaultMessage post) throws RemoteException, SQLException {
         String q = "DELETE FROM posts_krowemarf WHERE serialized_object = ?";
@@ -69,6 +71,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
 
     @Override
     public void stop() throws SQLException, RemoteException {
+        System.out.println("Component  " + this.getName() + " Shouting down");
         this.dbConnection.close();
     }
 

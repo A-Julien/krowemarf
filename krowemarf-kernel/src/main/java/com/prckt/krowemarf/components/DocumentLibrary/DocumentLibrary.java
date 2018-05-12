@@ -273,8 +273,9 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	}
 
     @Override
-    public void stop() throws SQLException {
-            this.dbConnection.close();
+    public void stop() throws SQLException, RemoteException {
+        System.out.println("Component  " + this.getName() + " Shouting down");
+        this.dbConnection.close();
     }
 
     public static File writeFile(byte[] buffer, String path) throws IOException {

@@ -1,7 +1,7 @@
 package com.prckt.krowemarf;
 
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
-import com.prckt.krowemarf.services.DbConnectionServices.SQLRequest;
+import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
 
 import java.rmi.RemoteException;
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class SQLTest {
         /**
          * Exemple d'une requete SQL, renvoie une liste d'objet
          */
-        List<List<Object>> list = SQLRequest.sqlToListObject(connexion, "SELECT * FROM user;", true);
+        List<List<Object>> list = _DbConnectionManager.sqlToListObject(connexion, "SELECT * FROM user;", true);
         /**
          * Parcours de la liste recuperer par SQL
          */

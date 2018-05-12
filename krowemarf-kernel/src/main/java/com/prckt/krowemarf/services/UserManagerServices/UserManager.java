@@ -1,7 +1,7 @@
 package com.prckt.krowemarf.services.UserManagerServices;
 
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
-import com.prckt.krowemarf.services.DbConnectionServices.SQLRequest;
+import com.prckt.krowemarf.services.DbConnectionServices._DbConnectionManager;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -31,7 +31,7 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
         Connection connexion = dbConnectionManager.connect("userManager");
         List<List<Object>> list;
         try {
-            list = SQLRequest.sqlToListObject(connexion, "SELECT password FROM User WHERE login = '" + user.getLogin() + "'", false);
+            list = _DbConnectionManager.sqlToListObject(connexion, "SELECT password FROM User WHERE login = '" + user.getLogin() + "'", false);
         } catch (SQLException e) {
             return Boolean.FALSE;
         }
