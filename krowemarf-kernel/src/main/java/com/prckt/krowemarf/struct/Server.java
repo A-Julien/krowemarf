@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+
 public final class Server extends £Server implements _Runnable {
     private int port;
     private String adresse;
@@ -42,6 +43,12 @@ public final class Server extends £Server implements _Runnable {
         log.addHandler(fh);
     }
 
+    /**
+     * Add component to the component manager
+     * This methode must be call after the running method
+     * @param component to add
+     * @throws RemoteException
+     */
     public void bindComponent(_Component component) throws RemoteException {
         this.componentManager.addComponent(component);
     }
@@ -50,10 +57,18 @@ public final class Server extends £Server implements _Runnable {
         this.componentManager.removeComponent(componentManagerName);
     }
 
+    /**
+     * This method allows to run the server. Need to call them first.
+     * Open the connection with database and check if table exist or not.
+     * Initialize the rmi server by binding all the components
+     * @return 0 if the server start correctly
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @Override
     public int run() throws IOException, ClassNotFoundException {
         try {
-            System.setProperty("java.security.policy", ConfigManager.getConfig("bdProp"));//"/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/security.policy");
+            System.setProperty("java.security.policy", ConfigManager.getConfig("bdProp"));
             if (System.getSecurityManager() == null)
             {
                 System.setSecurityManager ( new RMISecurityManager() );
@@ -78,15 +93,26 @@ public final class Server extends £Server implements _Runnable {
             System.out.println("Server failed to start");
             System.exit(1);
         }
-        return 0 ;
+        return 0;
+
     }
 
+    /**
+     * Method call when the server shutdown.
+     * call all stop() methods of each component in the component manager to close them.
+     * Unbind all managers from the rmi registry to stop the server.
+     * @throws RemoteException
+     * @throws NotBoundException
+     * @throws SQLException
+     */
     @Override
     public void stop() throws RemoteException, NotBoundException, SQLException {
         for (_Component component:
-             this.componentManager.getComponents()) {
+            this.componentManager.getComponents()) {
             component.stop();
         }
         this.registry.unbind(this.buildRmiAddr(componentManagerName, this.adresse));
+        this.registry.unbind(this.buildRmiAddr(userManagerName, this.adresse));
+        this.registry.unbind(this.buildRmiAddr(clientListenerManagerName, this.adresse));
     }
 }
