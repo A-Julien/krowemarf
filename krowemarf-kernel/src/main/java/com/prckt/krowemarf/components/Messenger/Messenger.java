@@ -73,7 +73,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     public void saveMessage(byte[] message) throws RemoteException{
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
-                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName());
+                _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(), _Component.messengerTableName);
             } catch (SQLException e1) {
                 System.out.println("Error save default message to bd");
                 e1.printStackTrace();
@@ -110,8 +110,9 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     @Override
     public void stop() throws SQLException, RemoteException {
+        System.out.println("Component  " + this.getName() + " Shouting down");
         _User messaging = new User(this.getName());
-        this.postMessage(messaging,new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
+        this.postMessage(messaging, new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
         this.dbConnection.close();
     }
 /*

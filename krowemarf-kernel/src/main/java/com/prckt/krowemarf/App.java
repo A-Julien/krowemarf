@@ -24,9 +24,13 @@ import java.io.File;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+
 public class App
 {
     public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
@@ -44,6 +48,19 @@ public class App
         server.bindComponent(messaging);
         server.bindComponent(messaging2);
         server.bindComponent(googleDrive);
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                    System.out.println("Shouting down ...");
+                    server.stop();
+
+                } catch (InterruptedException | RemoteException | NotBoundException | SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 }
@@ -110,16 +127,27 @@ class clientTestCommentaire
         //post.savePost(S
 
         //post.addPost(t);
-        post.addPost(SerializationUtils.serialize(new TypeMessage("CONTENU",client.getUser())));
 
-        ArrayList<_DefaultMessage> arrayList =  post.loadPost();
 
-       for (_DefaultMessage e :arrayList) {
-            System.out.println(e.toStrings());
-        }
+
+       _DefaultMessage t  = new TypeMessage("CONTENU",client.getUser(), new Date(96, 1, 14));
+       System.out.println("On enregistre ça : " + t.toStrings());
+
+       post.addPost(SerializationUtils.serialize(t));
+
+        HashMap<Integer,_DefaultMessage> hm =  post.loadPost();
+//        System.out.println("On load ça : " + hm.get(15).toStrings());
+ //       post.removePost(15);
+
+      /* for (_DefaultMessage e :arrayList) {
+           System.out.println("On load ça : " + e.toStrings());
+           System.out.println("On delete ça : " + t.toStrings());
+           post.removePost(SerializationUtils.serialize(t));
+        }*/
+
 
         //System.out.println("PUTE");
-        //client.stop();
+        client.stop();
     }
 }
 
@@ -273,11 +301,12 @@ class clientTest3
 
         TypeMessage typeMessage = new TypeMessage("CONTENU",client.getUser());
 
-        chat.postMessage(client.getUser(), typeMessage);
+        //chat.postMessage(client.getUser(), typeMessage);
 
-        chat.saveMessage(SerializationUtils.serialize(typeMessage));
+        //chat.saveMessage(SerializationUtils.serialize(typeMessage));
 
         chat.reLoadMessage(client.getUser());
+
 
         chat.unsubscribe(client.getUser());
 

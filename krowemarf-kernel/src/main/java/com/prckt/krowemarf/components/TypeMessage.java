@@ -8,6 +8,9 @@ import java.util.Calendar;
 
 public class TypeMessage extends £DefaultMessage {
 
+    public static final long serialVersionUID = 1L;
+
+
     public TypeMessage(String content, _User sender, Date date) throws RemoteException {
         super(content, sender, date);
     }

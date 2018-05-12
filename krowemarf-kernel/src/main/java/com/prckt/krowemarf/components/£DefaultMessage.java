@@ -9,7 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 
 public abstract class £DefaultMessage extends UnicastRemoteObject implements _DefaultMessage {
-
+    static final long serialVersionUID = 1L;
     private String content;
     private _User sender;
     private Date date;

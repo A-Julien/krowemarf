@@ -1,21 +1,22 @@
 package com.prckt.krowemarf.services.DbConnectionServices;
 
 import com.prckt.krowemarf.components._Component;
+import com.prckt.krowemarf.components._DefaultMessage;
 import org.apache.commons.lang3.SerializationUtils;
 
-import java.io.ObjectInputStream;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-//TODO descendre les methodes dans la classe
 public interface _DbConnectionManager extends Remote {
 
-    public static void serializeJavaObjectToDB(Connection connection, byte[] message, String name) throws SQLException, RemoteException {
+    public static void serializeJavaObjectToDB(Connection connection, byte[] message, String name, String tableName) throws SQLException, RemoteException {
 
         PreparedStatement pstmt = connection.prepareStatement(
-                "INSERT INTO "+ _Component.messengerTableName +"(Composant_Name, serialized_object) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+                "INSERT INTO "+ tableName +"(Composant_Name, serialized_object) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
         pstmt.setString(1, name);
         pstmt.setObject(2, message);
@@ -30,19 +31,102 @@ public interface _DbConnectionManager extends Remote {
         try {
             pstmt = connection.prepareStatement(
                      "SELECT serialized_object FROM " + tableName +" WHERE Composant_Name = '"+ composentName +"'");
-            System.out.println("query ->" + "SELECT serialized_object FROM " + tableName +" WHERE Composant_Name = '"+ composentName +"'");
             ResultSet resultSet = pstmt.executeQuery();
-            resultSet.next();
-            ObjectInputStream ois;
-            do{
-                listMessage.add(SerializationUtils.deserialize(resultSet.getBytes(1)));//ois.readObject());
-            }while(resultSet.next());
+            if(resultSet.next()){
+                do{
+                    listMessage.add(SerializationUtils.deserialize(resultSet.getBytes(1)));//ois.readObject());
+                }while(resultSet.next());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return  listMessage;
     }
+
+    /**
+     * Execute une requete
+     * @param connexion
+     * @param query
+     * @throws SQLException
+     */
+    public static void insertOrUpdateOrDelete(Connection connexion, String query) throws SQLException {
+        Statement statement = connexion.createStatement();
+
+        System.out.println("Requête : " + query);
+        /* Exécution d'une requête */
+        statement.executeUpdate(query);
+    }
+
+    /**
+     * Execute une requete sql et return la réponse en une liste d'object.
+     * @param connexion
+     * @param query
+     * @param withColumnNames
+     * @return List<List<Object>>
+     * @throws SQLException
+     */
+    public static List<List<Object>> sqlToListObject(Connection connexion, String query, boolean withColumnNames) throws SQLException {
+        Statement statement = connexion.createStatement();
+
+        System.out.println("Requête : " + query);
+        /* Exécution d'une requête de lecture */
+        ResultSet resultat = statement.executeQuery(query);
+
+        // To contain all rows.
+        List<List<Object>> list = new ArrayList<List<Object>>();
+        ResultSetMetaData metaData = resultat.getMetaData();
+        int numberOfColumns = metaData.getColumnCount();
+        List<Object> columnNames = new ArrayList<Object>();
+
+        // Get the column names
+        if(withColumnNames){
+            for (int column = 0; column < numberOfColumns; column++) {
+                columnNames.add(metaData.getColumnLabel(column + 1));
+            }
+            list.add(columnNames);
+        }
+
+        while (resultat.next()) {
+            List<Object> newRow = new ArrayList<Object>();
+
+            for (int i = 1; i <= numberOfColumns; i++) {
+                newRow.add(resultat.getObject(i));
+            }
+
+            list.add(newRow);
+        }
+
+        resultat.close();
+
+        return list;
+    }
+
+
+
+
+    public static HashMap<Integer,_DefaultMessage> getHMPosts(Connection connection, String composentName) throws  RemoteException {
+        HashMap<Integer,_DefaultMessage> messagesInBD = new HashMap<>();
+
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(
+                    "SELECT id, serialized_object FROM " + _Component.postTableName +" WHERE Composant_Name = '"+ composentName +"'");
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if(resultSet.next()){
+                do{
+                    messagesInBD.put(resultSet.getInt(1),SerializationUtils.deserialize(resultSet.getBytes(2)));
+                }while(resultSet.next());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  messagesInBD;
+    }
+
+
 }
 
 
