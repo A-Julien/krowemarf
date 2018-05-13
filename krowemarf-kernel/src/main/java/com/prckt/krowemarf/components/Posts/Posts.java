@@ -40,7 +40,7 @@ public class Posts extends UnicastRemoteObject implements _Posts {
     //TODO remoter cette metode in abstract class
     @Override
     public void addPost(byte[] message) throws RemoteException {
-        Logger.getGlobal().log(Level.INFO,"Ajout d'un message dans le composant post de nom : " + this.getName());
+        Logger.getGlobal().log(Level.WARNING,"Ajout d'un message dans le composant post de nom : " + this.getName());
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
                 _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(), _Component.postTableName);

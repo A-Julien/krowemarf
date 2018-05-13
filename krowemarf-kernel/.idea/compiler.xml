@@ -11,8 +11,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="krowemarf-kernel" target="1.9" />
-      <module name="krowemarf-services" target="1.9" />
-      <module name="krowemarf-struct" target="1.9" />
     </bytecodeTargetLevel>
   </component>
 </project>
