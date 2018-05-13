@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d61d83fa-40d6-43c5-85e4-2c1b5bd0099c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/krowemarf-kernel.iml" afterPath="$PROJECT_DIR$/krowemarf-kernel.iml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java" afterPath="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/AppTest.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/ClientTest.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/SQLTest.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/ServerTest.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/UserTest.java" afterPath="" />
-    </list>
+    <list default="true" id="d61d83fa-40d6-43c5-85e4-2c1b5bd0099c" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,7 +39,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="438">
@@ -58,6 +47,16 @@
               <folding>
                 <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_DocumentLibrary.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/components/DocumentLibrary/_DocumentLibrary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1245">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -89,16 +88,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="319">
               <caret line="42" column="57" lean-forward="false" selection-start-line="42" selection-start-column="57" selection-end-line="42" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Client/Client.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -170,6 +159,7 @@
       <find>filter</find>
       <find>errors</find>
       <find>error</find>
+      <find>erro</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -293,6 +283,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="DocumentLibrary" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
@@ -571,11 +571,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526236197498</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="resolve javadoc error, delete junit from maven">
+      <created>1526236367997</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1526236367997</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29079000" />
+    <option name="totallyTimeSpent" value="29143000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -680,7 +687,8 @@
     <MESSAGE value="add remove post" />
     <MESSAGE value="change query" />
     <MESSAGE value="merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge" />
+    <MESSAGE value="resolve javadoc error, delete junit from maven" />
+    <option name="LAST_COMMIT_MESSAGE" value="resolve javadoc error, delete junit from maven" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -689,14 +697,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Client/_Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="7" lean-forward="false" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/services/ClientListenerManagerServices/ClientListenerManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-390">
@@ -896,13 +896,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/components/DocumentLibrary/_DocumentLibrary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="89" column="22" lean-forward="false" selection-start-line="89" selection-start-column="22" selection-end-line="89" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/DbConnectionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1365">
@@ -1035,6 +1028,22 @@
           <folding>
             <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Client/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/components/DocumentLibrary/_DocumentLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1245">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

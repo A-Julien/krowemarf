@@ -1,0 +1,16 @@
+appli.connexion
+com.prckt.krowemarf
+com.prckt.krowemarf.components
+com.prckt.krowemarf.components.DocumentLibrary
+com.prckt.krowemarf.components.DocumentLibrary.FileTypes
+com.prckt.krowemarf.components.Messenger
+com.prckt.krowemarf.components.Posts
+com.prckt.krowemarf.services
+com.prckt.krowemarf.services.ClientListenerManagerServices
+com.prckt.krowemarf.services.ComponentManagerSevices
+com.prckt.krowemarf.services.ConfigManagerServices
+com.prckt.krowemarf.services.DbConnectionServices
+com.prckt.krowemarf.services.UserManagerServices
+com.prckt.krowemarf.struct
+com.prckt.krowemarf.struct.Client
+com.prckt.krowemarf.struct.Server
