@@ -1,4 +1,4 @@
-package com.prckt.krowemarf.struct;
+package com.prckt.krowemarf.struct.Server;
 
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.ClientListenerManager;
@@ -6,6 +6,7 @@ import com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager;
 import com.prckt.krowemarf.services.ConfigManagerServices.ConfigManager;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices.UserManager;
+import com.prckt.krowemarf.struct._Runnable;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -19,6 +20,16 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 
+/**
+ * <h1>Server</h1>
+ * Server class provided method fro add and remove component that will be serve
+ * <p>
+ * This class implement the £Server interface end the _Runnable interface
+ * _Runnable allows tu use the run() method to launch the server.
+ *
+ *
+ * @version 1.0-SNAPSHOT
+ */
 public final class Server extends £Server implements _Runnable {
     private int port;
     private String adresse;
@@ -28,10 +39,19 @@ public final class Server extends £Server implements _Runnable {
     private Registry registry;
     private Connection dbConnection;
 
-
-    public Server(int port, String adresse) throws RemoteException, IOException {
+    /**
+     * This method initialize the Server program.
+     * Creating the RMI registry and initialize all the manager services
+     * Take to arguments : port of the server and the address
+     *
+     * @param port int port
+     * @param address String address
+     * @throws RemoteException
+     * @throws IOException
+     */
+    public Server(int port, String address) throws RemoteException, IOException {
         this.port = port;
-        this.adresse = adresse;
+        this.adresse = address;
         LocateRegistry.createRegistry(this.port);
         this.registry = LocateRegistry.getRegistry(this.port);
         this.componentManager = new ComponentManager();
@@ -45,7 +65,7 @@ public final class Server extends £Server implements _Runnable {
 
     /**
      * Add component to the component manager
-     * This methode must be call after the running method
+     * This method must be call after the running method
      * @param component to add
      * @throws RemoteException
      */
@@ -53,6 +73,10 @@ public final class Server extends £Server implements _Runnable {
         this.componentManager.addComponent(component);
     }
 
+    /**
+     * Unbind component by remove it in the component manager
+     * @param component
+     */
     private void unBindComponent(_Component component){
         this.componentManager.removeComponent(componentManagerName);
     }
@@ -61,6 +85,9 @@ public final class Server extends £Server implements _Runnable {
      * This method allows to run the server. Need to call them first.
      * Open the connection with database and check if table exist or not.
      * Initialize the rmi server by binding all the components
+     *
+     * Check if if the tables for the operation of the components exist in data base
+     *
      * @return 0 if the server start correctly
      * @throws IOException
      * @throws ClassNotFoundException
@@ -68,16 +95,21 @@ public final class Server extends £Server implements _Runnable {
     @Override
     public int run() throws IOException, ClassNotFoundException {
         try {
-            System.setProperty("java.security.policy", ConfigManager.getConfig("bdProp"));
-            if (System.getSecurityManager() == null)
-            {
-                System.setSecurityManager ( new RMISecurityManager() );
-            }
+            System.setProperty("java.security.policy", ConfigManager.getConfig("securityManagerProp"));
 
-            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.messengerTableName)) this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.messengerTableName));
-            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.postTableName)) this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.postTableName));
-            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.documentLibraryTableName))this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.documentLibraryTableName));
+            if (System.getSecurityManager() == null) System.setSecurityManager ( new RMISecurityManager() );
+
+            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.messengerTableName))
+                this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.messengerTableName));
+
+            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.postTableName))
+                this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.postTableName));
+
+            if(!DbConnectionManager.tableExist(this.dbConnection,_Component.documentLibraryTableName))
+                this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.documentLibraryTableName));
+
             this.dbConnection.close();
+
         }catch (SQLException e) {
             System.out.println("Connection to bd failed");
             e.printStackTrace();
@@ -88,7 +120,8 @@ public final class Server extends £Server implements _Runnable {
             this.registry.rebind(this.buildRmiAddr(componentManagerName, this.adresse), this.componentManager);
             this.registry.rebind(this.buildRmiAddr(userManagerName,this.adresse), this.userManager);
             this.registry.rebind(this.buildRmiAddr(clientListenerManagerName,this.adresse), this.clientListenerManager);
-            System.out.println("server run on port : " + this.port + " at " + this.buildRmiAddr(componentManagerName, this.adresse));
+            System.out.println("server run on port : " + this.port + " at " +
+                    this.buildRmiAddr(componentManagerName, this.adresse));
         } catch (RemoteException e) {
             System.out.println("Server failed to start");
             System.exit(1);
@@ -107,9 +140,13 @@ public final class Server extends £Server implements _Runnable {
      */
     @Override
     public void stop() throws RemoteException, NotBoundException, SQLException {
-        for (_Component component:
-            this.componentManager.getComponents()) {
-            component.stop();
+        for (_Component component : this.componentManager.getComponents()) {
+            try {
+                component.stop();
+            } catch (SQLException | RemoteException e) {
+               // e.printStackTrace();
+            }
+            this.unBindComponent(component);
         }
         this.registry.unbind(this.buildRmiAddr(componentManagerName, this.adresse));
         this.registry.unbind(this.buildRmiAddr(userManagerName, this.adresse));

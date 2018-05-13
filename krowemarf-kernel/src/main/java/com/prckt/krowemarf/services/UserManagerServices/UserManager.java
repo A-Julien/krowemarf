@@ -24,6 +24,7 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
     /**
      * Check if the user is allowed connected to the server
      * Verifier si le login password en paramètre correspond à l'enregistrement en BD
+     *
      * @param user that must be checked
      * @return True if successful connection, False if denied
      */
@@ -58,9 +59,9 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
 
 
     /**
-     *
-     * @param uC
-     * @return
+     * Private method to know if the are already register like connected
+     * @param uC the user to compare
+     * @return true if already register like connected, false if user are not connected
      * @throws RemoteException
      */
     private boolean contain( _User uC) throws RemoteException {
@@ -70,6 +71,12 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
         return Boolean.FALSE;
     }
 
+    /**
+     * Disconnect user be removing him into the manager
+     *
+     * @param user user that will be disconnected
+     * @throws RemoteException
+     */
     @Override
     public void disconnect(_User user) throws RemoteException{
         System.out.println("User " + user.getLogin() + " want disconnect");
@@ -79,21 +86,16 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
                 break;
             }
         }
-        /*for (_User is:
-                this.users) {
-            System.out.println("user connected : " + is.getLogin());
-        }*/
     }
 
+    /**
+     * Allows client to know all user connected
+     * @return ArrayList of all user connected
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<_User> getUserConnected() throws RemoteException{
         return users;
     }
 
-    public void onNewPrivateMessenger(String idComponent, ArrayList<User> users){
-        for (_User u:
-                users) {
-
-        }
-    }
 }

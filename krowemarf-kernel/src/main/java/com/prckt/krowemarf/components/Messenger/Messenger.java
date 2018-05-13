@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+/**
+ * The Messenger component allow client to send instant _DefaultMessage
+ * to other client
+ *
+ */
 public class Messenger extends UnicastRemoteObject implements _Messenger{
     private Hashtable<_User, _MessengerClient> users;
 
@@ -26,6 +31,11 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     private  Connection dbConnection;
 
 
+    /**
+     * Constructor of the component
+     * @param name of the component
+     * @throws RemoteException
+     */
     public Messenger(String name) throws RemoteException {
         super();
         this.name = name;
@@ -33,6 +43,14 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
         this.dbConnection = new DbConnectionManager().connect(this.getName());
     }
 
+    /**
+     * This method allow client subscribe to the component.
+     * When subscribe, client give to him the two callback (onReceive and onLeave)
+     *
+     * @param messengerClient Callback given by client
+     * @param user user
+     * @throws RemoteException
+     */
     @Override
     public void subscribe(_MessengerClient messengerClient, _User user) throws RemoteException {
         if(!this.users.containsKey(user)){
@@ -41,7 +59,11 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
         }
     }
 
-
+    /**
+     * Unsubscribe a user to this component
+     * @param user user to unsubscribe
+     * @throws RemoteException
+     */
     @Override
     public void unsubscribe(_User user) throws RemoteException {
         if(this.users.containsKey(user)){
@@ -55,6 +77,15 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
         }
     }
 
+    /**unsubscribe
+     * This method allow client to post message on the component
+     * When a user post a message, the server call all callback onRecieve of
+     * each client who subscribed of this component
+     *
+     * @param user user who post the message
+     * @param message the message
+     * @throws RemoteException
+     */
     @Override
     public void postMessage(_User user, _DefaultMessage message) throws RemoteException {
         System.out.println();
@@ -69,6 +100,12 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     }
 
+    /**
+     * This method allow client to save conversation to the bd.
+     * To pass the message in RMI the message need to be serialized
+     * @param message serialized message
+     * @throws RemoteException
+     */
     @Override
     public void saveMessage(byte[] message) throws RemoteException{
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
@@ -84,6 +121,17 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
 
     }
 
+
+    /**
+     * This method allow client when he started to use a compenent that he use in the past to reload
+     * all history of conversation
+     *
+     * @param user user who want reload history of the messenger component
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws RemoteException
+     */
     @Override
     public void reLoadMessage(_User user) throws IOException, SQLException, ClassNotFoundException, RemoteException {
         ArrayList<Object> messages = _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.messengerTableName, this.getName());
@@ -97,11 +145,23 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     }
 
 
+    /**
+     * Return the name of the component
+     * @return String name
+     * @throws RemoteException
+     */
     @Override
     public String getName() throws RemoteException {
         return this.name;
     }
 
+    /**
+     * Stop the component.
+     * Warns all subscriber that the component will shutdown
+     *
+     * @throws SQLException
+     * @throws RemoteException
+     */
     @Override
     public void stop() throws SQLException, RemoteException {
         System.out.println("Component  " + this.getName() + " Shouting down");
@@ -109,57 +169,4 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
         this.postMessage(messaging, new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
         this.dbConnection.close();
     }
-/*
-    public Right isPermission(Users user) {
-    	for (int i = 0; i < access.size; i++) {
-    		if (access.get(i).getUser == user) {
-    			return access.get(i).getRight();
-    		}
-    	}
-    	return null;
-    }
-
-    public void addAccess(Access a) {
-    	access.add(a);
-    }
-
-    public void addAccess(Users user, String right) {
-    	Access a = new Access(user, right);
-    	access.add(a);
-    }
-
-    public void removeAccess(Access a) {
-    	access.remove(a);
-    }
-
-    public void removeAccess(Users user, String right) {
-    	Access a = new Access(user, right);
-    	access.remove(a);
-    }
-
-    public LinkedList<Access> isAdmin() {
-
-    	LinkedList<Access> a = new LinkedList<Access>;
-
-    	for (int i = 0; i < access.size; i++) {
-    		if (access.get(i).getRight == "admin") {
-    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
-    			a.add(acc);
-    		}
-    	}
-    	return a;
-    }
-
-    public LinkedList<Access> isUser() {
-
-    	LinkedList<Access> a = new LinkedList<Access>;
-
-    	for (int i = 0; i < access.size; i++) {
-    		if (access.get(i).getRight == "user") {
-    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
-    			a.add(acc);
-    		}
-    	}
-    	return a;
-    }*/
 }

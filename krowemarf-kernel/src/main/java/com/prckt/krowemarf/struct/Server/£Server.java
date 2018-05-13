@@ -1,4 +1,4 @@
-package com.prckt.krowemarf.struct;
+package com.prckt.krowemarf.struct.Server;
 
 import com.prckt.krowemarf.components._Component;
 

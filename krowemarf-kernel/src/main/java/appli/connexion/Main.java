@@ -1,6 +1,6 @@
 package appli.connexion;
 
-import com.prckt.krowemarf.struct.Server;
+import com.prckt.krowemarf.struct.Server.Server;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -7,21 +7,45 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.function.BiConsumer;
 
+/**
+ * This class manage all the clientLisner of each client.
+ * He link a connected user to his clienListener
+ *
+ * The hashmap ensure that one client (user) can have just one clientListener
+ */
 public class ClientListenerManager extends UnicastRemoteObject implements _ClientListenerManager{
     private Hashtable<_User, _ClientListener> ListenerClient;
 
+    /**
+     * Initialize the clientListener
+     * @throws RemoteException
+     */
     public ClientListenerManager() throws RemoteException {
         super();
         ListenerClient = new Hashtable<>();
     }
 
+    /**
+     * Allows client to initialize the client listener.
+     *
+     * @param user the user how add the listener
+     * @param clientListener the listener of the client
+     * @throws RemoteException
+     */
     @Override
     public void addListener(_User user, _ClientListener clientListener) throws RemoteException{
         this.ListenerClient.put(user,clientListener);
     }
 
+    /**
+     * Allows client to initialize private messenger
+     *
+     * @param idComponent the component id
+     * @param usersTargets the list of the targeted user for the private message
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public void initMp(String idComponent, ArrayList<_User> usersTargets) throws RemoteException, SQLException {
         for (_User u : usersTargets) {
@@ -29,17 +53,20 @@ public class ClientListenerManager extends UnicastRemoteObject implements _Clien
         }
     }
 
+    /**
+     * Remove a client listner in the list
+     *
+     * @param user the user that that will be remove
+     * @throws RemoteException
+     */
     @Override
     public void removeListner(_User user) throws RemoteException {
         this.ListenerClient.remove(user);
-        this.ListenerClient.forEach(new BiConsumer<_User, _ClientListener>() {
-            @Override
-            public void accept(_User user, _ClientListener clientListener) {
-                try {
-                    System.out.println("KJLUGGUIGUGUGUIKGIUOGIOHIGOIOLHIOGHIGOH : " + user.getLogin());
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        this.ListenerClient.forEach((user1, clientListener) -> {
+            try {
+                System.out.println("wl : " + user1.getLogin());
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         });
     }

@@ -17,13 +17,22 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The post component is used to create deferred messages.
+ * Connected to the database to add, or suppress messages.
+ *
+ */
 public class Posts extends UnicastRemoteObject implements _Posts {
 
     private String name;
     private Connection dbConnection;
-    private final String query =
-            "INSERT INTO "+ _Component.postTableName +"(Composant_Name, serialized_object) VALUES (?, ?)";
 
+
+    /**
+     * Constructor will be use by server to initiate un new component Post
+     * @param name String name of the component
+     * @throws RemoteException
+     */
     public Posts(String name) throws RemoteException {
         super();
         this.name = name;
@@ -31,13 +40,28 @@ public class Posts extends UnicastRemoteObject implements _Posts {
 
     }
 
+    /**
+     * This method call the database and mounts in memory all messages to give at the client
+     * All message are identified by a id. The id is very util for de remove method
+     *
+     * @return HasMap of messages
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     @Override
     public HashMap<Integer,_DefaultMessage> loadPost() throws IOException, SQLException, ClassNotFoundException {
         return _DbConnectionManager.getHMPosts(this.dbConnection, this.getName());
     }
 
+    /**
+     * Add a messages to a post. This message need to be serialized to pass it in RMI.
+     *
+     * @param message byte[] serialized message
+     * @throws RemoteException
+     */
     @Override
-    public void addPost(byte[] message) throws RemoteException {
+    public void addMessage(byte[] message) throws RemoteException {
         Logger.getGlobal().log(Level.INFO,"Ajout d'un message dans le composant post de nom : " + this.getName());
         if(SerializationUtils.deserialize(message) instanceof _DefaultMessage){
             try {
@@ -51,6 +75,12 @@ public class Posts extends UnicastRemoteObject implements _Posts {
         }
     }
 
+    /**
+     * Remove a message from post by id
+     * @param id int id
+     * @throws RemoteException
+     * @throws SQLException
+     */
     @Override
     public void removePost(int id) throws RemoteException, SQLException {
         String q = "DELETE FROM posts_krowemarf WHERE id = ?";
@@ -59,70 +89,25 @@ public class Posts extends UnicastRemoteObject implements _Posts {
         pstmt.executeUpdate();
     }
 
-
+    /**
+     * Return name of the component
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public String getName() throws RemoteException {
         return this.name;
     }
 
+    /**
+     * Stop the component en close the bd connection
+     * @throws SQLException
+     * @throws RemoteException
+     */
     @Override
     public void stop() throws SQLException, RemoteException {
         System.out.println("Component  " + this.getName() + " Shouting down");
         this.dbConnection.close();
     }
 
-
-    /*
-    public Right isPermission(Users user) {
-    	for (int i = 0; i < access.size; i++) {
-    		if (access.get(i).getUser == user) {
-    			return access.get(i).getRight();
-    		}
-    	}
-    	return null;
-    }
-    
-    public void addAccess(Access a) {
-    	access.add(a);
-    }
-    
-    public void addAccess(Users user, String right) {
-    	Access a = new Access(user, right);
-    	access.add(a);
-    }
-    
-    public void removeAccess(Access a) {
-    	access.remove(a);
-    }
-    
-    public void removeAccess(Users user, String right) {
-    	Access a = new Access(user, right);
-    	access.remove(a);
-    }
-    
-    public LinkedList<Access> isAdmin() {
-    	
-    	LinkedList<Access> a = new LinkedList<Access>;
-    	
-    	for (int i = 0; i < access.size; i++) {
-    		if (access.get(i).getRight == "admin") {
-    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
-    			a.add(acc);
-    		}
-    	}
-    	return a;
-    }
-    
-    public LinkedList<Access> isUser() {
-    	
-    	LinkedList<Access> a = new LinkedList<Access>;
-    	
-    	for (int i = 0; i < access.size; i++) {
-    		if (access.get(i).getRight == "user") {
-    			Access acc = new Access(access.get(i).getUser, access.get(i).getRight);
-    			a.add(acc);
-    		}
-    	}
-    	return a;
-    }*/
 }

@@ -1,4 +1,4 @@
 {
-  "bdProp":"/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/security.policy",
-  "securityManagerProp":"/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.propertiess"
+  "securityManagerProp":"/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/security.policy",
+  "bdProp":"/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.properties"
 }

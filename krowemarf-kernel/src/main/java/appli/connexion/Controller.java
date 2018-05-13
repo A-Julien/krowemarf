@@ -1,7 +1,6 @@
 package appli.connexion;
 
-import com.prckt.krowemarf.struct.Client;
-import com.prckt.krowemarf.struct.Server;
+import com.prckt.krowemarf.struct.Client.Client;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

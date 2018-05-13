@@ -1,4 +1,4 @@
-package com.prckt.krowemarf.struct;
+package com.prckt.krowemarf.struct.Client;
 
 import com.prckt.krowemarf.services.UserManagerServices._User;
 

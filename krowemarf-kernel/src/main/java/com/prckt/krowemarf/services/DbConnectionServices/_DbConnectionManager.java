@@ -11,8 +11,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Interface of dbManager
+ * give access to tools method to facilitate access to the database
+ *
+ */
 public interface _DbConnectionManager extends Remote {
 
+    /**
+     * This is build to serialize object and insert into database with the typical table schema
+     * @param connection the connection to the bd
+     * @param message the object will be serialized
+     * @param name name of the component
+     * @param tableName the table name
+     * @throws SQLException
+     * @throws RemoteException
+     */
     public static void serializeJavaObjectToDB(Connection connection, byte[] message, String name, String tableName) throws SQLException, RemoteException {
 
         PreparedStatement pstmt = connection.prepareStatement(
@@ -25,6 +39,15 @@ public interface _DbConnectionManager extends Remote {
         System.out.println("Java object serialized to database. Object: " + message);
     }
 
+    /**
+     * Deserialize an object from the data base
+     *
+     * @param connection the connection to the data base
+     * @param tableName the table name
+     * @param composentName the name of the composent
+     * @return ArrayList of object
+     * @throws RemoteException
+     */
     public static ArrayList<Object> deSerializeJavaObjectFromDB(Connection connection, String tableName, String composentName) throws  RemoteException {
         ArrayList<Object> listMessage = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -45,9 +68,9 @@ public interface _DbConnectionManager extends Remote {
     }
 
     /**
-     * Execute une requete
-     * @param connexion
-     * @param query
+     * Execute a query for insert in bd
+     * @param connexion the connection to the bd
+     * @param query the query
      * @throws SQLException
      */
     public static void insertOrUpdateOrDelete(Connection connexion, String query) throws SQLException {
@@ -63,7 +86,7 @@ public interface _DbConnectionManager extends Remote {
      * @param connexion
      * @param query
      * @param withColumnNames
-     * @return List<List<Object>>
+     * @return List of list of object
      * @throws SQLException
      */
     public static List<List<Object>> sqlToListObject(Connection connexion, String query, boolean withColumnNames) throws SQLException {
@@ -103,8 +126,13 @@ public interface _DbConnectionManager extends Remote {
     }
 
 
-
-
+    /**
+     *
+     * @param connection
+     * @param composentName
+     * @return
+     * @throws RemoteException
+     */
     public static HashMap<Integer,_DefaultMessage> getHMPosts(Connection connection, String composentName) throws  RemoteException {
         HashMap<Integer,_DefaultMessage> messagesInBD = new HashMap<>();
 
@@ -128,65 +156,3 @@ public interface _DbConnectionManager extends Remote {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       /* ResultSet rs = pstmt.getGeneratedKeys();
-        int serialized_id = -1;
-        if (rs.next()) {
-            serialized_id = rs.getInt(1);
-        }
-        rs.close();
-        pstmt.close();*/
-
-//List<List<Object>> list = SQLRequest.sqlToListObject(
-       /* ObjectInputStream ois = null;
-        byte[] t;
-        for (List o : list) {
-            t = SerializationUtils.serialize((Serializable) o.get(0));
-            if (o.get(0) != null) {
-                ois = new ObjectInputStream(new ByteArrayInputStream(t));
-                listMessage.add((£DefaultMessage) ois.readObject());
-            }
-        }*/
-// return listMessage;
-
-
-      /*  PreparedStatement pstmt = connection
-                .prepareStatement("SELECT serialized_message FROM messenger_krowemarf WHERE  id= ?");
-        pstmt.setLong(1, 10);
-        ResultSet rs = pstmt.executeQuery();
-        rs.next();
-
-        // Object object = rs.getObject(1);
-
-        byte[] buf = rs.getBytes(1);
-        ObjectInputStream objectIn = null;
-        if (buf != null)
-            objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
-
-        Object deSerializedObject = objectIn.readObject();
-
-        rs.close();
-        pstmt.close();
-
-        System.out.println("Java object de-serialized from database. Object: "
-                + deSerializedObject + " Classname: "
-                + deSerializedObject.getClass().getName());
-        return deSerializedObject;*/

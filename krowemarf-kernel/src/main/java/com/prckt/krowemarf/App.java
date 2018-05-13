@@ -15,8 +15,8 @@ import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListen
 import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
 import com.prckt.krowemarf.services.UserManagerServices._User;
-import com.prckt.krowemarf.struct.Client;
-import com.prckt.krowemarf.struct.Server;
+import com.prckt.krowemarf.struct.Client.Client;
+import com.prckt.krowemarf.struct.Server.Server;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.File;
@@ -130,7 +130,7 @@ class clientTestCommentaire
        _DefaultMessage t  = new TypeMessage("CONTENU",client.getUser(), new Date(96, 1, 14));
        System.out.println("On enregistre ça : " + t.toStrings());
 
-       post.addPost(SerializationUtils.serialize(t));
+       post.addMessage(SerializationUtils.serialize(t));
 
         HashMap<Integer,_DefaultMessage> hm =  post.loadPost();
         for (_DefaultMessage messages: hm.values()) {

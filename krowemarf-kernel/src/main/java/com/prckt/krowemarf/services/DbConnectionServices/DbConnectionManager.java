@@ -1,5 +1,7 @@
 package com.prckt.krowemarf.services.DbConnectionServices;
 
+import com.prckt.krowemarf.services.ConfigManagerServices.ConfigManager;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,9 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Give access to the db for all server part
+ */
 public class DbConnectionManager extends UnicastRemoteObject {
 
-    private static String profile = "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/BD.properties";
+    private static String profile = ConfigManager.getConfig("bdProp");
     private Properties prop = new Properties();
     private String jdbcDriver;
     private String dbUrl;
@@ -21,6 +26,12 @@ public class DbConnectionManager extends UnicastRemoteObject {
     private String username, password;
     private Connection connection;
 
+    /**
+     * By instantiate a dbConnection manager you are able to send end receive query from bd
+     * The connection it initiate by get the bd information in BD.properties
+     *
+     * @throws RemoteException
+     */
     public DbConnectionManager() throws RemoteException {
         super();
         try {
@@ -42,6 +53,12 @@ public class DbConnectionManager extends UnicastRemoteObject {
         this.password = prop.getProperty("database.password");
     }
 
+    /**
+     * This method return a connection to the bd
+     *
+     * @param entityName Pass a string of the name of entity that will use the connection (for the logs)
+     * @return the connection to the bd
+     */
     public Connection connect(String entityName) {
 
         try {
@@ -62,6 +79,11 @@ public class DbConnectionManager extends UnicastRemoteObject {
         return this.connection;
     }
 
+    /**
+     * Close the connection to the bd
+     *
+     * @param conn the connection that will be closed
+     */
     public void close(Connection conn){
         try {
             this.connection.close();
@@ -70,6 +92,15 @@ public class DbConnectionManager extends UnicastRemoteObject {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Methode that check if a table exist by checking the tableName
+     *
+     * @param conn the connection for ask the bd
+     * @param tableName the name to check
+     * @return True if the table exist on BD, False if not
+     * @throws SQLException
+     */
     //https://stackoverflow.com/questions/2942788/check-if-table-exists?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
     public static boolean tableExist(Connection conn, String tableName) throws SQLException {
         boolean tExists = false;
