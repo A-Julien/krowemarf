@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserManager extends UnicastRemoteObject implements _UserManager {
 
@@ -36,22 +38,22 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
         try {
             list = _DbConnectionManager.sqlToListObject(connexion, "SELECT password FROM User WHERE login = '" + user.getLogin() + "'", false);
         } catch (SQLException e) {
+            Logger.getGlobal().log(Level.INFO,"Echec de la connexion de l'utilisateur : " + user.getLogin());
             return Boolean.FALSE;
         }
         dbConnectionManager.close(connexion);
 
-        for (_User u:
-             this.users) {
-            System.out.println("m -> " + u.getLogin());
-        }
 
         if (list.size() != 0 &&  user.compareHash(user,list.get(0).get(0).toString()) == 0){ //password.equals(list.get(0).get(0).toString())) {
             //_User user = new User(login, password);
             if (!this.contain(user)) {
                 this.users.add(user);
             }
+            Logger.getGlobal().log(Level.INFO,"Connexion de l'utilisateur : " + user.getLogin());
             return Boolean.TRUE;
         }
+
+        Logger.getGlobal().log(Level.INFO,"Echec de la connexion de l'utilisateur : " + user.getLogin());
         return Boolean.FALSE;
 
     }
@@ -72,10 +74,10 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
 
     @Override
     public void disconnect(_User user) throws RemoteException{
-        System.out.println("User " + user.getLogin() + " want disconnect");
         for (_User is: this.users) {
             if(is.getLogin().equals(user.getLogin())){
                 this.users.remove(is);
+                Logger.getGlobal().log(Level.INFO,"Déconnexion de l'utilisateur : " + user.getLogin());
                 break;
             }
         }
@@ -91,8 +93,7 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
     }
 
     public void onNewPrivateMessenger(String idComponent, ArrayList<User> users){
-        for (_User u:
-                users) {
+        for (_User u: users) {
 
         }
     }

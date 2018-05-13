@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.function.BiConsumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClientListenerManager extends UnicastRemoteObject implements _ClientListenerManager{
     private Hashtable<_User, _ClientListener> ListenerClient;
@@ -36,7 +38,7 @@ public class ClientListenerManager extends UnicastRemoteObject implements _Clien
             @Override
             public void accept(_User user, _ClientListener clientListener) {
                 try {
-                    System.out.println("KJLUGGUIGUGUGUIKGIUOGIOHIGOIOLHIOGHIGOH : " + user.getLogin());
+                    Logger.getGlobal().log(Level.INFO,"User " + user.getLogin() + " leave the private chat");
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
