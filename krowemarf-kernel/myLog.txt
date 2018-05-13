@@ -149,3 +149,335 @@
   <message>Ajout du composant drive au component Manager</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-05-13T18:35:13.944585Z</date>
+  <millis>1526236513944</millis>
+  <nanos>585000</nanos>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>run</method>
+  <thread>1</thread>
+  <message>server run on port : 1099 at rmi://127.0.0.1/componentManager</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.171913Z</date>
+  <millis>1526236514171</millis>
+  <nanos>913000</nanos>
+  <sequence>2</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD chat</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.393722Z</date>
+  <millis>1526236514393</millis>
+  <nanos>722000</nanos>
+  <sequence>3</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.621429Z</date>
+  <millis>1526236514621</millis>
+  <nanos>429000</nanos>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD drive</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.623962Z</date>
+  <millis>1526236514623</millis>
+  <nanos>962000</nanos>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.625736Z</date>
+  <millis>1526236514625</millis>
+  <nanos>736000</nanos>
+  <sequence>6</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant commentaires au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.627114Z</date>
+  <millis>1526236514627</millis>
+  <nanos>114000</nanos>
+  <sequence>7</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : chat</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.628057Z</date>
+  <millis>1526236514628</millis>
+  <nanos>57000</nanos>
+  <sequence>8</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant chat au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.628919Z</date>
+  <millis>1526236514628</millis>
+  <nanos>919000</nanos>
+  <sequence>9</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : drive</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:14.629913Z</date>
+  <millis>1526236514629</millis>
+  <nanos>913000</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant drive au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:23.174509Z</date>
+  <millis>1526236523174</millis>
+  <nanos>509000</nanos>
+  <sequence>11</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>25</thread>
+  <message>Connection to bd open for BD userManager</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:23.211756Z</date>
+  <millis>1526236523211</millis>
+  <nanos>756000</nanos>
+  <sequence>12</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>close</method>
+  <thread>25</thread>
+  <message>Fermeture d'une connexion à la BD</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:23.227397Z</date>
+  <millis>1526236523227</millis>
+  <nanos>397000</nanos>
+  <sequence>13</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.UserManagerServices.UserManager</class>
+  <method>connect</method>
+  <thread>25</thread>
+  <message>Connexion de l'utilisateur : Jean</message>
+</record>
+<record>
+  <date>2018-05-13T18:35:23.293845Z</date>
+  <millis>1526236523293</millis>
+  <nanos>845000</nanos>
+  <sequence>14</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.components.Messenger.Messenger</class>
+  <method>subscribe</method>
+  <thread>25</thread>
+  <message>Jean connected to chat : chat</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-05-13T20:25:33.245699Z</date>
+  <millis>1526243133245</millis>
+  <nanos>699000</nanos>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>run</method>
+  <thread>1</thread>
+  <message>server run on port : 1099 at rmi://127.0.0.1/componentManager</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:33.490050Z</date>
+  <millis>1526243133490</millis>
+  <nanos>50000</nanos>
+  <sequence>2</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD chat</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:33.723893Z</date>
+  <millis>1526243133723</millis>
+  <nanos>893000</nanos>
+  <sequence>3</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD chat2</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:33.973067Z</date>
+  <millis>1526243133973</millis>
+  <nanos>67000</nanos>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.202444Z</date>
+  <millis>1526243134202</millis>
+  <nanos>444000</nanos>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD drive</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.207564Z</date>
+  <millis>1526243134207</millis>
+  <nanos>564000</nanos>
+  <sequence>6</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.211247Z</date>
+  <millis>1526243134211</millis>
+  <nanos>247000</nanos>
+  <sequence>7</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant commentaires au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.213553Z</date>
+  <millis>1526243134213</millis>
+  <nanos>553000</nanos>
+  <sequence>8</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : chat</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.214492Z</date>
+  <millis>1526243134214</millis>
+  <nanos>492000</nanos>
+  <sequence>9</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant chat au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.215421Z</date>
+  <millis>1526243134215</millis>
+  <nanos>421000</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : chat2</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.216180Z</date>
+  <millis>1526243134216</millis>
+  <nanos>180000</nanos>
+  <sequence>11</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant chat2 au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.217129Z</date>
+  <millis>1526243134217</millis>
+  <nanos>129000</nanos>
+  <sequence>12</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : drive</message>
+</record>
+<record>
+  <date>2018-05-13T20:25:34.218007Z</date>
+  <millis>1526243134218</millis>
+  <nanos>7000</nanos>
+  <sequence>13</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant drive au component Manager</message>
+</record>
+</log>
