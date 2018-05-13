@@ -34,8 +34,6 @@ public class Main extends Application {
 				@Override
 				public void handle(WindowEvent windowEvent) {
 				    System.out.println("Closing");
-					//stage..main.getClient();
-
                     Platform.exit();
                     System.exit(0);
 				}

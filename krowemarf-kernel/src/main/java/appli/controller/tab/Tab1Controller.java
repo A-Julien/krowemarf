@@ -44,7 +44,7 @@ public class Tab1Controller {
             }
         }, main.client.getUser());
 
-//        chat.reLoadMessage(main.client.getUser());
+        chat.reLoadMessage(main.client.getUser());
 	}
 
     public void btn2EnvoyerClicked(ActionEvent actionEvent) throws RemoteException, SQLException {

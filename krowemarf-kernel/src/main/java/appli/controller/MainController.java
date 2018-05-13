@@ -5,6 +5,7 @@ import appli.controller.tab.Tab3Controller;
 import com.prckt.krowemarf.components.Messenger._Messenger;
 import com.prckt.krowemarf.components.Messenger.£MessengerClient;
 import com.prckt.krowemarf.components.Posts._Posts;
+import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListener;
 import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
@@ -78,25 +79,36 @@ public class MainController {
     public void sendMP(String destinataire) throws IOException {
         Tab newTab = new Tab("MP : " + destinataire);
         tabPane.getTabs().add(newTab);
-
         VBox newVbox = new VBox();
-
         TextArea newTextArea = new TextArea();
         newTextArea.setEditable(false);
-
         newTextArea.setVisible(true);
-
         HBox newHbox = new HBox();
-
         TextArea txtMessage = new TextArea();
         txtMessage.setPromptText("Votre message");
-
         Button btnEnvoyer = new Button();
 
         btnEnvoyer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(txtMessage.getText() + " à " + destinataire );
+
+                _ComponentManager cmp = client.getComponentManager();
+
+                try {
+                    client.initClientListner(new £ClientListener() {
+                        @Override
+                        public void onNewPrivateMessenger(String composenteName) throws RemoteException, SQLException {
+
+                            ((_Messenger)cmp.getComponantByName(composenteName)).postMessage(client.getUser(),new TypeMessage(txtMessage.getText(),client.getUser()));
+
+                        }
+                    });
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
         btnEnvoyer.setText("Envoyer");
@@ -121,4 +133,5 @@ public class MainController {
         this.tab3Controller.init(this);
 
     }
+
 }
