@@ -17,10 +17,8 @@ public interface _DefaultMessage extends Remote, Serializable {
 
     public String toStrings() throws RemoteException;
 
-
-   // £DefaultMessage clone_(_DefaultMessage m) throws RemoteException;
-
     public Date getDate() throws RemoteException;
 
     public String getDataToSave() throws RemoteException;
+
 }

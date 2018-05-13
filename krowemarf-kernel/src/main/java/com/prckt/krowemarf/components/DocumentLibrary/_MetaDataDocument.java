@@ -1,6 +1,6 @@
 package com.prckt.krowemarf.components.DocumentLibrary;
 
-import com.prckt.krowemarf.services.UserManagerServices.User;
+import com.prckt.krowemarf.services.UserManagerServices._User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -20,5 +20,5 @@ public interface _MetaDataDocument extends Remote{
         return new MetaDataDocument(data.getOwner(),data.getName(),data.getExtension(),data.getSize(),data.getPath());
     }
 
-    public User getOwner();
+    public _User getOwner() throws RemoteException;
 }

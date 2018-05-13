@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager extends UnicastRemoteObject implements _UserManager {
+
     private static final long serialVersionUID = 1L;
     private ArrayList<_User> users;
+
 
     public UserManager() throws RemoteException {
         super();
@@ -20,9 +22,10 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
     }
 
     /**
+     * Check if the user is allowed connected to the server
      * Verifier si le login password en paramètre correspond à l'enregistrement en BD
-     * @param user
-     * @return
+     * @param user that must be checked
+     * @return True if successful connection, False if denied
      */
     @Override
     public boolean connect(_User user) throws RemoteException {
@@ -41,8 +44,7 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
              this.users) {
             System.out.println("m -> " + u.getLogin());
         }
-        
-        
+
         if (list.size() != 0 &&  user.compareHash(user,list.get(0).get(0).toString()) == 0){ //password.equals(list.get(0).get(0).toString())) {
             //_User user = new User(login, password);
             if (!this.contain(user)) {
@@ -55,8 +57,12 @@ public class UserManager extends UnicastRemoteObject implements _UserManager {
     }
 
 
-
-
+    /**
+     *
+     * @param uC
+     * @return
+     * @throws RemoteException
+     */
     private boolean contain( _User uC) throws RemoteException {
         for (_User u: this.users) {
             if (u.compareUser(uC) == 0) return Boolean.TRUE;

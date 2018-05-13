@@ -4,7 +4,12 @@ import com.prckt.krowemarf.components._Component;
 
 public class £Server {
 
-
+    /**
+     * This method build sql request to create table for component type.
+     *
+     * @param tableName the name of the table
+     * @return
+     */
     protected static String sqlTable(String tableName){
         if(tableName.equals(_Component.documentLibraryTableName ))
             return "CREATE TABLE " + tableName + "(" +

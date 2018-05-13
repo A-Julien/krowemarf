@@ -36,7 +36,7 @@ public interface _DocumentLibrary extends _Component {
      * Recover all the list of _MetaDataDocument
      * @return the complete ArrayList
      */
-    public ArrayList<_MetaDataDocument> getall() throws RemoteException;
+    public ArrayList<MetaDataDocument> getall() throws RemoteException;
 
     /**
      * Recover a ArrayList with all documents with the same name
@@ -44,33 +44,33 @@ public interface _DocumentLibrary extends _Component {
      * @return The list of documents that accomplish the request
      */
 
-    public ArrayList<_MetaDataDocument> filterByName(String name) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterByName(String name) throws RemoteException;
 
     /**
      * Recover a ArrayList with all documents with the same extension
      * @param extension of the document
      * @return The list of documents that accomplish the request
      */
-    public ArrayList<_MetaDataDocument> filterByExtension(String extension) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterByExtension(String extension) throws RemoteException;
     /**
      * Recover a ArrayList with all documents with the same path
      * @param path of the document
      * @return The list of documents that accomplish the request
      */
-    public ArrayList<_MetaDataDocument> filterByPath(String path) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterByPath(String path) throws RemoteException;
     /**
      * Recover a ArrayList with all documents with a bigger size
      * @param size minimum size
      * @return The list of documents that accomplish the request
      */
-    public ArrayList<_MetaDataDocument> filterBySizeSup(float size) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterBySizeSup(float size) throws RemoteException;
 
     /**
      * Recover a ArrayList with all documents with a lowest size
      * @param size maximum size
      * @return The list of documents that accomplish the request
      */
-    public ArrayList<_MetaDataDocument> filterBySizeInf(float size) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterBySizeInf(float size) throws RemoteException;
 
     /**
      * Recover a ArrayList with all documents with a bounded size
@@ -78,14 +78,14 @@ public interface _DocumentLibrary extends _Component {
      * @param sup maximum size
      * @return The list of documents that accomplish the request
      */
-    public ArrayList<_MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterBySizeInterval(float inf, float sup) throws RemoteException;
 
     /**
      * Recover a ArrayList with all documents with the same file's type
      * @param type type of the document
      * @return The list of documents that accomplish the request
      */
-    public ArrayList<_MetaDataDocument> filterByType(String type) throws RemoteException;
+    public ArrayList<MetaDataDocument> filterByType(String type) throws RemoteException;
 
     public void uploadFile(_User user, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException;
 
