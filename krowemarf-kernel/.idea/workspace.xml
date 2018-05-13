@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d61d83fa-40d6-43c5-85e4-2c1b5bd0099c" name="Default" comment="change query">
+    <list default="true" id="d61d83fa-40d6-43c5-85e4-2c1b5bd0099c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/myLog.txt" afterPath="$PROJECT_DIR$/myLog.txt" />
-      <change beforePath="$PROJECT_DIR$/myLog.txt.lck" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server/Server.java" afterPath="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server/Server.java" />
+      <change beforePath="$PROJECT_DIR$/krowemarf-kernel.iml" afterPath="$PROJECT_DIR$/krowemarf-kernel.iml" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java" afterPath="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/AppTest.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/ClientTest.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/SQLTest.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/ServerTest.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prckt/krowemarf/UserTest.java" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,11 +53,21 @@
       <file leaf-file-name="App.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            <state relative-caret-position="438">
+              <caret line="217" column="48" lean-forward="true" selection-start-line="217" selection-start-column="48" selection-end-line="217" selection-end-column="48" />
               <folding>
-                <marker date="1526235728211" expanded="true" signature="11511:11529" ph="SELECT * FRO... TEST" />
+                <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="481">
+              <caret line="63" column="40" lean-forward="true" selection-start-line="63" selection-start-column="40" selection-end-line="63" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,16 +89,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="319">
               <caret line="42" column="57" lean-forward="false" selection-start-line="42" selection-start-column="57" selection-end-line="42" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="£Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server/£Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -162,6 +168,8 @@
       <find>surefire</find>
       <find>remove</find>
       <find>filter</find>
+      <find>errors</find>
+      <find>error</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -185,13 +193,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/services/DbConnectionServices/_DbConnectionManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/components/Posts/_Posts.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Client.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/services/LogManagerServices.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/components/Posts/Posts.java" />
         <option value="$PROJECT_DIR$/myLog.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server/Server.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java" />
       </list>
     </option>
   </component>
@@ -293,88 +301,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DocumentLibrary" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="DocumentLibrary" type="462c0819:PsiDirectoryNode" />
-              <item name="FileTypes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Messenger" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Posts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="ClientListenerManagerServices" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="ComponentManagerSevices" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="DbConnectionServices" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="UserManagerServices" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
@@ -384,26 +311,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
               <item name="struct" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="struct" type="462c0819:PsiDirectoryNode" />
-              <item name="Client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
-              <item name="struct" type="462c0819:PsiDirectoryNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
@@ -413,27 +320,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
               <item name="App.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="krowemarf-kernel" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="krowemarf" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="krowemarf-kernel" type="b2602c69:ProjectViewProjectNode" />
@@ -678,11 +564,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526145019703</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="merge">
+      <created>1526236197498</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1526236197498</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28926000" />
+    <option name="totallyTimeSpent" value="29079000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -703,10 +596,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2730884" sideWeight="0.4195953" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2730884" sideWeight="0.4195953" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969216" sideWeight="0.4978701" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2730884" sideWeight="0.5804047" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2730884" sideWeight="0.5804047" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2144985" sideWeight="0.4978701" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -786,7 +679,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add remove post" />
     <MESSAGE value="change query" />
-    <option name="LAST_COMMIT_MESSAGE" value="change query" />
+    <MESSAGE value="merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -795,16 +689,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="144" column="39" lean-forward="false" selection-start-line="144" selection-start-column="39" selection-end-line="144" selection-end-column="39" />
-          <folding>
-            <marker date="1526235728211" expanded="true" signature="11511:11529" ph="SELECT * FRO... TEST" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Client/_Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -880,7 +764,7 @@
         <state relative-caret-position="525">
           <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
           <folding>
-            <marker date="1526235728211" expanded="true" signature="11511:11529" ph="SELECT * FRO... TEST" />
+            <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
           </folding>
         </state>
       </provider>
@@ -898,7 +782,7 @@
         <state relative-caret-position="2394">
           <caret line="114" column="0" lean-forward="true" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
           <folding>
-            <marker date="1526235728211" expanded="true" signature="11511:11529" ph="SELECT * FRO... TEST" />
+            <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
           </folding>
         </state>
       </provider>
@@ -960,7 +844,7 @@
         <state relative-caret-position="1827">
           <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding>
-            <marker date="1526235728211" expanded="true" signature="11511:11529" ph="SELECT * FRO... TEST" />
+            <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
           </folding>
         </state>
       </provider>
@@ -1102,14 +986,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="90" column="21" lean-forward="false" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/components/Posts/Posts.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1136,12 +1012,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/struct/Server/£Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="63" column="40" lean-forward="true" selection-start-line="63" selection-start-column="40" selection-end-line="63" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/prckt/krowemarf/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="217" column="48" lean-forward="true" selection-start-line="217" selection-start-column="48" selection-end-line="217" selection-end-column="48" />
           <folding>
-            <marker date="1526235728211" expanded="true" signature="11511:11529" ph="SELECT * FRO... TEST" />
+            <marker date="1526236335286" expanded="true" signature="11504:11522" ph="SELECT * FRO... TEST" />
           </folding>
         </state>
       </provider>

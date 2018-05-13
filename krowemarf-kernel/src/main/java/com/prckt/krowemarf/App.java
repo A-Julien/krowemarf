@@ -215,7 +215,7 @@ class clientTest1
         //client.stop();
     }
 }
-/** call methode creatmp return id, userManager-> id, ArrayList<User>
+/** call methode creatmp return id, userManager- id, ArrayList
  userManager avec listUserCo hashtable(User-Listner);
  parcour list, si user corrspond on appelle methode listner (id)*/
 class clientTest
