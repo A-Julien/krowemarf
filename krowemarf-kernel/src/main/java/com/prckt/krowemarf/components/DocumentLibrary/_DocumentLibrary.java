@@ -87,7 +87,20 @@ public interface _DocumentLibrary extends _Component {
      */
     public ArrayList<_MetaDataDocument> filterByType(String type) throws RemoteException;
 
+
+    /**
+     * @param user user uploading the file
+     * @param buffer file in byte[] form
+     * @param metaDataDocument meta datas concerning the file
+     * @throws IOException
+     * @throws RemoteException
+     */
     public void uploadFile(_User user, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException;
 
+    /**
+     * @param _MetaDataDocument meta data of the file who should be downloaded
+     * @return return the file under the form of a byte array
+     * @throws RemoteException
+     */
     public byte[] downloadFile(_MetaDataDocument _MetaDataDocument) throws Exception;
 }
