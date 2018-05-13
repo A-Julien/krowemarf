@@ -79,8 +79,7 @@ public final class Server extends £Server implements _Runnable {
      * Unbind component by remove it in the component manager
      * @param component
      */
-    private void unBindComponent(_Component component){
-    private void unBindComponent(_Component component) throws RemoteException {
+    private void unBindComponent(_Component component) throws RemoteException, NotBoundException {
         this.componentManager.removeComponent(componentManagerName);
         Logger.getGlobal().log(Level.INFO,"Retrait du component du registre RMI : " + component.getName());
     }

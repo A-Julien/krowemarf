@@ -25,3 +25,127 @@
   <thread>29</thread>
   <message>Ajout d'un message dans le composant post de nom : commentaires</message>
 </record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-05-13T18:29:18.848046Z</date>
+  <millis>1526236158848</millis>
+  <nanos>46000</nanos>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>run</method>
+  <thread>1</thread>
+  <message>server run on port : 1099 at rmi://127.0.0.1/componentManager</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.081101Z</date>
+  <millis>1526236159081</millis>
+  <nanos>101000</nanos>
+  <sequence>2</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD chat</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.301054Z</date>
+  <millis>1526236159301</millis>
+  <nanos>54000</nanos>
+  <sequence>3</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.537073Z</date>
+  <millis>1526236159537</millis>
+  <nanos>73000</nanos>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager</class>
+  <method>connect</method>
+  <thread>1</thread>
+  <message>Connection to bd open for BD drive</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.539424Z</date>
+  <millis>1526236159539</millis>
+  <nanos>424000</nanos>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.540874Z</date>
+  <millis>1526236159540</millis>
+  <nanos>874000</nanos>
+  <sequence>6</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant commentaires au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.541854Z</date>
+  <millis>1526236159541</millis>
+  <nanos>854000</nanos>
+  <sequence>7</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : chat</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.542711Z</date>
+  <millis>1526236159542</millis>
+  <nanos>711000</nanos>
+  <sequence>8</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant chat au component Manager</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.543435Z</date>
+  <millis>1526236159543</millis>
+  <nanos>435000</nanos>
+  <sequence>9</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.struct.Server.Server</class>
+  <method>bindComponent</method>
+  <thread>1</thread>
+  <message>Ajout du component au registre RMI : drive</message>
+</record>
+<record>
+  <date>2018-05-13T18:29:19.544331Z</date>
+  <millis>1526236159544</millis>
+  <nanos>331000</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.prckt.krowemarf.services.ComponentManagerSevices.ComponentManager</class>
+  <method>addComponent</method>
+  <thread>1</thread>
+  <message>Ajout du composant drive au component Manager</message>
+</record>
+</log>
