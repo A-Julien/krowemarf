@@ -1,7 +1,6 @@
 package com.prckt.krowemarf;
 
 import com.prckt.krowemarf.components.DocumentLibrary.DocumentLibrary;
-import com.prckt.krowemarf.components.DocumentLibrary.MetaDataDocument;
 import com.prckt.krowemarf.components.DocumentLibrary._DocumentLibrary;
 import com.prckt.krowemarf.components.DocumentLibrary._MetaDataDocument;
 import com.prckt.krowemarf.components.Messenger.Messenger;
@@ -12,11 +11,9 @@ import com.prckt.krowemarf.components.Posts._Posts;
 import com.prckt.krowemarf.components.TypeMessage;
 import com.prckt.krowemarf.components._Component;
 import com.prckt.krowemarf.components._DefaultMessage;
-import com.prckt.krowemarf.services.Access;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListener;
 import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
 import com.prckt.krowemarf.services.DbConnectionServices.DbConnectionManager;
-import com.prckt.krowemarf.services.UserManagerServices.User;
 import com.prckt.krowemarf.services.UserManagerServices._User;
 import com.prckt.krowemarf.struct.Client;
 import com.prckt.krowemarf.struct.Server;
@@ -42,7 +39,7 @@ public class App
 
         _Component posts =  new Posts("commentaires");
 
-        _Component googleDrive = new DocumentLibrary("drive","C:\\Users\\Clément HERESAZ\\Downloads");
+        _Component googleDrive = new DocumentLibrary("drive","/Users/julien/Downloads");
 
         server.bindComponent(posts);
         server.bindComponent(messaging);
@@ -64,142 +61,6 @@ public class App
     }
 }
 
-
-
-
-class clientTestBd
-{
-    public static void main( String[] args ) throws Exception {
-        Client client = new Client(1099, "127.0.0.1");
-        client.setCredential("Seb","mdp");
-        if(client.run() == 1){ System.out.println("error"); System.exit(1);}
-
-        Posts p = new Posts("test");
-        User user1 = new User("Seb","mdp");
-        User user2 = new User("Jean","mdp");
-        Access access1 = new Access(user1, "admin");
-        ArrayList<MetaDataDocument> m;
-
-        DocumentLibrary lib = new DocumentLibrary("musique", "/Users/toto/IdeaProjects");
-        MetaDataDocument doc1 = new MetaDataDocument(user1 , "livre", "txt", (float) 13.4, "/Users/toto/IdeaProjects");
-        MetaDataDocument doc2 = new MetaDataDocument(user1, "jeu", "txt", (float) 18.9, "/Users/toto/IdeaProjects");
-
-        //add
-        lib.add(doc1);
-        lib.add(doc2);
-
-        //get
-        MetaDataDocument doc3 = lib.get("livre", "/Users/toto/IdeaProjects", "txt");
-        System.out.println("name : " + doc3.getName() + "; extension : " + doc3.getExtension() + "; size : " + doc3.getSize() + "; path : " + doc3.getPath() + "; type : " + doc3.getType());
-
-        //getall
-        m = lib.getall();
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterByName
-        m.clear();
-        m = lib.filterByName("jeu");
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterByExtension
-        m.clear();
-        m = lib.filterByExtension("txt");
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterByPath
-        m.clear();
-        m = lib.filterByPath("/Users/toto/IdeaProjects");
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterBySizeSup
-        m.clear();
-        m = lib.filterBySizeSup(15);
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterBySizeInf
-        m.clear();
-        m = lib.filterBySizeInf(15);
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterBySizeInterval
-        m.clear();
-        m = lib.filterBySizeInterval(15, 20);
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        //filterByType
-        m.clear();
-        m = lib.filterByType("Text");
-        for (int i = 0; i<m.size(); i++) {
-            System.out.println("name : " + m.get(i).getName() + "; extension : " + m.get(i).getExtension() + "; size : " + m.get(i).getSize() + "; path : " + m.get(i).getPath() + "; type : " + m.get(i).getType());
-        }
-
-        // remove
-        lib.remove(doc1);
-        lib.remove(doc2);
-
-
-        //addDbComponent
-        p.addDbComponent();
-
-        //addAccess
-        p.addAccess(access1);
-        p.addAccess(user2,"user");
-
-        //isPermission
-        String r = p.isPermission(user1);
-        System.out.println("L'utilisateur Seb est " + r + " sur ce composant.");
-
-        //isAdmin
-        ArrayList<String> admin = p.isAdmin();
-
-        System.out.println("Les administrateurs sont: ");
-        for (int i = 0; i<admin.size(); i++) {
-            System.out.println( admin.get(i) + " ");
-        }
-
-        //isUser
-        ArrayList<String> user = p.isUser();
-
-        System.out.println("Les utilisateur sont: ");
-        for (int i = 0; i<user.size(); i++) {
-            System.out.println( user.get(i) + " ");
-        }
-
-        //removeAccess
-        p.removeAccess(access1);
-        p.removeAccess(user2);
-
-        //removeDbComponent
-        p.removeDbComponent();
-
-        client.stop();
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
 class clientTestDrive
 {
     public static void main( String[] args ) throws Exception {
@@ -218,10 +79,10 @@ class clientTestDrive
         inputStream.close();*/
 
        // drive.uploadFile("jojo",DocumentLibrary.fileToBytes(file), new MetaDataDocument("TestRMI-2" ,"zip",file.length(),""));
-        ArrayList<MetaDataDocument> metaDataDocuments = drive.getall();
+        ArrayList<_MetaDataDocument> metaDataDocuments = drive.getall();
 
 
-        for (MetaDataDocument m : metaDataDocuments) {
+        for (_MetaDataDocument m : metaDataDocuments) {
             System.out.println("meta -> " + m.getName());
         }
 
