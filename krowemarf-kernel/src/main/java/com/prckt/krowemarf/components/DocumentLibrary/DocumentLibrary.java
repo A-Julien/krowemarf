@@ -226,6 +226,14 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 		return filtredList;
 	}
 
+
+    /**
+     * @param user user uploading the file
+     * @param buffer file in byte[] form
+     * @param metaDataDocument meta datas concerning the file
+     * @throws IOException
+     * @throws RemoteException
+     */
     @Override
     public void uploadFile(_User user, byte[] buffer, _MetaDataDocument metaDataDocument) throws IOException, RemoteException {
 
@@ -254,6 +262,11 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         }
     }
 
+    /**
+     * @param metaDataDocument meta data of the file who should be downloaded
+     * @return return the file under the form of a byte array
+     * @throws RemoteException
+     */
     @Override
     public byte[] downloadFile(_MetaDataDocument metaDataDocument) throws RemoteException {
         File file = new File(metaDataDocument.getPath() + metaDataDocument.getName() + "." + metaDataDocument.getExtension());
@@ -277,17 +290,32 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         return buffer;
     }
 
+    /**
+     * @return the name of the component
+     * @throws RemoteException
+     */
     @Override
 	public String getName() throws RemoteException {
 		return this.name;
 	}
 
+    /**
+     * Stop the component and close the dbConnection of the component
+     * @throws SQLException
+     * @throws RemoteException
+     */
     @Override
     public void stop() throws SQLException, RemoteException {
         Logger.getGlobal().log(Level.INFO,"Arrêt du component : " + this.getName());
         this.dbConnection.close();
     }
 
+    /**
+     * @param buffer Buffer in which the file should be written
+     * @param path Path of the file
+     * @param metaDataDocument Meta date concerning the file
+     * @throws IOException
+     */
     public static void writeFile(byte[] buffer, String path, _MetaDataDocument metaDataDocument) throws IOException {
        // File file = new File(path + metaDataDocument.getName() + "." + metaDataDocument.getExtension());
         BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(
@@ -299,6 +327,10 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         outputStream.close();
     }
 
+    /**
+     * @param file file who should be transformed in byte[]
+     * @return a byte array representing the file
+     */
     public static byte[] fileToBytes(File file){
             try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 ObjectOutput out = new  ObjectOutputStream(bos)) {
