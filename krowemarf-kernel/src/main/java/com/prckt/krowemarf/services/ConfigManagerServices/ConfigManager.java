@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public abstract class ConfigManager {
     private static String pathConfigFile =
-            "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/config.json";
+            "C:\\Users\\Clément HERESAZ\\IdeaProjects\\krowemarf-2\\krowemarf-kernel\\src\\main\\java\\com\\prckt\\krowemarf\\services\\config.json";
 
 
     public static String getConfig(String conf){
