@@ -1,6 +1,6 @@
 package appli.controller.tab;
 
-import com.prckt.krowemarf.struct.Client;
+import com.prckt.krowemarf.struct.Client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

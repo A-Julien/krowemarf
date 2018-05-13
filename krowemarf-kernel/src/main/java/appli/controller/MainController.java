@@ -10,7 +10,7 @@ import com.prckt.krowemarf.components._DefaultMessage;
 import com.prckt.krowemarf.services.ClientListenerManagerServices.£ClientListener;
 import com.prckt.krowemarf.services.ComponentManagerSevices._ComponentManager;
 import com.prckt.krowemarf.services.UserManagerServices._User;
-import com.prckt.krowemarf.struct.Client;
+import com.prckt.krowemarf.struct.Client.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
