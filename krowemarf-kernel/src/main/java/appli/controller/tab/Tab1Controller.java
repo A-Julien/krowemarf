@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import appli.controller.MainController;
+import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.SerializationUtils;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -43,7 +44,7 @@ public class Tab1Controller {
             }
         }, main.client.getUser());
 
-        chat.reLoadMessage(main.client.getUser());
+//        chat.reLoadMessage(main.client.getUser());
 	}
 
     public void btn2EnvoyerClicked(ActionEvent actionEvent) throws RemoteException, SQLException {

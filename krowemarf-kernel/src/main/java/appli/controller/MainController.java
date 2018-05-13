@@ -1,6 +1,7 @@
 package appli.controller;
 
 
+import com.prckt.krowemarf.components.DocumentLibrary.FileTypes.Text;
 import com.prckt.krowemarf.components.Messenger._Messenger;
 import com.prckt.krowemarf.components.Messenger.£MessengerClient;
 import com.prckt.krowemarf.components.Posts._Posts;
@@ -14,14 +15,19 @@ import javafx.fxml.FXML;
 import appli.controller.tab.ConnexionController;
 import appli.controller.tab.Tab1Controller;
 import appli.controller.tab.Tab2Controller;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.SerializationUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -56,6 +62,7 @@ public class MainController {
         this.tab2Controller.init(this);
 
         initPost();
+        initMP();
     }
 
     /*
@@ -72,6 +79,36 @@ public class MainController {
                             " Par : " + message.getSender().getLogin() +
                             " \n Contenu : " + message.getContent() + "\n\n\n");
         }
+    }
+
+    public void initMP() throws IOException {
+        Tab newTab = new Tab("MP : Seb");
+        tabPane.getTabs().add(newTab);
+
+        VBox newVbox = new VBox();
+
+        TextArea newTextArea = new TextArea();
+        newTextArea.setEditable(false);
+
+        newTextArea.setText("le message privee");
+        newTextArea.setVisible(true);
+
+        HBox newHbox = new HBox();
+
+
+        TextArea txtMessage = new TextArea();
+        txtMessage.setPromptText("Votre message");
+
+        Button btnEnvoyer = new Button();
+        btnEnvoyer.setText("Envoyer");
+
+        newTab.setContent(newVbox);
+
+        newHbox.getChildren().addAll(txtMessage, btnEnvoyer);
+
+        newVbox.getChildren().addAll(newTextArea, newHbox);
+
+
     }
 
     public void setClient(Client client) {
