@@ -17,6 +17,7 @@ import java.rmi.registry.Registry;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -70,6 +71,7 @@ public final class Server extends £Server implements _Runnable {
      * @throws RemoteException
      */
     public void bindComponent(_Component component) throws RemoteException {
+        Logger.getGlobal().log(Level.INFO,"Ajout du component au registre RMI : " + component.getName());
         this.componentManager.addComponent(component);
     }
 
@@ -78,7 +80,9 @@ public final class Server extends £Server implements _Runnable {
      * @param component
      */
     private void unBindComponent(_Component component){
+    private void unBindComponent(_Component component) throws RemoteException {
         this.componentManager.removeComponent(componentManagerName);
+        Logger.getGlobal().log(Level.INFO,"Retrait du component du registre RMI : " + component.getName());
     }
 
     /**
@@ -104,6 +108,12 @@ public final class Server extends £Server implements _Runnable {
 
             if(!DbConnectionManager.tableExist(this.dbConnection,_Component.postTableName))
                 this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.postTableName));
+            System.setProperty("java.security.policy", ConfigManager.getConfig("bdProp"));
+            if (System.getSecurityManager() == null)
+            {
+                System.setSecurityManager ( new RMISecurityManager() );
+                Logger.getGlobal().log(Level.INFO,"Instanciation du security manager");
+            }
 
             if(!DbConnectionManager.tableExist(this.dbConnection,_Component.documentLibraryTableName))
                 this.dbConnection.createStatement().executeUpdate(sqlTable(_Component.documentLibraryTableName));
@@ -120,10 +130,9 @@ public final class Server extends £Server implements _Runnable {
             this.registry.rebind(this.buildRmiAddr(componentManagerName, this.adresse), this.componentManager);
             this.registry.rebind(this.buildRmiAddr(userManagerName,this.adresse), this.userManager);
             this.registry.rebind(this.buildRmiAddr(clientListenerManagerName,this.adresse), this.clientListenerManager);
-            System.out.println("server run on port : " + this.port + " at " +
-                    this.buildRmiAddr(componentManagerName, this.adresse));
+            Logger.getGlobal().log(Level.INFO,"server run on port : " + this.port + " at " + this.buildRmiAddr(componentManagerName, this.adresse));
         } catch (RemoteException e) {
-            System.out.println("Server failed to start");
+            Logger.getGlobal().log(Level.INFO,"Echec du démarrage du serveur");
             System.exit(1);
         }
         return 0;
@@ -151,5 +160,8 @@ public final class Server extends £Server implements _Runnable {
         this.registry.unbind(this.buildRmiAddr(componentManagerName, this.adresse));
         this.registry.unbind(this.buildRmiAddr(userManagerName, this.adresse));
         this.registry.unbind(this.buildRmiAddr(clientListenerManagerName, this.adresse));
+
+        Logger.getGlobal().log(Level.INFO,"Arrêt du serveur");
+
     }
 }

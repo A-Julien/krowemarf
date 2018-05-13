@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-05-13T09:17:09.663661600Z</date>
+  <millis>1526203029663</millis>
+  <nanos>661600</nanos>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>WARNING</level>
+  <class>com.prckt.krowemarf.components.Posts.Posts</class>
+  <method>addPost</method>
+  <thread>26</thread>
+  <message>Ajout d'un message dans le composant post de nom : commentaires</message>
+</record>
+<record>
+  <date>2018-05-13T09:22:54.038368200Z</date>
+  <millis>1526203374038</millis>
+  <nanos>368200</nanos>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>WARNING</level>
+  <class>com.prckt.krowemarf.components.Posts.Posts</class>
+  <method>addPost</method>
+  <thread>29</thread>
+  <message>Ajout d'un message dans le composant post de nom : commentaires</message>
+</record>

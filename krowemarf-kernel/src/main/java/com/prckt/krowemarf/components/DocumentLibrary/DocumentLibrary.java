@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //TODO changer touts les filters par des requettes sql
 public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLibrary {
 	private ArrayList<_MetaDataDocument> metaDataDocumentList;
@@ -85,12 +88,15 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 	 */
     @Override
 	public ArrayList<_MetaDataDocument> getall() throws RemoteException {
-        ArrayList<_MetaDataDocument> banane = new ArrayList<>();
+        ArrayList<_MetaDataDocument> allMetaData = new ArrayList<>();
 
         for (Object o : _DbConnectionManager.deSerializeJavaObjectFromDB(this.dbConnection, _Component.documentLibraryTableName, this.getName())) {
-            banane.add((_MetaDataDocument) o);
+            allMetaData.add((_MetaDataDocument) o);
         }
-        return banane;
+
+        Logger.getGlobal().log(Level.INFO,"Requête pour récupérer toutes les méta-datas du composant : " + this.getName());
+
+        return allMetaData;
     }
 	
 	/**
@@ -240,17 +246,12 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
             outputStream.write(buffer,0,buffer.length);
             outputStream.flush();
             outputStream.close();
-            System.out.println("Uploading "+ metaDataDocument.getName() +"  file complete from " + metaDataDocument.getOwner().getLogin());
+            Logger.getGlobal().log(Level.INFO,"Uploading "+ metaDataDocument.getName() +"  file complete from " + metaDataDocument.getOwner().getLogin());
+            Logger.getGlobal().log(Level.INFO,"File saved at : " + this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension());
         } catch (SQLException e1) {
-            System.out.println("Can't save folder");
+            Logger.getGlobal().log(Level.INFO,"Can't save folder in component : " + this.getName());
             e1.printStackTrace();
         }
-
-
-        System.out.println(this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension());
-
-
-
     }
 
     @Override
@@ -269,10 +270,10 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
         try {
             inputStream.read(buffer,0,buffer.length);
             inputStream.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Logger.getGlobal().log(Level.INFO,"Téléchargement du fichier : " + this.path +  metaDataDocument.getPath() + metaDataDocument.getName()+ "." + metaDataDocument.getExtension());
         return buffer;
     }
 
@@ -283,7 +284,7 @@ public class DocumentLibrary extends UnicastRemoteObject implements _DocumentLib
 
     @Override
     public void stop() throws SQLException, RemoteException {
-        System.out.println("Component  " + this.getName() + " Shouting down");
+        Logger.getGlobal().log(Level.INFO,"Arrêt du component : " + this.getName());
         this.dbConnection.close();
     }
 

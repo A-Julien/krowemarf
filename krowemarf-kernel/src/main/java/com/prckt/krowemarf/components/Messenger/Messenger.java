@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Messenger component allow client to send instant _DefaultMessage
@@ -55,7 +57,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     public void subscribe(_MessengerClient messengerClient, _User user) throws RemoteException {
         if(!this.users.containsKey(user)){
             this.users.put(user, messengerClient);
-            System.out.println(user.getLogin() +  " connected to chat : " + this.getName());
+            Logger.getGlobal().log(Level.INFO,user.getLogin() +  " connected to chat : " + this.getName());
         }
     }
 
@@ -68,7 +70,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
     public void unsubscribe(_User user) throws RemoteException {
         if(this.users.containsKey(user)){
             this.users.remove(user);
-            System.out.println(user.getLogin() + " unsubscribe to chat : " + this.getName());
+            Logger.getGlobal().log(Level.INFO,user.getLogin() +  " unsubscribe to chat : " + this.getName());
             Enumeration<_MessengerClient> e = this.users.elements();
             while (e.hasMoreElements()){
                 _MessengerClient clients = e.nextElement();
@@ -88,10 +90,8 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
      */
     @Override
     public void postMessage(_User user, _DefaultMessage message) throws RemoteException {
-        System.out.println();
-        System.out.println(user.getLogin() + ":" + message.toStrings());
+        Logger.getGlobal().log(Level.INFO,user.getLogin() +  " send message : " + message.toStrings());
         Enumeration<_MessengerClient> e = this.users.elements();
-        // £DefaultMessage d = (£DefaultMessage) message;
         while (e.hasMoreElements()){
             _MessengerClient clients = e.nextElement();
             clients.onReceive(message);
@@ -112,11 +112,11 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
             try {
                 _DbConnectionManager.serializeJavaObjectToDB(this.dbConnection, message, this.getName(), _Component.messengerTableName);
             } catch (SQLException e1) {
-                System.out.println("Error save default message to bd");
+                Logger.getGlobal().log(Level.INFO, "Erreur lors de la sauvegarde du message");
                 e1.printStackTrace();
             }
         }else{
-            System.out.println("Can't save message, because is no good");
+            Logger.getGlobal().log(Level.INFO, "Impossible de sauvegarder le message, n'est pas un _DefaultMessage");
         }
 
     }
@@ -140,8 +140,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
         for (Object o: messages) {
             this.users.get(user).onReceive((£DefaultMessage)o);
         }
-
-        System.out.println(messages.size() + " reloaded for " + user.getLogin());
+        Logger.getGlobal().log(Level.INFO, user.getLogin() + " demande un reload du composant " + this.name);
     }
 
 
@@ -164,7 +163,7 @@ public class Messenger extends UnicastRemoteObject implements _Messenger{
      */
     @Override
     public void stop() throws SQLException, RemoteException {
-        System.out.println("Component  " + this.getName() + " Shouting down");
+        Logger.getGlobal().log(Level.INFO,"Arrêt du component : " + this.getName());
         _User messaging = new User(this.getName());
         this.postMessage(messaging, new TypeMessage("Your message" + this.getName() +" will be close in few second", messaging));
         this.dbConnection.close();

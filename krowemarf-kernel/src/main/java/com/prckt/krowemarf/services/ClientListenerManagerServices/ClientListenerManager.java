@@ -7,6 +7,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.function.BiConsumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class manage all the clientLisner of each client.
@@ -62,11 +65,14 @@ public class ClientListenerManager extends UnicastRemoteObject implements _Clien
     @Override
     public void removeListner(_User user) throws RemoteException {
         this.ListenerClient.remove(user);
-        this.ListenerClient.forEach((user1, clientListener) -> {
-            try {
-                System.out.println("wl : " + user1.getLogin());
-            } catch (RemoteException e) {
-                e.printStackTrace();
+        this.ListenerClient.forEach(new BiConsumer<_User, _ClientListener>() {
+            @Override
+            public void accept(_User user, _ClientListener clientListener) {
+                try {
+                    Logger.getGlobal().log(Level.INFO,"User " + user.getLogin() + " leave the private chat");
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

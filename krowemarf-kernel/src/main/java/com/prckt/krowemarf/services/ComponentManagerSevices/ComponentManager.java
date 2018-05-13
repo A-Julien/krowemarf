@@ -8,6 +8,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class allow to manage component
@@ -33,6 +35,7 @@ public class ComponentManager extends UnicastRemoteObject implements _ComponentM
      * @throws RemoteException
      */
     public void addComponent(_Component c) throws RemoteException {
+        Logger.getGlobal().log(Level.INFO,"Ajout du composant " + c.getName() + " au component Manager");
         this.components.put(c.getName(), c);
     }
 
@@ -54,7 +57,8 @@ public class ComponentManager extends UnicastRemoteObject implements _ComponentM
      */
     @Override
     public String addPrivateMessenger() throws RemoteException {
-        System.out.println("adding private messenger");
+        Logger.getGlobal().log(Level.INFO,"Création d'une messagerie privée de nom : chat" + this.mpNumber);
+
         _Messenger messenger = new Messenger("chat" + this.mpNumber);
         this.mpNumber++;
         this.components.put(messenger.getName(), messenger);
@@ -67,6 +71,7 @@ public class ComponentManager extends UnicastRemoteObject implements _ComponentM
      * @param name the name of the component
      */
     public void removeComponent(String name) {
+        Logger.getGlobal().log(Level.INFO,"Retrait du composant : " + name + " du component Manager" );
         this.components.remove(name);
     }
 
