@@ -24,7 +24,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 	    this.stage = primaryStage;
 		try {
-			URL url = new File("src\\main\\java\\appli\\view\\Main.fxml").toURI().toURL();
+			URL url = new File("src/main/java/appli/view/Main.fxml").toURI().toURL();
 			Parent root = FXMLLoader.load(url);
 			scene = new Scene(root);
             stage.setTitle("Krowemarf");
