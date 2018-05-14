@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public abstract class ConfigManager {
     private static String pathConfigFile =
-            "/Users/julien/Documents/MIAGE/Projet-Framework/krowemarf/krowemarf-kernel/src/main/java/com/prckt/krowemarf/services/config.json";
+            "src\\main\\java\\com\\prckt\\krowemarf\\services\\config.json";
 
     /**
      * Allows server and components to get config from the config.json file

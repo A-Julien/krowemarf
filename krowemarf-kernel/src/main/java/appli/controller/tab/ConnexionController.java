@@ -42,6 +42,8 @@ public class ConnexionController {
             //Envoie de l'objet Client
             main.setClient(client);
 
+            FrameDocumentLibrary frameDocumentLibrary = new FrameDocumentLibrary(this);
+
             main.initTab1Tab2();
         } else{ lblConnexion.setText("Erreur de connexion"); }
     }
