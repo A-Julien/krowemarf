@@ -4,4 +4,4 @@ Framework allow people to :
 - instant textual chat
 - private chat
 - folder sharing
-- média streaming
+- media streaming
